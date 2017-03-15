@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBoxEdit = new System.Windows.Forms.PictureBox();
             this.contentBox = new System.Windows.Forms.ListBox();
             this.dictionaryBox = new System.Windows.Forms.ListBox();
@@ -77,6 +78,7 @@
             this.buttonAddDef.TabIndex = 5;
             this.buttonAddDef.Text = "Add";
             this.buttonAddDef.UseVisualStyleBackColor = true;
+            this.buttonAddDef.Click += new System.EventHandler(this.buttonAddDef_Click);
             // 
             // defProperties
             // 
@@ -103,6 +105,7 @@
             this.Controls.Add(this.dictionaryBox);
             this.Controls.Add(this.contentBox);
             this.Controls.Add(this.pictureBoxEdit);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "PlaneSmith";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);

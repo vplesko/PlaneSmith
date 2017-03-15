@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace LevelEditor
 {
@@ -11,12 +12,13 @@ namespace LevelEditor
     {
         Form1 form;
         Definition def;
-        int x, y;
+        Point loc;
 
         public Instance(Definition Def, Form1 Form)
         {
             form = Form;
             def = Def;
+            loc = new Point();
         }
 
         public Definition GetDefinition()
@@ -24,37 +26,34 @@ namespace LevelEditor
             return def;
         }
 
-        public void setLoc(int X, int Y)
+        public void setLocation(Point Loc)
         {
-            x = X;
-            y = Y;
+            loc.X = Loc.X;
+            loc.Y = Loc.Y;
         }
 
-        public int X
+        public void setLocation(int X, int Y)
         {
-            get { return x; }
-            set { x = value; form.renewContentBox(); form.redrawEdit(); }
+            loc.X = X;
+            loc.Y = Y;
         }
 
-        public int Y
+        [Description("The coordinates of this instance on the plane."),
+        Category("General")]
+        public Point Location
         {
-            get { return y; }
-            set { y = value; form.renewContentBox(); form.redrawEdit(); }
+            get { return loc; }
+            set { setLocation(value); form.renewContentBox(); form.redrawEdit(); }
         }
 
         public void Draw(Graphics G)
         {
-            G.FillRectangle(new SolidBrush(def.Color), X, Y, def.Width, def.Height);
-        }
-
-        public void DrawTransp(Graphics G)
-        {
-            G.FillRectangle(new SolidBrush(Color.FromArgb(200, def.Color)), X, Y, def.Width, def.Height);
+            if (def.Image != null) G.DrawImage(def.Image, Location);
         }
 
         public override string ToString()
         {
-            return def.Name + " (" + X + ", " + Y + ")";
+            return def.Name + " (" + loc.X + ", " + loc.Y + ")";
         }
     }
 }

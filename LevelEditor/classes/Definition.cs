@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace LevelEditor
 {
@@ -12,40 +13,42 @@ namespace LevelEditor
         Form1 form;
 
         string name;
-        Color col;
-        int width, height;
+        Image img;
+        string imgPath;
 
         public Definition(string Name, Form1 Form)
         {
             form = Form;
 
             name = Name;
-            col = Color.White;
-            width = height = 32;
         }
 
+        [Description("The name by which this definition will be referenced in your code."), 
+        Category("General")]
         public string Name
         {
             get { return name; }
             set { name = value; form.renewBoxes(); }
         }
 
-        public Color Color
+        [Description("This image presents the appearance of instances of this definition."),
+        Category("General")]
+        public Image Image
         {
-            get { return col; }
-            set { col = value; form.redrawEdit(); }
+            get { return img; }
         }
 
-        public int Width
+        public void setImage(Image I, string Path)
         {
-            get { return width; }
-            set { width = value; form.redrawEdit(); }
+            img = I;
+            imgPath = Path;
         }
 
-        public int Height
+        [Description("This is the path to the file from which the image was loaded."),
+        Category("General")]
+        public string ImagePath
         {
-            get { return height; }
-            set { height = value; form.redrawEdit(); }
+            get { return imgPath; }
         }
 
         public override string ToString()

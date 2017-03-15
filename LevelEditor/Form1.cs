@@ -25,21 +25,29 @@ namespace LevelEditor
             dict = new Dictionary();
             content = new Content();
             bmp = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
-
-            dict.Add(new Definition("White", this));
-            dict.Add(new Definition("Red", this));
-            dict[1].Color = Color.Red;
-            dict.Add(new Definition("Green", this));
-            dict[2].Color = Color.Green;
-            dict.Add(new Definition("Blue", this));
-            dict[3].Color = Color.Blue;
-
-            renewDictionaryBox();
         }
 
-        private void buttonAdd_Click(object sender, EventArgs e)
+        private void buttonAddDef_Click(object sender, EventArgs e)
         {
-            curr = new Instance(dict[1], this);
+            using (OpenFileDialog dlg = new OpenFileDialog())
+            {
+                dlg.Title = "Open Image";
+                dlg.Filter = "Bitmap files(*.bmp,*.gif,*.jpg,*.jpeg,*.png,*.ico)|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.ico";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    Definition def = new Definition("New Definition", this);
+
+                    // This way the image file is unlocked after loading
+                    using (Image temp = new Bitmap(dlg.FileName))
+                    {
+                        def.setImage(new Bitmap(temp), dlg.FileName);
+                    }
+
+                    dict.Add(def);
+                    renewDictionaryBox();
+                }
+            }
         }
 
         public void redrawEdit()
@@ -48,7 +56,7 @@ namespace LevelEditor
             G.Clear(pictureBoxEdit.BackColor);
 
             content.Draw(G);
-            if (curr != null && drawCurr) curr.DrawTransp(G);
+            if (curr != null && drawCurr) curr.Draw(G);
 
             pictureBoxEdit.Image = bmp;
         }
@@ -79,7 +87,7 @@ namespace LevelEditor
         {
             if (curr != null)
             {
-                curr.setLoc(e.X, e.Y);
+                curr.setLocation(e.X, e.Y);
 
                 drawCurr = true;
                 redrawEdit();
@@ -102,8 +110,7 @@ namespace LevelEditor
                     contentBox.Items.Add(curr.ToString());
 
                     Instance tmp = new Instance(curr.GetDefinition(), this);
-                    tmp.X = curr.X;
-                    tmp.Y = curr.Y;
+                    tmp.setLocation(curr.Location);
                     curr = tmp;
 
                     redrawEdit();
