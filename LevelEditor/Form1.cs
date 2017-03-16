@@ -14,9 +14,10 @@ namespace LevelEditor
     {
         Dictionary dict;
         Content content;
+        Bitmap bmp;
+
         Instance curr = null;
         bool drawCurr;
-        Bitmap bmp;
 
         public Form1()
         {
@@ -25,6 +26,8 @@ namespace LevelEditor
             dict = new Dictionary();
             content = new Content();
             bmp = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
+
+            redrawEdit();
         }
 
         private void buttonAddDef_Click(object sender, EventArgs e)
@@ -58,6 +61,18 @@ namespace LevelEditor
             content.Draw(G);
             if (curr != null && drawCurr) curr.Draw(G);
 
+            if (checkShowGrid.Checked &&
+                numericGridW.Value > 0 && numericGridH.Value > 0)
+            {
+                Pen pen = new Pen(Color.DarkGray);
+
+                for (int i = 0; i < bmp.Width; i += (int)numericGridW.Value)
+                    G.DrawLine(pen, i, 0, i, bmp.Height);
+
+                for (int i = 0; i < bmp.Height; i += (int)numericGridH.Value)
+                    G.DrawLine(pen, 0, i, bmp.Width, i);
+            }
+
             pictureBoxEdit.Image = bmp;
         }
 
@@ -85,9 +100,22 @@ namespace LevelEditor
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
+            Point loc = new Point(e.X, e.Y);
+
+            if (checkSnapGrid.Checked)
+            {
+                int gridW = (int)numericGridW.Value;
+                int gridH = (int)numericGridH.Value;
+
+                loc.X = (loc.X / gridW) * gridW;
+                loc.Y = (loc.Y / gridH) * gridH;
+            }
+
+            labelCoords.Text = loc.ToString();
+
             if (curr != null)
             {
-                curr.setLocation(e.X, e.Y);
+                curr.setLocation(loc);
 
                 drawCurr = true;
                 redrawEdit();
@@ -142,6 +170,21 @@ namespace LevelEditor
                 curr = null;
                 instProperties.SelectedObject = content[index];
             }
+        }
+
+        private void numericGridW_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkShowGrid.Checked) redrawEdit();
+        }
+
+        private void numericGridH_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkShowGrid.Checked) redrawEdit();
+        }
+
+        private void checkShowGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            redrawEdit();
         }
 
         private void contentBox_MouseLeave(object sender, EventArgs e)
