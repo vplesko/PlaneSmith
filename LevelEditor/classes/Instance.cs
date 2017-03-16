@@ -43,7 +43,13 @@ namespace LevelEditor
         public Point Location
         {
             get { return loc; }
-            set { setLocation(value); form.renewContentBox(); form.redrawEdit(); }
+            set
+            {
+                setLocation(value);
+                // we get here by user changing an instance's coords
+                form.RenewContentBox();
+                form.RedrawPlane(true);
+            }
         }
 
         public void Draw(Graphics G)

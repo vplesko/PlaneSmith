@@ -14,9 +14,10 @@ namespace LevelEditor
     {
         Dictionary dict;
         Content content;
-        Bitmap bmp;
+        Bitmap plane, contentImg;
 
-        Instance curr = null;
+        Rectangle addPrevRect;
+        Instance addition = null;
         bool drawCurr;
 
         public Form1()
@@ -25,9 +26,10 @@ namespace LevelEditor
 
             dict = new Dictionary();
             content = new Content();
-            bmp = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
+            plane = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
+            contentImg = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
 
-            redrawEdit();
+            RedrawPlane(true);
         }
 
         private void buttonAddDef_Click(object sender, EventArgs e)
@@ -48,35 +50,54 @@ namespace LevelEditor
                     }
 
                     dict.Add(def);
-                    renewDictionaryBox();
+                    RenewDictionaryBox();
                 }
             }
         }
 
-        public void redrawEdit()
+        public void RedrawPlane(bool onAddMoved)
         {
-            Graphics G = Graphics.FromImage(bmp);
-            G.Clear(pictureBoxEdit.BackColor);
+            Graphics G = Graphics.FromImage(plane);
 
-            content.Draw(G);
-            if (curr != null && drawCurr) curr.Draw(G);
+            if (onAddMoved)
+            {
+                Graphics C = Graphics.FromImage(contentImg);
+                C.Clear(pictureBoxEdit.BackColor);
+                content.Draw(C);
+
+                G.DrawImage(contentImg, 0, 0);
+            }
+            else
+            {
+                if (addPrevRect != null)
+                {
+                    G.SetClip(addPrevRect);
+                    G.DrawImage(contentImg, 0, 0);
+                }
+                else
+                {
+                    G.DrawImage(contentImg, 0, 0);
+                }
+            }
+
+            if (addition != null && drawCurr) addition.Draw(G);
 
             if (checkShowGrid.Checked &&
                 numericGridW.Value > 0 && numericGridH.Value > 0)
             {
                 Pen pen = new Pen(Color.DarkGray);
 
-                for (int i = 0; i < bmp.Width; i += (int)numericGridW.Value)
-                    G.DrawLine(pen, i, 0, i, bmp.Height);
+                for (int i = 0; i < plane.Width; i += (int)numericGridW.Value)
+                    G.DrawLine(pen, i, 0, i, plane.Height);
 
-                for (int i = 0; i < bmp.Height; i += (int)numericGridH.Value)
-                    G.DrawLine(pen, 0, i, bmp.Width, i);
+                for (int i = 0; i < plane.Height; i += (int)numericGridH.Value)
+                    G.DrawLine(pen, 0, i, plane.Width, i);
             }
 
-            pictureBoxEdit.Image = bmp;
+            pictureBoxEdit.Image = plane;
         }
 
-        public void renewDictionaryBox()
+        public void RenewDictionaryBox()
         {
             dictionaryBox.Items.Clear();
 
@@ -84,7 +105,7 @@ namespace LevelEditor
                 dictionaryBox.Items.Add(dict[i].ToString());
         }
 
-        public void renewContentBox()
+        public void RenewContentBox()
         {
             contentBox.Items.Clear();
 
@@ -92,10 +113,10 @@ namespace LevelEditor
                 contentBox.Items.Add(content[i].ToString());
         }
 
-        public void renewBoxes()
+        public void RenewBoxes()
         {
-            renewDictionaryBox();
-            renewContentBox();
+            RenewDictionaryBox();
+            RenewContentBox();
         }
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
@@ -113,42 +134,43 @@ namespace LevelEditor
 
             labelCoords.Text = loc.ToString();
 
-            if (curr != null)
+            if (addition != null)
             {
-                curr.setLocation(loc);
+                addPrevRect = new Rectangle(addition.Location, addition.GetDefinition().Image.Size);
+                addition.setLocation(loc);
 
                 drawCurr = true;
-                redrawEdit();
+                RedrawPlane(false);
             }
         }
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
         {
             drawCurr = false;
-            redrawEdit();
+            if (addition != null) RedrawPlane(false);
         }
 
         private void pictureBoxEdit_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (curr != null)
+                if (addition != null)
                 {
-                    content.Add(curr);
-                    contentBox.Items.Add(curr.ToString());
+                    content.Add(addition);
+                    contentBox.Items.Add(addition.ToString());
 
-                    Instance tmp = new Instance(curr.GetDefinition(), this);
-                    tmp.setLocation(curr.Location);
-                    curr = tmp;
+                    Instance tmp = new Instance(addition.GetDefinition(), this);
+                    tmp.setLocation(addition.Location);
+                    addition = tmp;
 
-                    redrawEdit();
+                    RedrawPlane(true);
                 }
             }
             else if (e.Button == MouseButtons.Right)
             {
-                curr = null;
+                addition = null;
                 dictionaryBox.ClearSelected();
-                redrawEdit();
+                RedrawPlane(false);
             }
         }
 
@@ -157,7 +179,7 @@ namespace LevelEditor
             int index = dictionaryBox.SelectedIndex;
             if (index >= 0)
             {
-                curr = new Instance(dict[index], this);
+                addition = new Instance(dict[index], this);
                 defProperties.SelectedObject = dict[index];
             }
         }
@@ -167,24 +189,24 @@ namespace LevelEditor
             int index = contentBox.SelectedIndex;
             if (index >= 0)
             {
-                curr = null;
+                addition = null;
                 instProperties.SelectedObject = content[index];
             }
         }
 
         private void numericGridW_ValueChanged(object sender, EventArgs e)
         {
-            if (checkShowGrid.Checked) redrawEdit();
+            if (checkShowGrid.Checked) RedrawPlane(true);
         }
 
         private void numericGridH_ValueChanged(object sender, EventArgs e)
         {
-            if (checkShowGrid.Checked) redrawEdit();
+            if (checkShowGrid.Checked) RedrawPlane(true);
         }
 
         private void checkShowGrid_CheckedChanged(object sender, EventArgs e)
         {
-            redrawEdit();
+            RedrawPlane(true);
         }
 
         private void contentBox_MouseLeave(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace LevelEditor
         public string Name
         {
             get { return name; }
-            set { name = value; form.renewBoxes(); }
+            set { name = value; form.RenewBoxes(); }
         }
 
         [Description("This image presents the appearance of instances of this definition."),
