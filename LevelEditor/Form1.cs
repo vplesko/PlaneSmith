@@ -13,19 +13,21 @@ namespace LevelEditor
     public partial class Form1 : Form
     {
         Dictionary dict;
-        Content content;
+        Level level;
         Bitmap plane, contentImg;
 
-        Rectangle addPrevRect;
+        Rectangle redrawRect;
         Instance addition = null;
-        bool drawCurr;
+        bool drawCurr = false;
+
+        string fileDictionary = null, fileLevel = null;
 
         public Form1()
         {
             InitializeComponent();
 
-            dict = new Dictionary();
-            content = new Content();
+            dict = new Dictionary(this);
+            level = new Level(this);
             plane = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
             contentImg = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
 
@@ -41,7 +43,7 @@ namespace LevelEditor
 
                 if (dlg.ShowDialog() == DialogResult.OK)
                 {
-                    Definition def = new Definition("New Definition", this);
+                    Definition def = new Definition(dict, "New Definition");
 
                     // This way the image file is unlocked after loading
                     using (Image temp = new Bitmap(dlg.FileName))
@@ -55,23 +57,23 @@ namespace LevelEditor
             }
         }
 
-        public void RedrawPlane(bool onAddMoved)
+        public void RedrawPlane(bool levelChanged)
         {
             Graphics G = Graphics.FromImage(plane);
 
-            if (onAddMoved)
+            if (levelChanged)
             {
                 Graphics C = Graphics.FromImage(contentImg);
                 C.Clear(pictureBoxEdit.BackColor);
-                content.Draw(C);
+                level.Draw(C);
 
                 G.DrawImage(contentImg, 0, 0);
             }
             else
             {
-                if (addPrevRect != null)
+                if (redrawRect != null)
                 {
-                    G.SetClip(addPrevRect);
+                    G.SetClip(redrawRect);
                     G.DrawImage(contentImg, 0, 0);
                 }
                 else
@@ -105,18 +107,18 @@ namespace LevelEditor
                 dictionaryBox.Items.Add(dict[i].ToString());
         }
 
-        public void RenewContentBox()
+        public void RenewLevelBox()
         {
-            contentBox.Items.Clear();
+            levelBox.Items.Clear();
 
-            for (int i = 0; i < content.Count; ++i)
-                contentBox.Items.Add(content[i].ToString());
+            for (int i = 0; i < level.Count; ++i)
+                levelBox.Items.Add(level[i].ToString());
         }
 
         public void RenewBoxes()
         {
             RenewDictionaryBox();
-            RenewContentBox();
+            RenewLevelBox();
         }
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
@@ -134,9 +136,9 @@ namespace LevelEditor
 
             labelCoords.Text = loc.ToString();
 
-            if (addition != null)
+            if (addition != null && addition.GetDefinition() != null)
             {
-                addPrevRect = new Rectangle(addition.Location, addition.GetDefinition().Image.Size);
+                redrawRect = new Rectangle(addition.Location, addition.GetDefinition().Image.Size);
                 addition.setLocation(loc);
 
                 drawCurr = true;
@@ -156,10 +158,10 @@ namespace LevelEditor
             {
                 if (addition != null)
                 {
-                    content.Add(addition);
-                    contentBox.Items.Add(addition.ToString());
+                    level.Add(addition);
+                    levelBox.Items.Add(addition.ToString());
 
-                    Instance tmp = new Instance(addition.GetDefinition(), this);
+                    Instance tmp = new Instance(level, addition.GetDefinition());
                     tmp.setLocation(addition.Location);
                     addition = tmp;
 
@@ -179,18 +181,18 @@ namespace LevelEditor
             int index = dictionaryBox.SelectedIndex;
             if (index >= 0)
             {
-                addition = new Instance(dict[index], this);
+                addition = new Instance(level, dict[index]);
                 defProperties.SelectedObject = dict[index];
             }
         }
 
-        private void contentBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void levelBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = contentBox.SelectedIndex;
+            int index = levelBox.SelectedIndex;
             if (index >= 0)
             {
                 addition = null;
-                instProperties.SelectedObject = content[index];
+                instProperties.SelectedObject = level[index];
             }
         }
 
@@ -209,7 +211,177 @@ namespace LevelEditor
             RedrawPlane(true);
         }
 
-        private void contentBox_MouseLeave(object sender, EventArgs e)
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // ask about saving
+
+            addition = null;
+            drawCurr = false;
+
+            dict = new Dictionary(this);
+            level = new Level(this);
+
+            RedrawPlane(true);
+            RenewBoxes();
+            defProperties.SelectedObject = null;
+            fileDictionary = null;
+            instProperties.SelectedObject = null;
+            fileLevel = null;
+        }
+
+        private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // ask about saving
+
+            addition = null;
+            drawCurr = false;
+
+            level = new Level(this);
+
+            RedrawPlane(true);
+            RenewLevelBox();
+            instProperties.SelectedObject = null;
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // will user lose all unsaved data?
+
+            addition = null;
+            drawCurr = false;
+
+            defProperties.SelectedObject = null;
+            instProperties.SelectedObject = null;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "PSM Files|*.psm;*.txt";
+            openFileDialog.Title = "Load From File(s)";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK && openFileDialog.FileName != "")
+            {
+                System.IO.StreamReader file = new System.IO.StreamReader(openFileDialog.FileName);
+                string type = file.ReadLine();
+                bool loadingDict = string.Equals(type, Dictionary.TypeToken);
+
+                if (loadingDict)
+                {
+                    fileDictionary = openFileDialog.FileName;
+                }
+                else
+                {
+                    fileLevel = openFileDialog.FileName;
+                    fileDictionary = file.ReadLine();
+                }
+
+                file.Close();
+
+                dict = new Dictionary(this);
+                using (System.IO.StreamReader F = new System.IO.StreamReader(fileDictionary))
+                {
+                    dict.load(F);
+                    RenewDictionaryBox();
+                }
+
+                if (!loadingDict)
+                {
+                    level = new Level(this);
+                    using (System.IO.StreamReader F = new System.IO.StreamReader(fileLevel))
+                    {
+                        level.load(F, dict);
+                        RenewLevelBox();
+                        RedrawPlane(true);
+                    }
+                }
+            }
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (fileDictionary != null)
+            {
+                using (System.IO.StreamWriter fs =
+                    new System.IO.StreamWriter(fileDictionary))
+                {
+                    dict.save(fs);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
+                saveDictionaryAsToolStripMenuItem_Click(null, null);
+
+                if (fileDictionary == null) return;
+            }
+
+            if (fileLevel != null)
+            {
+                using (System.IO.StreamWriter fs =
+                    new System.IO.StreamWriter(fileLevel))
+                {
+                    level.save(fs, fileDictionary);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You will now save the level.", "Save Level");
+                saveLevelAsToolStripMenuItem_Click(null, null);
+            }
+        }
+
+        private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PSM Dictionary File|*.psm;*.txt";
+            saveFileDialog.Title = "Save Dictionary";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                fileDictionary = saveFileDialog.FileName;
+
+                using (System.IO.StreamWriter fs =
+                    new System.IO.StreamWriter(fileDictionary))
+                {
+                    dict.save(fs);
+                }
+            }
+        }
+
+        private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (fileDictionary == null)
+            {
+                MessageBox.Show("You have to save the dictionary before saving levels.", "Save Dictionary First");
+                saveDictionaryAsToolStripMenuItem_Click(null, null);
+
+                if (fileDictionary == null) return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PSM Level File|*.psm;*.txt";
+            saveFileDialog.Title = "Save Level";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != "")
+            {
+                fileLevel = saveFileDialog.FileName;
+
+                using (System.IO.StreamWriter fs =
+                    new System.IO.StreamWriter(fileLevel))
+                {
+                    level.save(fs, fileDictionary);
+                }
+            }
+        }
+
+        private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            // ask about saving
+
+            Application.Exit();
+        }
+
+        private void levelBox_MouseLeave(object sender, EventArgs e)
         {
         }
 

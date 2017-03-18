@@ -10,13 +10,23 @@ namespace LevelEditor
 {
     class Instance
     {
-        Form1 form;
+        int id;
+
+        Level lvl;
+
         Definition def;
         Point loc;
 
-        public Instance(Definition Def, Form1 Form)
+        public Instance(Level Lvl)
         {
-            form = Form;
+            lvl = Lvl;
+            def = null;
+            loc = new Point();
+        }
+
+        public Instance(Level Lvl, Definition Def)
+        {
+            lvl = Lvl;
             def = Def;
             loc = new Point();
         }
@@ -47,19 +57,65 @@ namespace LevelEditor
             {
                 setLocation(value);
                 // we get here by user changing an instance's coords
-                form.RenewContentBox();
-                form.RedrawPlane(true);
+                lvl.getForm().RenewLevelBox();
+                lvl.getForm().RedrawPlane(true);
             }
+        }
+
+        public void setId(int Id)
+        {
+            id = Id;
+        }
+
+        [Description("This is the ID by which this application manages this definition."),
+        Category("General")]
+        public int Id
+        {
+            get { return id; }
         }
 
         public void Draw(Graphics G)
         {
-            if (def.Image != null) G.DrawImage(def.Image, Location);
+            if (def != null && def.Image != null) G.DrawImage(def.Image, Location);
         }
 
         public override string ToString()
         {
-            return def.Name + " (" + loc.X + ", " + loc.Y + ")";
+            return "[" + id + "] " + 
+                (def != null ? def.Name : "??") + 
+                " (" + loc.X + ", " + loc.Y + ")";
+        }
+
+        public void save(System.IO.StreamWriter FS)
+        {
+            FS.WriteLine("" + id);
+            FS.WriteLine(def.Id);
+            FS.WriteLine(loc.X);
+            FS.WriteLine(loc.Y);
+        }
+
+        public bool load(System.IO.StreamReader FS, Dictionary Dict)
+        {
+            bool success = Int32.TryParse(FS.ReadLine(), out id);
+            if (!success) return success;
+
+            int defId;
+            success = Int32.TryParse(FS.ReadLine(), out defId);
+            if (!success) return success;
+            def = Dict.Get(defId);
+            if (def == null) return false;
+
+            int x;
+            success = Int32.TryParse(FS.ReadLine(), out x);
+            if (!success) return success;
+            loc.X = x;
+
+            int y;
+            success = Int32.TryParse(FS.ReadLine(), out y);
+            if (!success) return success;
+            loc.Y = y;
+
+            return success;
         }
     }
 }
