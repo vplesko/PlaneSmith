@@ -35,7 +35,7 @@ namespace LevelEditor
         public string Name
         {
             get { return name; }
-            set { name = value; dict.getForm().RenewBoxes(); }
+            set { name = value; dict.GetForm().RenewBoxes(); }
         }
 
         [Description("This image presents the appearance of instances of this definition."),
@@ -45,7 +45,7 @@ namespace LevelEditor
             get { return img; }
         }
 
-        public void setImage(Image I, string Path)
+        public void SetImage(Image I, string Path)
         {
             img = I;
             imgPath = Path;
@@ -58,7 +58,7 @@ namespace LevelEditor
             get { return imgPath; }
         }
 
-        public void setId(int Id)
+        public void SetId(int Id)
         {
             id = Id;
         }
@@ -75,14 +75,14 @@ namespace LevelEditor
             return Name;
         }
 
-        public void save(System.IO.StreamWriter FS)
+        public void Save(System.IO.StreamWriter FS)
         {
             FS.WriteLine("" + id);
             FS.WriteLine(name);
             FS.WriteLine(imgPath);
         }
 
-        public bool load(System.IO.StreamReader FS)
+        public bool Load(System.IO.StreamReader FS)
         {
             bool success = Int32.TryParse(FS.ReadLine(), out id);
             if (!success) return success;

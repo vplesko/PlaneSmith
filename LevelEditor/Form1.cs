@@ -18,7 +18,7 @@ namespace LevelEditor
 
         Rectangle redrawRect;
         Instance addition = null;
-        bool drawCurr = false;
+        bool drawAddition = false;
 
         string fileDictionary = null, fileLevel = null;
 
@@ -32,6 +32,16 @@ namespace LevelEditor
             contentImg = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
 
             RedrawPlane(true);
+        }
+
+        internal Color getPlaneBackColor()
+        {
+            return pictureBoxEdit.BackColor;
+        }
+
+        internal Size getPlaneSize()
+        {
+            return pictureBoxEdit.Size;
         }
 
         private void buttonAddDef_Click(object sender, EventArgs e)
@@ -48,7 +58,7 @@ namespace LevelEditor
                     // This way the image file is unlocked after loading
                     using (Image temp = new Bitmap(dlg.FileName))
                     {
-                        def.setImage(new Bitmap(temp), dlg.FileName);
+                        def.SetImage(new Bitmap(temp), dlg.FileName);
                     }
 
                     dict.Add(def);
@@ -57,7 +67,7 @@ namespace LevelEditor
             }
         }
 
-        public void RedrawPlane(bool levelChanged)
+        internal void RedrawPlane(bool levelChanged)
         {
             Graphics G = Graphics.FromImage(plane);
 
@@ -82,7 +92,7 @@ namespace LevelEditor
                 }
             }
 
-            if (addition != null && drawCurr) addition.Draw(G);
+            if (addition != null && drawAddition) addition.Draw(G);
 
             if (checkShowGrid.Checked &&
                 numericGridW.Value > 0 && numericGridH.Value > 0)
@@ -99,7 +109,7 @@ namespace LevelEditor
             pictureBoxEdit.Image = plane;
         }
 
-        public void RenewDictionaryBox()
+        internal void RenewDictionaryBox()
         {
             dictionaryBox.Items.Clear();
 
@@ -107,7 +117,7 @@ namespace LevelEditor
                 dictionaryBox.Items.Add(dict[i].ToString());
         }
 
-        public void RenewLevelBox()
+        internal void RenewLevelBox()
         {
             levelBox.Items.Clear();
 
@@ -115,10 +125,15 @@ namespace LevelEditor
                 levelBox.Items.Add(level[i].ToString());
         }
 
-        public void RenewBoxes()
+        internal void RenewBoxes()
         {
             RenewDictionaryBox();
             RenewLevelBox();
+        }
+
+        private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
+        {
+            drawAddition = true;
         }
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
@@ -139,16 +154,26 @@ namespace LevelEditor
             if (addition != null && addition.GetDefinition() != null)
             {
                 redrawRect = new Rectangle(addition.Location, addition.GetDefinition().Image.Size);
-                addition.setLocation(loc);
+                addition.Location = loc;
+            }
+        }
 
-                drawCurr = true;
+        internal void onInstanceLocationChanged(Instance I)
+        {
+            if (I == addition)
+            {
                 RedrawPlane(false);
+            }
+            else
+            {
+                RenewLevelBox();
+                RedrawPlane(true);
             }
         }
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
         {
-            drawCurr = false;
+            drawAddition = false;
             if (addition != null) RedrawPlane(false);
         }
 
@@ -162,7 +187,7 @@ namespace LevelEditor
                     levelBox.Items.Add(addition.ToString());
 
                     Instance tmp = new Instance(level, addition.GetDefinition());
-                    tmp.setLocation(addition.Location);
+                    tmp.SetLocation(addition.Location);
                     addition = tmp;
 
                     RedrawPlane(true);
@@ -216,7 +241,7 @@ namespace LevelEditor
             // ask about saving
 
             addition = null;
-            drawCurr = false;
+            drawAddition = false;
 
             dict = new Dictionary(this);
             level = new Level(this);
@@ -234,7 +259,7 @@ namespace LevelEditor
             // ask about saving
 
             addition = null;
-            drawCurr = false;
+            drawAddition = false;
 
             level = new Level(this);
 
@@ -248,7 +273,7 @@ namespace LevelEditor
             // will user lose all unsaved data?
 
             addition = null;
-            drawCurr = false;
+            drawAddition = false;
 
             defProperties.SelectedObject = null;
             instProperties.SelectedObject = null;
@@ -278,7 +303,7 @@ namespace LevelEditor
                 dict = new Dictionary(this);
                 using (System.IO.StreamReader F = new System.IO.StreamReader(fileDictionary))
                 {
-                    dict.load(F);
+                    dict.Load(F);
                     RenewDictionaryBox();
                 }
 
@@ -287,7 +312,7 @@ namespace LevelEditor
                     level = new Level(this);
                     using (System.IO.StreamReader F = new System.IO.StreamReader(fileLevel))
                     {
-                        level.load(F, dict);
+                        level.Load(F, dict);
                         RenewLevelBox();
                         RedrawPlane(true);
                     }
@@ -302,7 +327,7 @@ namespace LevelEditor
                 using (System.IO.StreamWriter fs =
                     new System.IO.StreamWriter(fileDictionary))
                 {
-                    dict.save(fs);
+                    dict.Save(fs);
                 }
             }
             else
@@ -318,7 +343,7 @@ namespace LevelEditor
                 using (System.IO.StreamWriter fs =
                     new System.IO.StreamWriter(fileLevel))
                 {
-                    level.save(fs, fileDictionary);
+                    level.Save(fs, fileDictionary);
                 }
             }
             else
@@ -342,7 +367,7 @@ namespace LevelEditor
                 using (System.IO.StreamWriter fs =
                     new System.IO.StreamWriter(fileDictionary))
                 {
-                    dict.save(fs);
+                    dict.Save(fs);
                 }
             }
         }
@@ -369,7 +394,7 @@ namespace LevelEditor
                 using (System.IO.StreamWriter fs =
                     new System.IO.StreamWriter(fileLevel))
                 {
-                    level.save(fs, fileDictionary);
+                    level.Save(fs, fileDictionary);
                 }
             }
         }

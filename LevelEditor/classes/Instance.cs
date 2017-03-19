@@ -36,16 +36,10 @@ namespace LevelEditor
             return def;
         }
 
-        public void setLocation(Point Loc)
+        public void SetLocation(Point Loc)
         {
             loc.X = Loc.X;
             loc.Y = Loc.Y;
-        }
-
-        public void setLocation(int X, int Y)
-        {
-            loc.X = X;
-            loc.Y = Y;
         }
 
         [Description("The coordinates of this instance on the plane."),
@@ -55,14 +49,12 @@ namespace LevelEditor
             get { return loc; }
             set
             {
-                setLocation(value);
-                // we get here by user changing an instance's coords
-                lvl.getForm().RenewLevelBox();
-                lvl.getForm().RedrawPlane(true);
+                SetLocation(value);
+                lvl.GetForm().onInstanceLocationChanged(this);
             }
         }
 
-        public void setId(int Id)
+        public void SetId(int Id)
         {
             id = Id;
         }
@@ -86,7 +78,7 @@ namespace LevelEditor
                 " (" + loc.X + ", " + loc.Y + ")";
         }
 
-        public void save(System.IO.StreamWriter FS)
+        public void Save(System.IO.StreamWriter FS)
         {
             FS.WriteLine("" + id);
             FS.WriteLine(def.Id);
@@ -94,7 +86,7 @@ namespace LevelEditor
             FS.WriteLine(loc.Y);
         }
 
-        public bool load(System.IO.StreamReader FS, Dictionary Dict)
+        public bool Load(System.IO.StreamReader FS, Dictionary Dict)
         {
             bool success = Int32.TryParse(FS.ReadLine(), out id);
             if (!success) return success;

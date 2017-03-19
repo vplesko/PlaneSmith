@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Include="classes\Definition.cs" />
     <Compile Include="classes\Dictionary.cs" />
+    <Compile Include="classes\Foundation.cs" />
+    <Compile Include="classes\Plane.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

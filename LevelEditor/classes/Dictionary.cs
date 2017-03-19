@@ -22,7 +22,7 @@ namespace LevelEditor
 
         public void Add(Definition T)
         {
-            T.setId(lastId++);
+            T.SetId(lastId++);
             list.Add(T);
         }
 
@@ -45,12 +45,12 @@ namespace LevelEditor
             get { return list.Count; }
         }
 
-        public Form1 getForm()
+        public Form1 GetForm()
         {
             return form;
         }
 
-        public void save(System.IO.StreamWriter FS)
+        public void Save(System.IO.StreamWriter FS)
         {
             FS.WriteLine(TypeToken);
 
@@ -60,11 +60,11 @@ namespace LevelEditor
 
             foreach (Definition D in list)
             {
-                D.save(FS);
+                D.Save(FS);
             }
         }
 
-        public bool load(System.IO.StreamReader FS)
+        public bool Load(System.IO.StreamReader FS)
         {
             list.Clear();
 
@@ -81,7 +81,7 @@ namespace LevelEditor
             for (int i = 0; i < cnt; ++i)
             {
                 Definition D = new Definition(this);
-                success = D.load(FS);
+                success = D.Load(FS);
                 if (!success) return success;
                 list.Add(D);
             }
