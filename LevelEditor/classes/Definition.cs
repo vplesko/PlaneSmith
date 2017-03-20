@@ -12,21 +12,21 @@ namespace LevelEditor
     {
         int id;
 
-        Dictionary dict;
+        Dictionary dictionary;
 
         string name;
-        Image img;
-        string imgPath;
+        Image image;
+        string imagePath;
 
-        public Definition(Dictionary Dict)
+        public Definition(Dictionary Dictionary)
         {
-            dict = Dict;
+            dictionary = Dictionary;
             name = "";
         }
 
         public Definition(Dictionary Dict, string Name)
         {
-            dict = Dict;
+            dictionary = Dict;
             name = Name;
         }
 
@@ -35,27 +35,32 @@ namespace LevelEditor
         public string Name
         {
             get { return name; }
-            set { name = value; dict.GetForm().RenewBoxes(); }
+            set
+            {
+                name = value;
+                dictionary.Foundation.Form.onDictAndLevelChanged();
+            }
         }
 
         [Description("This image presents the appearance of instances of this definition."),
         Category("General")]
         public Image Image
         {
-            get { return img; }
+            get { return image; }
         }
 
         public void SetImage(Image I, string Path)
         {
-            img = I;
-            imgPath = Path;
+            image = I;
+            imagePath = Path;
+            dictionary.Foundation.Form.onDefinitionChanged();
         }
 
         [Description("This is the path to the file from which the image was loaded."),
         Category("General")]
         public string ImagePath
         {
-            get { return imgPath; }
+            get { return imagePath; }
         }
 
         public void SetId(int Id)
@@ -79,7 +84,7 @@ namespace LevelEditor
         {
             FS.WriteLine("" + id);
             FS.WriteLine(name);
-            FS.WriteLine(imgPath);
+            FS.WriteLine(imagePath);
         }
 
         public bool Load(System.IO.StreamReader FS)
@@ -88,8 +93,8 @@ namespace LevelEditor
             if (!success) return success;
 
             name = FS.ReadLine();
-            imgPath = FS.ReadLine();
-            img = new Bitmap(imgPath);
+            imagePath = FS.ReadLine();
+            image = new Bitmap(imagePath);
 
             return success;
         }

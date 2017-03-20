@@ -12,45 +12,45 @@ namespace LevelEditor
     {
         int id;
 
-        Level lvl;
+        Level level;
 
-        Definition def;
-        Point loc;
+        Definition definition;
+        Point location;
 
         public Instance(Level Lvl)
         {
-            lvl = Lvl;
-            def = null;
-            loc = new Point();
+            level = Lvl;
+            definition = null;
+            location = new Point();
         }
 
         public Instance(Level Lvl, Definition Def)
         {
-            lvl = Lvl;
-            def = Def;
-            loc = new Point();
+            level = Lvl;
+            definition = Def;
+            location = new Point();
         }
 
         public Definition GetDefinition()
         {
-            return def;
+            return definition;
         }
 
         public void SetLocation(Point Loc)
         {
-            loc.X = Loc.X;
-            loc.Y = Loc.Y;
+            location.X = Loc.X;
+            location.Y = Loc.Y;
         }
 
         [Description("The coordinates of this instance on the plane."),
         Category("General")]
         public Point Location
         {
-            get { return loc; }
+            get { return location; }
             set
             {
                 SetLocation(value);
-                lvl.GetForm().onInstanceLocationChanged(this);
+                level.Foundation.Form.onInstanceLocationChanged(this);
             }
         }
 
@@ -68,22 +68,22 @@ namespace LevelEditor
 
         public void Draw(Graphics G)
         {
-            if (def != null && def.Image != null) G.DrawImage(def.Image, Location);
+            if (definition != null && definition.Image != null) G.DrawImage(definition.Image, Location);
         }
 
         public override string ToString()
         {
             return "[" + id + "] " + 
-                (def != null ? def.Name : "??") + 
-                " (" + loc.X + ", " + loc.Y + ")";
+                (definition != null ? definition.Name : "??") + 
+                " (" + location.X + ", " + location.Y + ")";
         }
 
         public void Save(System.IO.StreamWriter FS)
         {
             FS.WriteLine("" + id);
-            FS.WriteLine(def.Id);
-            FS.WriteLine(loc.X);
-            FS.WriteLine(loc.Y);
+            FS.WriteLine(definition.Id);
+            FS.WriteLine(location.X);
+            FS.WriteLine(location.Y);
         }
 
         public bool Load(System.IO.StreamReader FS, Dictionary Dict)
@@ -94,18 +94,18 @@ namespace LevelEditor
             int defId;
             success = Int32.TryParse(FS.ReadLine(), out defId);
             if (!success) return success;
-            def = Dict.Get(defId);
-            if (def == null) return false;
+            definition = Dict.Get(defId);
+            if (definition == null) return false;
 
             int x;
             success = Int32.TryParse(FS.ReadLine(), out x);
             if (!success) return success;
-            loc.X = x;
+            location.X = x;
 
             int y;
             success = Int32.TryParse(FS.ReadLine(), out y);
             if (!success) return success;
-            loc.Y = y;
+            location.Y = y;
 
             return success;
         }

@@ -11,14 +11,36 @@ namespace LevelEditor
     {
         public static string TypeToken = "Level file";
 
-        Form1 form;
+        Foundation foundation;
 
         int lastId = 0;
         List<Instance> list = new List<Instance>();
 
-        public Level(Form1 Form)
+        string filePath = null;
+
+        public Level(Foundation Foundation)
         {
-            this.form = Form;
+            foundation = Foundation;
+        }
+
+        public Foundation Foundation
+        {
+            get { return foundation; }
+        }
+
+        public int Count
+        {
+            get { return list.Count; }
+        }
+
+        public Instance this[int index]
+        {
+            get { return list[index]; }
+        }
+
+        public string GetFilePath()
+        {
+            return filePath;
         }
 
         public void Add(Instance I)
@@ -27,65 +49,71 @@ namespace LevelEditor
             list.Add(I);
         }
 
-        public Instance this[int index]
-        {
-            get { return list[index]; }
-        }
-
-        public int Count
-        {
-            get { return list.Count; }
-        }
-
-        public Form1 GetForm()
-        {
-            return form;
-        }
-
         public void Draw(Graphics G)
         {
             foreach (Instance I in list) I.Draw(G);
         }
 
-        public void Save(System.IO.StreamWriter FS, string FileDictionary)
+        public bool Save(string FilePath)
         {
-            FS.WriteLine(TypeToken);
+            filePath = FilePath;
 
-            FS.WriteLine(FileDictionary);
-
-            FS.WriteLine("" + lastId);
-
-            FS.WriteLine("" + list.Count);
-
-            foreach (Instance I in list)
+            using (System.IO.StreamWriter FS = new System.IO.StreamWriter(FilePath))
             {
-                I.Save(FS);
+                FS.WriteLine(TypeToken);
+
+                FS.WriteLine(foundation.Dictionary.GetFilePath());
+
+                FS.WriteLine("" + lastId);
+
+                FS.WriteLine("" + list.Count);
+
+                foreach (Instance I in list)
+                {
+                    I.Save(FS);
+                }
             }
+
+            return true;
         }
 
-        public bool Load(System.IO.StreamReader FS, Dictionary Dict)
+        public bool Save()
         {
-            list.Clear();
+            if (filePath == null || filePath.Length == 0) return false;
+            else return Save(filePath);
+        }
 
-            string type = FS.ReadLine();
-            if (!String.Equals(type, TypeToken)) return false;
+        public bool Load(string FilePath)
+        {
+            filePath = FilePath;
+            bool success;
 
-            FS.ReadLine();
-
-            bool success = Int32.TryParse(FS.ReadLine(), out lastId);
-            if (!success) return success;
-
-            int cnt;
-            success = Int32.TryParse(FS.ReadLine(), out cnt);
-            if (!success) return success;
-
-            for (int i = 0; i < cnt; ++i)
+            using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
-                Instance I = new Instance(this);
-                success = I.Load(FS, Dict);
+                list.Clear();
+
+                string type = FS.ReadLine();
+                if (!String.Equals(type, TypeToken)) return false;
+
+                FS.ReadLine();
+
+                success = Int32.TryParse(FS.ReadLine(), out lastId);
                 if (!success) return success;
-                list.Add(I);
+
+                int cnt;
+                success = Int32.TryParse(FS.ReadLine(), out cnt);
+                if (!success) return success;
+
+                for (int i = 0; i < cnt; ++i)
+                {
+                    Instance I = new Instance(this);
+                    success = I.Load(FS, foundation.Dictionary);
+                    if (!success) return success;
+                    list.Add(I);
+                }
             }
+
+            if (success) foundation.Form.onLevelChanged();
 
             return success;
         }

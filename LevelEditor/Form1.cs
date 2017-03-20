@@ -12,192 +12,155 @@ namespace LevelEditor
 {
     public partial class Form1 : Form
     {
-        Dictionary dict;
-        Level level;
-        Bitmap plane, contentImg;
-
-        Rectangle redrawRect;
-        Instance addition = null;
-        bool drawAddition = false;
-
-        string fileDictionary = null, fileLevel = null;
+        Foundation foundation;
 
         public Form1()
         {
             InitializeComponent();
 
-            dict = new Dictionary(this);
-            level = new Level(this);
-            plane = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
-            contentImg = new Bitmap(pictureBoxEdit.Width, pictureBoxEdit.Height);
+            foundation = new Foundation(this);
 
-            RedrawPlane(true);
+            foundation.Plane.RedrawWhole();
+            pictureBoxEdit.Image = foundation.Plane.Image;
         }
 
-        internal Color getPlaneBackColor()
+        internal Color PlaneBackColor
         {
-            return pictureBoxEdit.BackColor;
+            get { return pictureBoxEdit.BackColor; }
         }
 
-        internal Size getPlaneSize()
+        internal Size PlaneSize
         {
-            return pictureBoxEdit.Size;
+            get { return pictureBoxEdit.Size; }
         }
 
-        private void buttonAddDef_Click(object sender, EventArgs e)
+        internal Size GridCellSize
         {
-            using (OpenFileDialog dlg = new OpenFileDialog())
+            get
             {
-                dlg.Title = "Open Image";
-                dlg.Filter = "Bitmap files(*.bmp,*.gif,*.jpg,*.jpeg,*.png,*.ico)|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.ico";
-
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    Definition def = new Definition(dict, "New Definition");
-
-                    // This way the image file is unlocked after loading
-                    using (Image temp = new Bitmap(dlg.FileName))
-                    {
-                        def.SetImage(new Bitmap(temp), dlg.FileName);
-                    }
-
-                    dict.Add(def);
-                    RenewDictionaryBox();
-                }
+                return new Size((int)numericGridW.Value, (int)numericGridH.Value);
             }
         }
 
-        internal void RedrawPlane(bool levelChanged)
+        internal bool ShouldShowGrid
         {
-            Graphics G = Graphics.FromImage(plane);
-
-            if (levelChanged)
-            {
-                Graphics C = Graphics.FromImage(contentImg);
-                C.Clear(pictureBoxEdit.BackColor);
-                level.Draw(C);
-
-                G.DrawImage(contentImg, 0, 0);
-            }
-            else
-            {
-                if (redrawRect != null)
-                {
-                    G.SetClip(redrawRect);
-                    G.DrawImage(contentImg, 0, 0);
-                }
-                else
-                {
-                    G.DrawImage(contentImg, 0, 0);
-                }
-            }
-
-            if (addition != null && drawAddition) addition.Draw(G);
-
-            if (checkShowGrid.Checked &&
-                numericGridW.Value > 0 && numericGridH.Value > 0)
-            {
-                Pen pen = new Pen(Color.DarkGray);
-
-                for (int i = 0; i < plane.Width; i += (int)numericGridW.Value)
-                    G.DrawLine(pen, i, 0, i, plane.Height);
-
-                for (int i = 0; i < plane.Height; i += (int)numericGridH.Value)
-                    G.DrawLine(pen, 0, i, plane.Width, i);
-            }
-
-            pictureBoxEdit.Image = plane;
+            get { return checkShowGrid.Checked; }
         }
 
-        internal void RenewDictionaryBox()
+        internal bool ShouldSnapGrid
+        {
+            get { return checkSnapGrid.Checked; }
+        }
+
+        private void renewDictionaryBox()
         {
             dictionaryBox.Items.Clear();
 
-            for (int i = 0; i < dict.Count; ++i)
-                dictionaryBox.Items.Add(dict[i].ToString());
+            for (int i = 0; i < foundation.Dictionary.Count; ++i)
+                dictionaryBox.Items.Add(foundation.Dictionary[i].ToString());
         }
 
-        internal void RenewLevelBox()
+        private void renewLevelBox()
         {
             levelBox.Items.Clear();
 
-            for (int i = 0; i < level.Count; ++i)
-                levelBox.Items.Add(level[i].ToString());
+            for (int i = 0; i < foundation.Level.Count; ++i)
+                levelBox.Items.Add(foundation.Level[i].ToString());
         }
 
-        internal void RenewBoxes()
+        private void renewBoxes()
         {
-            RenewDictionaryBox();
-            RenewLevelBox();
+            renewDictionaryBox();
+            renewLevelBox();
         }
 
-        private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
+        internal void onDictionaryChanged()
         {
-            drawAddition = true;
+            renewDictionaryBox();
+            defProperties.SelectedObject = null;
         }
 
-        private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
+        internal void onLevelChanged()
         {
-            Point loc = new Point(e.X, e.Y);
+            renewLevelBox();
+            instProperties.SelectedObject = null;
+            onPlaneChanged(true);
+        }
 
-            if (checkSnapGrid.Checked)
-            {
-                int gridW = (int)numericGridW.Value;
-                int gridH = (int)numericGridH.Value;
+        internal void onDictAndLevelChanged()
+        {
+            onDictionaryChanged();
+            onLevelChanged();
+        }
 
-                loc.X = (loc.X / gridW) * gridW;
-                loc.Y = (loc.Y / gridH) * gridH;
-            }
+        internal void onDefinitionChanged()
+        {
+            renewDictionaryBox();
+            onPlaneChanged(true);
+        }
 
-            labelCoords.Text = loc.ToString();
+        internal void onPlaneChanged(bool RedrawWhole)
+        {
+            if (RedrawWhole) foundation.Plane.RedrawWhole();
+            else foundation.Plane.RedrawIncrm();
 
-            if (addition != null && addition.GetDefinition() != null)
-            {
-                redrawRect = new Rectangle(addition.Location, addition.GetDefinition().Image.Size);
-                addition.Location = loc;
-            }
+            pictureBoxEdit.Image = foundation.Plane.Image;
         }
 
         internal void onInstanceLocationChanged(Instance I)
         {
-            if (I == addition)
+            if (I == foundation.Plane.InstAtCursor)
             {
-                RedrawPlane(false);
+                foundation.Plane.RedrawIncrm();
+                pictureBoxEdit.Image = foundation.Plane.Image;
             }
             else
             {
-                RenewLevelBox();
-                RedrawPlane(true);
+                renewLevelBox();
+                foundation.Plane.RedrawWhole();
+                pictureBoxEdit.Image = foundation.Plane.Image;
             }
+        }
+
+        private void buttonAddDef_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Title = "Open Image";
+                dialog.Filter = "Bitmap files(*.bmp,*.gif,*.jpg,*.jpeg,*.png,*.ico)|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.ico";
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    foundation.AddDefinition(dialog.FileName);
+                }
+            }
+        }
+
+        private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
+        {
+            foundation.Plane.ShowInstAtCursor();
+        }
+
+        private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
+        {
+            foundation.Plane.MoveInstAtCursor(e.X, e.Y);
         }
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
         {
-            drawAddition = false;
-            if (addition != null) RedrawPlane(false);
+            foundation.Plane.HideInstAtCursor();
         }
 
         private void pictureBoxEdit_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (addition != null)
-                {
-                    level.Add(addition);
-                    levelBox.Items.Add(addition.ToString());
-
-                    Instance tmp = new Instance(level, addition.GetDefinition());
-                    tmp.SetLocation(addition.Location);
-                    addition = tmp;
-
-                    RedrawPlane(true);
-                }
+                foundation.AddInstAtCursorToLevel();
             }
             else if (e.Button == MouseButtons.Right)
             {
-                addition = null;
                 dictionaryBox.ClearSelected();
-                RedrawPlane(false);
+                foundation.Plane.ForgetInstAtCursor();
             }
         }
 
@@ -206,8 +169,8 @@ namespace LevelEditor
             int index = dictionaryBox.SelectedIndex;
             if (index >= 0)
             {
-                addition = new Instance(level, dict[index]);
-                defProperties.SelectedObject = dict[index];
+                foundation.Plane.MakeInstAtCursor(foundation.Dictionary[index]);
+                defProperties.SelectedObject = foundation.Dictionary[index];
             }
         }
 
@@ -216,187 +179,147 @@ namespace LevelEditor
             int index = levelBox.SelectedIndex;
             if (index >= 0)
             {
-                addition = null;
-                instProperties.SelectedObject = level[index];
+                foundation.Plane.ForgetInstAtCursor();
+                instProperties.SelectedObject = foundation.Level[index];
             }
         }
 
         private void numericGridW_ValueChanged(object sender, EventArgs e)
         {
-            if (checkShowGrid.Checked) RedrawPlane(true);
+            Size size = new Size();
+            size.Width = (int)numericGridW.Value;
+            size.Height = foundation.Plane.GridCellSize.Height;
+            foundation.Plane.GridCellSize = size;
         }
 
         private void numericGridH_ValueChanged(object sender, EventArgs e)
         {
-            if (checkShowGrid.Checked) RedrawPlane(true);
+            Size size = new Size();
+            size.Width = foundation.Plane.GridCellSize.Width;
+            size.Height = (int)numericGridH.Value;
+            foundation.Plane.GridCellSize = size;
         }
 
         private void checkShowGrid_CheckedChanged(object sender, EventArgs e)
         {
-            RedrawPlane(true);
+            foundation.Plane.IsDrawGrid = checkShowGrid.Checked;
+        }
+
+        private void checkSnapGrid_CheckedChanged(object sender, EventArgs e)
+        {
+            foundation.Plane.IsSnapGrid = checkShowGrid.Checked;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // ask about saving
+            // @TODO@ ask about saving
 
-            addition = null;
-            drawAddition = false;
-
-            dict = new Dictionary(this);
-            level = new Level(this);
-
-            RedrawPlane(true);
-            RenewBoxes();
-            defProperties.SelectedObject = null;
-            fileDictionary = null;
-            instProperties.SelectedObject = null;
-            fileLevel = null;
+            foundation.Reset();
         }
 
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // ask about saving
+            // @TODO@ ask about saving
 
-            addition = null;
-            drawAddition = false;
-
-            level = new Level(this);
-
-            RedrawPlane(true);
-            RenewLevelBox();
-            instProperties.SelectedObject = null;
+            foundation.ResetLevel();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // will user lose all unsaved data?
-
-            addition = null;
-            drawAddition = false;
-
-            defProperties.SelectedObject = null;
-            instProperties.SelectedObject = null;
+            // @TODO@ will user lose all unsaved data?
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "PSM Files|*.psm;*.txt";
             openFileDialog.Title = "Load From File(s)";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK && openFileDialog.FileName != "")
+            if (openFileDialog.ShowDialog() != DialogResult.OK ||
+                openFileDialog.FileName == null ||
+                openFileDialog.FileName.Length == 0)
+                return;
+
+            string dictFilePath = foundation.ExtractDictionaryPathFromLevelFile(openFileDialog.FileName);
+
+            if (dictFilePath != null)
             {
-                System.IO.StreamReader file = new System.IO.StreamReader(openFileDialog.FileName);
-                string type = file.ReadLine();
-                bool loadingDict = string.Equals(type, Dictionary.TypeToken);
-
-                if (loadingDict)
-                {
-                    fileDictionary = openFileDialog.FileName;
-                }
-                else
-                {
-                    fileLevel = openFileDialog.FileName;
-                    fileDictionary = file.ReadLine();
-                }
-
-                file.Close();
-
-                dict = new Dictionary(this);
-                using (System.IO.StreamReader F = new System.IO.StreamReader(fileDictionary))
-                {
-                    dict.Load(F);
-                    RenewDictionaryBox();
-                }
-
-                if (!loadingDict)
-                {
-                    level = new Level(this);
-                    using (System.IO.StreamReader F = new System.IO.StreamReader(fileLevel))
-                    {
-                        level.Load(F, dict);
-                        RenewLevelBox();
-                        RedrawPlane(true);
-                    }
-                }
-            }
-        }
-
-        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            if (fileDictionary != null)
-            {
-                using (System.IO.StreamWriter fs =
-                    new System.IO.StreamWriter(fileDictionary))
-                {
-                    dict.Save(fs);
-                }
+                if (foundation.Dictionary.Load(dictFilePath))
+                    foundation.Level.Load(openFileDialog.FileName);
             }
             else
             {
-                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
-                saveDictionaryAsToolStripMenuItem_Click(null, null);
-
-                if (fileDictionary == null) return;
-            }
-
-            if (fileLevel != null)
-            {
-                using (System.IO.StreamWriter fs =
-                    new System.IO.StreamWriter(fileLevel))
-                {
-                    level.Save(fs, fileDictionary);
-                }
-            }
-            else
-            {
-                MessageBox.Show("You will now save the level.", "Save Level");
-                saveLevelAsToolStripMenuItem_Click(null, null);
+                foundation.Dictionary.Load(openFileDialog.FileName);
             }
         }
 
-        private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool saveDictionaryAskPath()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PSM Dictionary File|*.psm;*.txt";
             saveFileDialog.Title = "Save Dictionary";
             saveFileDialog.ShowDialog();
 
-            if (saveFileDialog.FileName != "")
+            if (saveFileDialog.FileName != null && 
+                saveFileDialog.FileName.Length != 0)
             {
-                fileDictionary = saveFileDialog.FileName;
-
-                using (System.IO.StreamWriter fs =
-                    new System.IO.StreamWriter(fileDictionary))
-                {
-                    dict.Save(fs);
-                }
+                return foundation.Dictionary.Save(saveFileDialog.FileName);
+            }
+            else
+            {
+                return false;
             }
         }
 
-        private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private bool saveLevelAskPath()
         {
-            if (fileDictionary == null)
-            {
-                MessageBox.Show("You have to save the dictionary before saving levels.", "Save Dictionary First");
-                saveDictionaryAsToolStripMenuItem_Click(null, null);
-
-                if (fileDictionary == null) return;
-            }
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "PSM Level File|*.psm;*.txt";
             saveFileDialog.Title = "Save Level";
             saveFileDialog.ShowDialog();
 
-            if (saveFileDialog.FileName != "")
+            if (saveFileDialog.FileName != null &&
+                saveFileDialog.FileName.Length != 0)
             {
-                fileLevel = saveFileDialog.FileName;
-
-                using (System.IO.StreamWriter fs =
-                    new System.IO.StreamWriter(fileLevel))
-                {
-                    level.Save(fs, fileDictionary);
-                }
+                return foundation.Level.Save(saveFileDialog.FileName);
             }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (foundation.Dictionary.GetFilePath() != null && 
+                foundation.Dictionary.GetFilePath().Length != 0)
+            {
+                if (!foundation.Dictionary.Save()) return;
+            }
+            else
+            {
+                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
+                if (!saveDictionaryAskPath()) return;
+            }
+
+            if (foundation.Level.GetFilePath() != null &&
+                foundation.Level.GetFilePath().Length != 0)
+            {
+                foundation.Level.Save();
+            }
+            else
+            {
+                MessageBox.Show("You will now save the level.", "Save Level");
+                saveLevelAskPath();
+            }
+        }
+
+        private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveDictionaryAskPath();
+        }
+
+        private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // @TODO@ track for changes
+            saveToolStripMenuItem1_Click(null, null);
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)

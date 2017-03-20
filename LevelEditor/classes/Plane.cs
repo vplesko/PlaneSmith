@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LevelEditor.classes
+namespace LevelEditor
 {
     class Plane
     {
@@ -24,16 +24,16 @@ namespace LevelEditor.classes
         {
             foundation = Foundation;
 
-            Size size = foundation.Form.getPlaneSize();
+            Size size = foundation.Form.PlaneSize;
             wholeImage = new Bitmap(size.Width, size.Height);
             levelImage = new Bitmap(size.Width, size.Height);
 
             clipRect = new Rectangle();
             drawInstAtCursor = false;
 
-            gridCellSize = new Size(32, 32);
-            drawGrid = true;
-            snapGrid = false;
+            gridCellSize = foundation.Form.GridCellSize;
+            drawGrid = foundation.Form.ShouldShowGrid;
+            snapGrid = foundation.Form.ShouldSnapGrid;
         }
 
         public Foundation Foundation
@@ -57,7 +57,7 @@ namespace LevelEditor.classes
             set
             {
                 gridCellSize = value;
-                // @TODO notify form
+                foundation.Form.onPlaneChanged(true);
             }
         }
 
@@ -67,7 +67,7 @@ namespace LevelEditor.classes
             set
             {
                 drawGrid = value;
-                // @TODO notify form
+                foundation.Form.onPlaneChanged(true);
             }
         }
 
@@ -77,7 +77,6 @@ namespace LevelEditor.classes
             set
             {
                 snapGrid = value;
-                // @TODO notify form
             }
         }
 
@@ -85,7 +84,7 @@ namespace LevelEditor.classes
         {
             wholeImage = new Bitmap(Size.Width, Size.Height);
             levelImage = new Bitmap(Size.Width, Size.Height);
-            // @TODO notify form
+            foundation.Form.onPlaneChanged(true);
         }
 
         public void ShowInstAtCursor()
@@ -108,15 +107,18 @@ namespace LevelEditor.classes
             }
         }
 
-        public void HideInstAtCursos()
+        public void HideInstAtCursor()
         {
             drawInstAtCursor = false;
-            // @TODO notify form
+            foundation.Form.onPlaneChanged(false);
         }
 
         public void MakeInstAtCursor(Definition Definition)
         {
             instAtCursor = new Instance(foundation.Level, Definition);
+            clipRect = new Rectangle(instAtCursor.Location, instAtCursor.GetDefinition().Image.Size);
+
+            if (drawInstAtCursor) foundation.Form.onPlaneChanged(false);
         }
 
         public void RemakeInstAtCursor()
@@ -131,7 +133,7 @@ namespace LevelEditor.classes
         public void ForgetInstAtCursor()
         {
             instAtCursor = null;
-            // @TODO notify form
+            if (drawInstAtCursor) foundation.Form.onPlaneChanged(false);
         }
 
         private void drawPostLevel(Graphics GraphicsWhole)
@@ -157,7 +159,7 @@ namespace LevelEditor.classes
             Graphics graphicsWhole = Graphics.FromImage(wholeImage);
 
             Graphics graphicsLevel = Graphics.FromImage(levelImage);
-            graphicsLevel.Clear(foundation.Form.getPlaneBackColor());
+            graphicsLevel.Clear(foundation.Form.PlaneBackColor);
             foundation.Level.Draw(graphicsLevel);
 
             graphicsWhole.DrawImage(levelImage, 0, 0);

@@ -180,6 +180,7 @@
             this.checkSnapGrid.TabIndex = 12;
             this.checkSnapGrid.Text = "Snap to grid";
             this.checkSnapGrid.UseVisualStyleBackColor = true;
+            this.checkSnapGrid.CheckedChanged += new System.EventHandler(this.checkSnapGrid_CheckedChanged);
             // 
             // labelCoords
             // 

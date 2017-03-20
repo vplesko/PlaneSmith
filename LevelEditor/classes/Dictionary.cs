@@ -10,20 +10,43 @@ namespace LevelEditor
     {
         public static string TypeToken = "Dictionary file";
 
-        Form1 form;
+        Foundation foundation;
 
         int lastId = 0;
         List<Definition> list = new List<Definition>();
 
-        public Dictionary(Form1 Form)
+        string filePath = null;
+
+        public Dictionary(Foundation Foundation)
         {
-            this.form = Form;
+            foundation = Foundation;
+        }
+
+        public Foundation Foundation
+        {
+            get { return foundation; }
+        }
+
+        public int Count
+        {
+            get { return list.Count; }
+        }
+
+        public Definition this[int index]
+        {
+            get { return list[index]; }
+        }
+
+        public string GetFilePath()
+        {
+            return filePath;
         }
 
         public void Add(Definition T)
         {
             T.SetId(lastId++);
             list.Add(T);
+            foundation.Form.onDictionaryChanged();
         }
 
         public Definition Get(int Id)
@@ -35,56 +58,62 @@ namespace LevelEditor
             return null;
         }
 
-        public Definition this[int index]
+        public bool Save(string FilePath)
         {
-            get { return list[index]; }
-        }
+            filePath = FilePath;
 
-        public int Count
-        {
-            get { return list.Count; }
-        }
-
-        public Form1 GetForm()
-        {
-            return form;
-        }
-
-        public void Save(System.IO.StreamWriter FS)
-        {
-            FS.WriteLine(TypeToken);
-
-            FS.WriteLine("" + lastId);
-
-            FS.WriteLine("" + list.Count);
-
-            foreach (Definition D in list)
+            using (System.IO.StreamWriter FS = new System.IO.StreamWriter(FilePath))
             {
-                D.Save(FS);
+                FS.WriteLine(TypeToken);
+
+                FS.WriteLine("" + lastId);
+
+                FS.WriteLine("" + list.Count);
+
+                foreach (Definition D in list)
+                {
+                    D.Save(FS);
+                }
             }
+
+            return true;
         }
 
-        public bool Load(System.IO.StreamReader FS)
+        public bool Save()
         {
-            list.Clear();
+            if (filePath == null || filePath.Length == 0) return false;
+            else return Save(filePath);
+        }
 
-            string type = FS.ReadLine();
-            if (!String.Equals(type, TypeToken)) return false;
+        public bool Load(string FilePath)
+        {
+            filePath = FilePath;
+            bool success;
 
-            bool success = Int32.TryParse(FS.ReadLine(), out lastId);
-            if (!success) return success;
-
-            int cnt;
-            success = Int32.TryParse(FS.ReadLine(), out cnt);
-            if (!success) return success;
-
-            for (int i = 0; i < cnt; ++i)
+            using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
-                Definition D = new Definition(this);
-                success = D.Load(FS);
+                list.Clear();
+
+                string type = FS.ReadLine();
+                if (!String.Equals(type, TypeToken)) return false;
+
+                success = Int32.TryParse(FS.ReadLine(), out lastId);
                 if (!success) return success;
-                list.Add(D);
+
+                int cnt;
+                success = Int32.TryParse(FS.ReadLine(), out cnt);
+                if (!success) return success;
+
+                for (int i = 0; i < cnt; ++i)
+                {
+                    Definition D = new Definition(this);
+                    success = D.Load(FS);
+                    if (!success) return success;
+                    list.Add(D);
+                }
             }
+
+            if (success) foundation.Form.onDictionaryChanged();
 
             return success;
         }
