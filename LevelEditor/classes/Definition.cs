@@ -38,7 +38,7 @@ namespace LevelEditor
             set
             {
                 name = value;
-                dictionary.Foundation.Form.onDictAndLevelChanged();
+                dictionary.Foundation.Form.onDictionaryChanged(-1);
             }
         }
 
@@ -53,7 +53,6 @@ namespace LevelEditor
         {
             image = I;
             imagePath = Path;
-            dictionary.Foundation.Form.onDefinitionChanged();
         }
 
         [Description("This is the path to the file from which the image was loaded."),
@@ -93,8 +92,13 @@ namespace LevelEditor
             if (!success) return success;
 
             name = FS.ReadLine();
+
             imagePath = FS.ReadLine();
-            image = new Bitmap(imagePath);
+
+            using (Image tmp = new Bitmap(imagePath))
+            {
+                image = new Bitmap(tmp);
+            }
 
             return success;
         }

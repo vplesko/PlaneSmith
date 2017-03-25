@@ -50,6 +50,12 @@
             this.saveDictionaryAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveLevelAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonMoveUpDef = new System.Windows.Forms.Button();
+            this.buttonMoveDownDef = new System.Windows.Forms.Button();
+            this.buttonMoveUpInst = new System.Windows.Forms.Button();
+            this.buttonMoveDownInst = new System.Windows.Forms.Button();
+            this.buttonDeleteDef = new System.Windows.Forms.Button();
+            this.buttonDeleteInst = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).BeginInit();
@@ -64,6 +70,7 @@
             this.pictureBoxEdit.Size = new System.Drawing.Size(557, 494);
             this.pictureBoxEdit.TabIndex = 0;
             this.pictureBoxEdit.TabStop = false;
+            this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
             this.pictureBoxEdit.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxEdit_Paint);
             this.pictureBoxEdit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDown);
             this.pictureBoxEdit.MouseEnter += new System.EventHandler(this.pictureBoxEdit_MouseEnter);
@@ -73,9 +80,9 @@
             // levelBox
             // 
             this.levelBox.FormattingEnabled = true;
-            this.levelBox.Location = new System.Drawing.Point(775, 35);
+            this.levelBox.Location = new System.Drawing.Point(775, 61);
             this.levelBox.Name = "levelBox";
-            this.levelBox.Size = new System.Drawing.Size(197, 316);
+            this.levelBox.Size = new System.Drawing.Size(197, 290);
             this.levelBox.TabIndex = 3;
             this.levelBox.SelectedIndexChanged += new System.EventHandler(this.levelBox_SelectedIndexChanged);
             this.levelBox.MouseLeave += new System.EventHandler(this.levelBox_MouseLeave);
@@ -83,19 +90,19 @@
             // dictionaryBox
             // 
             this.dictionaryBox.FormattingEnabled = true;
-            this.dictionaryBox.Location = new System.Drawing.Point(12, 30);
+            this.dictionaryBox.Location = new System.Drawing.Point(12, 61);
             this.dictionaryBox.Name = "dictionaryBox";
-            this.dictionaryBox.Size = new System.Drawing.Size(194, 277);
+            this.dictionaryBox.Size = new System.Drawing.Size(194, 290);
             this.dictionaryBox.TabIndex = 4;
             this.dictionaryBox.SelectedIndexChanged += new System.EventHandler(this.dictionaryBox_SelectedIndexChanged);
             // 
             // buttonAddDef
             // 
-            this.buttonAddDef.Location = new System.Drawing.Point(12, 320);
+            this.buttonAddDef.Location = new System.Drawing.Point(12, 28);
             this.buttonAddDef.Name = "buttonAddDef";
-            this.buttonAddDef.Size = new System.Drawing.Size(194, 31);
+            this.buttonAddDef.Size = new System.Drawing.Size(37, 31);
             this.buttonAddDef.TabIndex = 5;
-            this.buttonAddDef.Text = "Add";
+            this.buttonAddDef.Text = "+";
             this.buttonAddDef.UseVisualStyleBackColor = true;
             this.buttonAddDef.Click += new System.EventHandler(this.buttonAddDef_Click);
             // 
@@ -201,6 +208,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -265,11 +273,77 @@
             this.exitToolStripMenuItem1.Text = "Exit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.exitToolStripMenuItem1_Click);
             // 
+            // buttonMoveUpDef
+            // 
+            this.buttonMoveUpDef.Location = new System.Drawing.Point(55, 28);
+            this.buttonMoveUpDef.Name = "buttonMoveUpDef";
+            this.buttonMoveUpDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveUpDef.TabIndex = 15;
+            this.buttonMoveUpDef.Text = "↑";
+            this.buttonMoveUpDef.UseVisualStyleBackColor = true;
+            this.buttonMoveUpDef.Click += new System.EventHandler(this.buttonMoveUpDef_Click);
+            // 
+            // buttonMoveDownDef
+            // 
+            this.buttonMoveDownDef.Location = new System.Drawing.Point(98, 28);
+            this.buttonMoveDownDef.Name = "buttonMoveDownDef";
+            this.buttonMoveDownDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveDownDef.TabIndex = 16;
+            this.buttonMoveDownDef.Text = "↓";
+            this.buttonMoveDownDef.UseVisualStyleBackColor = true;
+            this.buttonMoveDownDef.Click += new System.EventHandler(this.buttonMoveDownDef_Click);
+            // 
+            // buttonMoveUpInst
+            // 
+            this.buttonMoveUpInst.Location = new System.Drawing.Point(775, 28);
+            this.buttonMoveUpInst.Name = "buttonMoveUpInst";
+            this.buttonMoveUpInst.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveUpInst.TabIndex = 17;
+            this.buttonMoveUpInst.Text = "↑";
+            this.buttonMoveUpInst.UseVisualStyleBackColor = true;
+            this.buttonMoveUpInst.Click += new System.EventHandler(this.buttonMoveUpInst_Click);
+            // 
+            // buttonMoveDownInst
+            // 
+            this.buttonMoveDownInst.Location = new System.Drawing.Point(818, 28);
+            this.buttonMoveDownInst.Name = "buttonMoveDownInst";
+            this.buttonMoveDownInst.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveDownInst.TabIndex = 18;
+            this.buttonMoveDownInst.Text = "↓";
+            this.buttonMoveDownInst.UseVisualStyleBackColor = true;
+            this.buttonMoveDownInst.Click += new System.EventHandler(this.buttonMoveDownInst_Click);
+            // 
+            // buttonDeleteDef
+            // 
+            this.buttonDeleteDef.Location = new System.Drawing.Point(141, 28);
+            this.buttonDeleteDef.Name = "buttonDeleteDef";
+            this.buttonDeleteDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonDeleteDef.TabIndex = 19;
+            this.buttonDeleteDef.Text = "-";
+            this.buttonDeleteDef.UseVisualStyleBackColor = true;
+            this.buttonDeleteDef.Click += new System.EventHandler(this.buttonDeleteDef_Click);
+            // 
+            // buttonDeleteInst
+            // 
+            this.buttonDeleteInst.Location = new System.Drawing.Point(861, 28);
+            this.buttonDeleteInst.Name = "buttonDeleteInst";
+            this.buttonDeleteInst.Size = new System.Drawing.Size(37, 31);
+            this.buttonDeleteInst.TabIndex = 20;
+            this.buttonDeleteInst.Text = "-";
+            this.buttonDeleteInst.UseVisualStyleBackColor = true;
+            this.buttonDeleteInst.Click += new System.EventHandler(this.buttonDeleteInst_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.buttonDeleteInst);
+            this.Controls.Add(this.buttonDeleteDef);
+            this.Controls.Add(this.buttonMoveDownInst);
+            this.Controls.Add(this.buttonMoveUpInst);
+            this.Controls.Add(this.buttonMoveDownDef);
+            this.Controls.Add(this.buttonMoveUpDef);
             this.Controls.Add(this.labelCoords);
             this.Controls.Add(this.checkSnapGrid);
             this.Controls.Add(this.checkShowGrid);
@@ -287,6 +361,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "PlaneSmith";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
@@ -322,6 +397,12 @@
         private System.Windows.Forms.ToolStripMenuItem saveDictionaryAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveLevelAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
+        private System.Windows.Forms.Button buttonMoveUpDef;
+        private System.Windows.Forms.Button buttonMoveDownDef;
+        private System.Windows.Forms.Button buttonMoveUpInst;
+        private System.Windows.Forms.Button buttonMoveDownInst;
+        private System.Windows.Forms.Button buttonDeleteDef;
+        private System.Windows.Forms.Button buttonDeleteInst;
     }
 }
 

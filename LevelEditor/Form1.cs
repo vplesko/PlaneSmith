@@ -74,23 +74,46 @@ namespace LevelEditor
             renewLevelBox();
         }
 
-        internal void onDictionaryChanged()
+        internal void onDictionaryChanged(int SelectedIndex)
         {
+            if (SelectedIndex < 0) SelectedIndex = dictionaryBox.SelectedIndex;
+
             renewDictionaryBox();
-            defProperties.SelectedObject = null;
+
+            if (SelectedIndex >= 0 && SelectedIndex < dictionaryBox.Items.Count)
+            {
+                dictionaryBox.SelectedIndex = SelectedIndex;
+                defProperties.SelectedObject = foundation.Dictionary[SelectedIndex];
+            }
+            else
+            {
+                defProperties.SelectedObject = null;
+            }
         }
 
-        internal void onLevelChanged()
+        internal void onLevelChanged(int SelectedIndex)
         {
+            if (SelectedIndex < 0) SelectedIndex = levelBox.SelectedIndex;
+
             renewLevelBox();
-            instProperties.SelectedObject = null;
+            
+            if (SelectedIndex >= 0 && SelectedIndex < levelBox.Items.Count)
+            {
+                levelBox.SelectedIndex = SelectedIndex;
+                instProperties.SelectedObject = foundation.Level[SelectedIndex];
+            }
+            else
+            {
+                instProperties.SelectedObject = null;
+            }
+
             onPlaneChanged(true);
         }
 
         internal void onDictAndLevelChanged()
         {
-            onDictionaryChanged();
-            onLevelChanged();
+            onDictionaryChanged(-1);
+            onLevelChanged(-1);
         }
 
         internal void onDefinitionChanged()
@@ -124,16 +147,66 @@ namespace LevelEditor
 
         private void buttonAddDef_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.Title = "Open Image";
-                dialog.Filter = "Bitmap files(*.bmp,*.gif,*.jpg,*.jpeg,*.png,*.ico)|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.ico";
+            string name = Microsoft.VisualBasic.Interaction.InputBox(
+                "Definition name", "Name", "New Definition", 
+                this.Left + 100, this.Top + 100
+                );
 
-                if (dialog.ShowDialog() == DialogResult.OK)
+            if (name != null && name.Length > 0)
+            {
+                using (OpenFileDialog dialog = new OpenFileDialog())
                 {
-                    foundation.AddDefinition(dialog.FileName);
+                    dialog.Title = "Open Image";
+                    dialog.Filter = "Bitmap files(*.bmp,*.gif,*.jpg,*.jpeg,*.png,*.ico)|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.ico";
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        foundation.AddDefinition(name, dialog.FileName);
+                    }
                 }
             }
+        }
+
+        private void buttonMoveUpDef_Click(object sender, EventArgs e)
+        {
+            int index = dictionaryBox.SelectedIndex;
+
+            if (index >= 0) foundation.MoveDefUp(index);
+        }
+
+        private void buttonMoveDownDef_Click(object sender, EventArgs e)
+        {
+            int index = dictionaryBox.SelectedIndex;
+
+            if (index >= 0) foundation.MoveDefDown(index);
+        }
+
+        private void buttonDeleteDef_Click(object sender, EventArgs e)
+        {
+            int index = dictionaryBox.SelectedIndex;
+
+            if (index >= 0) foundation.DeleteDefinition(index);
+        }
+
+        private void buttonMoveUpInst_Click(object sender, EventArgs e)
+        {
+            int index = levelBox.SelectedIndex;
+
+            if (index >= 0) foundation.MoveInstUp(index);
+        }
+
+        private void buttonMoveDownInst_Click(object sender, EventArgs e)
+        {
+            int index = levelBox.SelectedIndex;
+
+            if (index >= 0) foundation.MoveInstDown(index);
+        }
+
+        private void buttonDeleteInst_Click(object sender, EventArgs e)
+        {
+            int index = levelBox.SelectedIndex;
+
+            if (index >= 0) foundation.DeleteInstance(index);
         }
 
         private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
@@ -248,6 +321,8 @@ namespace LevelEditor
             {
                 foundation.Dictionary.Load(openFileDialog.FileName);
             }
+
+            onDictAndLevelChanged();
         }
 
         private bool saveDictionaryAskPath()
@@ -324,7 +399,7 @@ namespace LevelEditor
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // ask about saving
+            // @TODO@ ask about saving
 
             Application.Exit();
         }
@@ -342,6 +417,18 @@ namespace LevelEditor
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
+        {
+        }
+
+        private void pictureBoxEdit_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
         }
     }

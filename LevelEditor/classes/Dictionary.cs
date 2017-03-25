@@ -46,7 +46,28 @@ namespace LevelEditor
         {
             T.SetId(lastId++);
             list.Add(T);
-            foundation.Form.onDictionaryChanged();
+        }
+
+        public bool MoveUp(int index)
+        {
+            if (index - 1 < 0 || index >= list.Count) return false;
+
+            Definition temp = list[index];
+            list[index] = list[index - 1];
+            list[index - 1] = temp;
+
+            return true;
+        }
+
+        public bool MoveDown(int index)
+        {
+            if (index < 0 || index + 1 >= list.Count) return false;
+
+            Definition temp = list[index];
+            list[index] = list[index + 1];
+            list[index + 1] = temp;
+
+            return true;
         }
 
         public Definition Get(int Id)
@@ -56,6 +77,13 @@ namespace LevelEditor
                     return D;
 
             return null;
+        }
+
+        public void Delete(int index)
+        {
+            if (index < 0 || index >= list.Count) return;
+
+            list.RemoveAt(index);
         }
 
         public bool Save(string FilePath)
@@ -112,8 +140,6 @@ namespace LevelEditor
                     list.Add(D);
                 }
             }
-
-            if (success) foundation.Form.onDictionaryChanged();
 
             return success;
         }

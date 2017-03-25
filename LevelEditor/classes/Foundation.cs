@@ -45,9 +45,9 @@ namespace LevelEditor
             get { return plane; }
         }
 
-        public void AddDefinition(string ImageFilePath)
+        public void AddDefinition(string Name, string ImageFilePath)
         {
-            Definition definition = new Definition(dictionary, "New Definition");
+            Definition definition = new Definition(dictionary, Name);
 
             dictionary.Add(definition);
 
@@ -56,6 +56,8 @@ namespace LevelEditor
             {
                 definition.SetImage(new Bitmap(tmp), ImageFilePath);
             }
+
+            form.onDictionaryChanged(dictionary.Count - 1);
         }
 
         public void AddInstAtCursorToLevel()
@@ -64,8 +66,56 @@ namespace LevelEditor
             {
                 level.Add(plane.InstAtCursor);
                 plane.RemakeInstAtCursor();
-                form.onLevelChanged();
+                form.onLevelChanged(-1);
             }
+        }
+
+        public void MoveInstUp(int index)
+        {
+            if (level.MoveUp(index))
+                form.onLevelChanged(index - 1);
+        }
+
+        public void MoveInstDown(int index)
+        {
+            if (level.MoveDown(index))
+                form.onLevelChanged(index + 1);
+        }
+
+        public void MoveDefUp(int index)
+        {
+            if (dictionary.MoveUp(index))
+                form.onDictionaryChanged(index - 1);
+        }
+
+        public void MoveDefDown(int index)
+        {
+            if (dictionary.MoveDown(index))
+                form.onDictionaryChanged(index + 1);
+        }
+
+        public void DeleteInstance(int index)
+        {
+            if (index < 0 || index >= level.Count) return;
+
+            level.Delete(index);
+
+            form.onLevelChanged(-1);
+        }
+
+        public void DeleteDefinition(int index)
+        {
+            if (index < 0 || index >= dictionary.Count) return;
+
+            level.DeleteUsingDefinition(dictionary[index]);
+
+            if (plane.InstAtCursor.GetDefinition() == dictionary[index])
+                plane.ForgetInstAtCursor();
+
+            dictionary.Delete(index);
+
+            form.onDictAndLevelChanged();
+            form.onPlaneChanged(true);
         }
 
         public string ExtractDictionaryPathFromLevelFile(string FilePath)
@@ -100,7 +150,7 @@ namespace LevelEditor
             level = new Level(this);
             plane = new Plane(this);
 
-            form.onLevelChanged();
+            form.onLevelChanged(-1);
         }
     }
 }

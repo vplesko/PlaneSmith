@@ -12,7 +12,7 @@ namespace LevelEditor
         Foundation foundation;
 
         Bitmap wholeImage, levelImage;
-        Rectangle clipRect;
+        Region clipRegion;
 
         Instance instAtCursor;
         bool drawInstAtCursor;
@@ -28,7 +28,7 @@ namespace LevelEditor
             wholeImage = new Bitmap(size.Width, size.Height);
             levelImage = new Bitmap(size.Width, size.Height);
 
-            clipRect = new Rectangle();
+            clipRegion = new Region();
             drawInstAtCursor = false;
 
             gridCellSize = foundation.Form.GridCellSize;
@@ -102,7 +102,18 @@ namespace LevelEditor
 
             if (instAtCursor != null && instAtCursor.GetDefinition() != null)
             {
-                clipRect = new Rectangle(instAtCursor.Location, instAtCursor.GetDefinition().Image.Size);
+                clipRegion = new Region(
+                    new Rectangle(
+                        instAtCursor.Location,
+                        instAtCursor.GetDefinition().Image.Size
+                        ));
+
+                clipRegion.Exclude(
+                    new Rectangle(
+                        new Point(X, Y),
+                        instAtCursor.GetDefinition().Image.Size
+                        ));
+                
                 instAtCursor.Location = new Point(X, Y);
             }
         }
@@ -110,14 +121,32 @@ namespace LevelEditor
         public void HideInstAtCursor()
         {
             drawInstAtCursor = false;
-            foundation.Form.onPlaneChanged(false);
+
+            if (instAtCursor != null)
+            {
+                clipRegion = new Region(
+                        new Rectangle(
+                            instAtCursor.Location,
+                            instAtCursor.GetDefinition().Image.Size
+                            ));
+                foundation.Form.onPlaneChanged(false);
+            }
         }
 
         public void MakeInstAtCursor(Definition Definition)
         {
-            instAtCursor = new Instance(foundation.Level, Definition);
-            clipRect = new Rectangle(instAtCursor.Location, instAtCursor.GetDefinition().Image.Size);
+            if (Definition == null) return;
 
+            instAtCursor = new Instance(foundation.Level, Definition);
+
+            if (Definition.Image != null)
+            {
+                clipRegion = new Region(new Rectangle(instAtCursor.Location, instAtCursor.GetDefinition().Image.Size));
+            }
+            else
+            {
+                clipRegion = new Region(new Rectangle(instAtCursor.Location, new Size(0, 0)));
+            }
             if (drawInstAtCursor) foundation.Form.onPlaneChanged(false);
         }
 
@@ -133,7 +162,7 @@ namespace LevelEditor
         public void ForgetInstAtCursor()
         {
             instAtCursor = null;
-            if (drawInstAtCursor) foundation.Form.onPlaneChanged(false);
+            if (drawInstAtCursor) foundation.Form.onPlaneChanged(true);
         }
 
         private void drawPostLevel(Graphics GraphicsWhole)
@@ -169,11 +198,12 @@ namespace LevelEditor
 
         public void RedrawIncrm()
         {
-            if (clipRect != null)
+            if (clipRegion != null)
             {
                 Graphics graphicsWhole = Graphics.FromImage(wholeImage);
-                graphicsWhole.SetClip(clipRect);
+                graphicsWhole.SetClip(clipRegion, System.Drawing.Drawing2D.CombineMode.Replace);
                 graphicsWhole.DrawImage(levelImage, 0, 0);
+                graphicsWhole.ResetClip();
 
                 drawPostLevel(graphicsWhole);
             }

@@ -49,6 +49,53 @@ namespace LevelEditor
             list.Add(I);
         }
 
+        public bool MoveUp(int index)
+        {
+            if (index - 1 < 0 || index >= list.Count) return false;
+
+            Instance temp = list[index];
+            list[index] = list[index - 1];
+            list[index - 1] = temp;
+
+            return true;
+        }
+
+        public bool MoveDown(int index)
+        {
+            if (index < 0 || index + 1 >= list.Count) return false;
+
+            Instance temp = list[index];
+            list[index] = list[index + 1];
+            list[index + 1] = temp;
+
+            return true;
+        }
+
+        public void Delete(int index)
+        {
+            if (index < 0 || index >= list.Count) return;
+
+            list.RemoveAt(index);
+        }
+
+        public void DeleteUsingDefinition(Definition Def)
+        {
+            int i = 0;
+            for (int j = 0; j < list.Count; ++j)
+            {
+                if (list[j].GetDefinition() != Def)
+                    list[i] = list[j];
+
+                if (list[i].GetDefinition() != Def)
+                    ++i;
+            }
+
+            if (i < list.Count)
+            {
+                list.RemoveRange(i, list.Count - i);
+            }
+        }
+
         public void Draw(Graphics G)
         {
             foreach (Instance I in list) I.Draw(G);
@@ -112,8 +159,6 @@ namespace LevelEditor
                     list.Add(I);
                 }
             }
-
-            if (success) foundation.Form.onLevelChanged();
 
             return success;
         }
