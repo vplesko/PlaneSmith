@@ -92,15 +92,27 @@ namespace LevelEditor
             drawInstAtCursor = true;
         }
 
-        public void MoveInstAtCursor(int X, int Y)
+        public Point SnapToGrid(int X, int Y)
         {
             if (snapGrid)
             {
-                X = (X / gridCellSize.Width) * gridCellSize.Width;
-                Y = (Y / gridCellSize.Height) * gridCellSize.Height;
+                if (gridCellSize.Width > 0)
+                    X = (X / gridCellSize.Width) * gridCellSize.Width;
+
+                if (gridCellSize.Height > 0)
+                    Y = (Y / gridCellSize.Height) * gridCellSize.Height;
             }
 
-            if (instAtCursor != null && instAtCursor.GetDefinition() != null)
+            return new Point(X, Y);
+        }
+
+        public void MoveInstAtCursor(int X, int Y)
+        {
+            Point nextLoc = SnapToGrid(X, Y);
+
+            if (instAtCursor != null && 
+                instAtCursor.GetDefinition() != null && 
+                instAtCursor.GetDefinition().Image != null)
             {
                 clipRegion = new Region(
                     new Rectangle(
@@ -108,13 +120,20 @@ namespace LevelEditor
                         instAtCursor.GetDefinition().Image.Size
                         ));
 
-                clipRegion.Exclude(
-                    new Rectangle(
-                        new Point(X, Y),
-                        instAtCursor.GetDefinition().Image.Size
-                        ));
-                
-                instAtCursor.Location = new Point(X, Y);
+                /*double area =
+                    instAtCursor.GetDefinition().Image.Size.Width *
+                    instAtCursor.GetDefinition().Image.Size.Height;
+
+                if (area > 64 * 64)
+                {
+                    clipRegion.Exclude(
+                        new Rectangle(
+                            nextLoc,
+                            instAtCursor.GetDefinition().Image.Size
+                            ));
+                }*/
+
+                instAtCursor.Location = nextLoc;
             }
         }
 
@@ -171,7 +190,7 @@ namespace LevelEditor
                 instAtCursor.Draw(GraphicsWhole);
 
             if (drawGrid &&
-                gridCellSize.Width > 0 && gridCellSize.Height > 0)
+                gridCellSize.Width >= 8 && gridCellSize.Height >= 8)
             {
                 Pen pen = new Pen(Color.DarkGray);
 

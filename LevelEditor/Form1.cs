@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace LevelEditor
 {
@@ -216,7 +217,22 @@ namespace LevelEditor
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
+            if (foundation.Plane.InstAtCursor == null) return;
+
+            Point prev = foundation.Plane.InstAtCursor.Location;
+
             foundation.Plane.MoveInstAtCursor(e.X, e.Y);
+
+            if (foundation.Plane.IsSnapGrid &&
+                (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
+                (Control.ModifierKeys & Keys.Shift) != 0)
+            {
+                Point curr = foundation.Plane.InstAtCursor.Location;
+                curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
+
+                if (prev.X != curr.X || prev.Y != curr.Y)
+                    foundation.AddInstAtCursorToLevel();
+            }
         }
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
@@ -232,8 +248,15 @@ namespace LevelEditor
             }
             else if (e.Button == MouseButtons.Right)
             {
-                dictionaryBox.ClearSelected();
-                foundation.Plane.ForgetInstAtCursor();
+                if (foundation.Plane.InstAtCursor != null)
+                {
+                    dictionaryBox.ClearSelected();
+                    foundation.Plane.ForgetInstAtCursor();
+                }
+                else
+                {
+                    foundation.DeleteInstanceAt(e.Location);
+                }
             }
         }
 
@@ -244,6 +267,16 @@ namespace LevelEditor
             {
                 foundation.Plane.MakeInstAtCursor(foundation.Dictionary[index]);
                 defProperties.SelectedObject = foundation.Dictionary[index];
+
+                buttonMoveUpDef.Enabled = true;
+                buttonMoveDownDef.Enabled = true;
+                buttonDeleteDef.Enabled = true;
+            }
+            else
+            {
+                buttonMoveUpDef.Enabled = false;
+                buttonMoveDownDef.Enabled = false;
+                buttonDeleteDef.Enabled = false;
             }
         }
 
@@ -254,6 +287,16 @@ namespace LevelEditor
             {
                 foundation.Plane.ForgetInstAtCursor();
                 instProperties.SelectedObject = foundation.Level[index];
+
+                buttonMoveUpInst.Enabled = true;
+                buttonMoveDownInst.Enabled = true;
+                buttonDeleteInst.Enabled = true;
+            }
+            else
+            {
+                buttonMoveUpInst.Enabled = false;
+                buttonMoveDownInst.Enabled = false;
+                buttonDeleteInst.Enabled = false;
             }
         }
 

@@ -103,6 +103,29 @@ namespace LevelEditor
             form.onLevelChanged(-1);
         }
 
+        public void DeleteInstanceAt(Point Pnt)
+        {
+            for (int i = level.Count - 1; i >= 0; --i)
+            {
+                Instance inst = level[i];
+                if (inst == null) continue;
+
+                if (inst.GetDefinition() == null) continue;
+
+                Image img = inst.GetDefinition().Image;
+                if (img == null) continue;
+
+                if (Pnt.X >= inst.Location.X && 
+                    Pnt.X < inst.Location.X + img.Size.Width &&
+                    Pnt.Y >= inst.Location.Y && 
+                    Pnt.Y < inst.Location.Y + img.Size.Height)
+                {
+                    DeleteInstance(i);
+                    return;
+                }
+            }
+        }
+
         public void DeleteDefinition(int index)
         {
             if (index < 0 || index >= dictionary.Count) return;

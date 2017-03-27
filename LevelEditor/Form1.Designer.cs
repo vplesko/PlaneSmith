@@ -275,6 +275,7 @@
             // 
             // buttonMoveUpDef
             // 
+            this.buttonMoveUpDef.Enabled = false;
             this.buttonMoveUpDef.Location = new System.Drawing.Point(55, 28);
             this.buttonMoveUpDef.Name = "buttonMoveUpDef";
             this.buttonMoveUpDef.Size = new System.Drawing.Size(37, 31);
@@ -285,6 +286,7 @@
             // 
             // buttonMoveDownDef
             // 
+            this.buttonMoveDownDef.Enabled = false;
             this.buttonMoveDownDef.Location = new System.Drawing.Point(98, 28);
             this.buttonMoveDownDef.Name = "buttonMoveDownDef";
             this.buttonMoveDownDef.Size = new System.Drawing.Size(37, 31);
@@ -295,6 +297,7 @@
             // 
             // buttonMoveUpInst
             // 
+            this.buttonMoveUpInst.Enabled = false;
             this.buttonMoveUpInst.Location = new System.Drawing.Point(775, 28);
             this.buttonMoveUpInst.Name = "buttonMoveUpInst";
             this.buttonMoveUpInst.Size = new System.Drawing.Size(37, 31);
@@ -305,6 +308,7 @@
             // 
             // buttonMoveDownInst
             // 
+            this.buttonMoveDownInst.Enabled = false;
             this.buttonMoveDownInst.Location = new System.Drawing.Point(818, 28);
             this.buttonMoveDownInst.Name = "buttonMoveDownInst";
             this.buttonMoveDownInst.Size = new System.Drawing.Size(37, 31);
@@ -315,6 +319,7 @@
             // 
             // buttonDeleteDef
             // 
+            this.buttonDeleteDef.Enabled = false;
             this.buttonDeleteDef.Location = new System.Drawing.Point(141, 28);
             this.buttonDeleteDef.Name = "buttonDeleteDef";
             this.buttonDeleteDef.Size = new System.Drawing.Size(37, 31);
@@ -325,6 +330,7 @@
             // 
             // buttonDeleteInst
             // 
+            this.buttonDeleteInst.Enabled = false;
             this.buttonDeleteInst.Location = new System.Drawing.Point(861, 28);
             this.buttonDeleteInst.Name = "buttonDeleteInst";
             this.buttonDeleteInst.Size = new System.Drawing.Size(37, 31);
