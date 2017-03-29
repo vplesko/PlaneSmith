@@ -18,6 +18,8 @@ namespace LevelEditor
         Image image;
         string imagePath;
 
+        string[] code;
+
         public Definition(Dictionary Dictionary)
         {
             dictionary = Dictionary;
@@ -38,7 +40,7 @@ namespace LevelEditor
             set
             {
                 name = value;
-                dictionary.Foundation.Form.onDictionaryChanged(-1);
+                dictionary.Foundation.Form.onDictAndLevelChanged();
             }
         }
 
@@ -74,6 +76,25 @@ namespace LevelEditor
             get { return id; }
         }
 
+        public void CopyAsCode(string[] Code)
+        {
+            code = new string[Code.Length];
+            Code.CopyTo(code, 0);
+        }
+
+        public void RecopyCode()
+        {
+            if (code == null) return;
+
+            string[] temp = code;
+            CopyAsCode(temp);
+        }
+
+        public string[] GetCode()
+        {
+            return code;
+        }
+
         public override string ToString()
         {
             return Name;
@@ -84,6 +105,16 @@ namespace LevelEditor
             FS.WriteLine("" + id);
             FS.WriteLine(name);
             FS.WriteLine(imagePath);
+
+            if (code == null || code.Length == 0)
+            {
+                FS.WriteLine(0);
+            }
+            else
+            {
+                FS.WriteLine(code.Length);
+                foreach (string line in code) FS.WriteLine(line);
+            }
         }
 
         public bool Load(System.IO.StreamReader FS)
@@ -98,6 +129,23 @@ namespace LevelEditor
             using (Image tmp = new Bitmap(imagePath))
             {
                 image = new Bitmap(tmp);
+            }
+
+            int codeLen;
+            success = Int32.TryParse(FS.ReadLine(), out codeLen);
+            if (!success) return success;
+            if (codeLen == 0)
+            {
+                code = null;
+            }
+            else
+            {
+                code = new string[codeLen];
+                for (int i = 0; i < codeLen; ++i)
+                {
+                    code[i] = FS.ReadLine();
+                    if (i + 1 < codeLen) code[i] += "\r\n";
+                }
             }
 
             return success;

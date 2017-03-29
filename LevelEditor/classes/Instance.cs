@@ -17,6 +17,8 @@ namespace LevelEditor
         Definition definition;
         Point location;
 
+        string[] code;
+
         public Instance(Level Lvl)
         {
             level = Lvl;
@@ -66,6 +68,23 @@ namespace LevelEditor
             get { return id; }
         }
 
+        public void CopyAsCode(string[] Code)
+        {
+            code = new string[Code.Length];
+            Code.CopyTo(code, 0);
+        }
+
+        public void RecopyCode()
+        {
+            string[] temp = code;
+            CopyAsCode(temp);
+        }
+
+        public string[] GetCode()
+        {
+            return code;
+        }
+
         public void Draw(Graphics G)
         {
             if (definition != null && definition.Image != null) G.DrawImage(definition.Image, Location);
@@ -84,6 +103,16 @@ namespace LevelEditor
             FS.WriteLine(definition.Id);
             FS.WriteLine(location.X);
             FS.WriteLine(location.Y);
+
+            if (code == null || code.Length == 0)
+            {
+                FS.WriteLine(0);
+            }
+            else
+            {
+                FS.WriteLine(code.Length);
+                foreach (string line in code) FS.WriteLine(line);
+            }
         }
 
         public bool Load(System.IO.StreamReader FS, Dictionary Dict)
@@ -106,6 +135,23 @@ namespace LevelEditor
             success = Int32.TryParse(FS.ReadLine(), out y);
             if (!success) return success;
             location.Y = y;
+
+            int codeLen;
+            success = Int32.TryParse(FS.ReadLine(), out codeLen);
+            if (!success) return success;
+            if (codeLen == 0)
+            {
+                code = null;
+            }
+            else
+            {
+                code = new string[codeLen];
+                for (int i = 0; i < codeLen; ++i)
+                {
+                    code[i] = FS.ReadLine();
+                    if (i + 1 < codeLen) code[i] += "\r\n";
+                }
+            }
 
             return success;
         }

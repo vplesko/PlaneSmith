@@ -16,6 +16,8 @@ namespace LevelEditor
         int lastId = 0;
         List<Instance> list = new List<Instance>();
 
+        string[] code;
+
         string filePath = null;
 
         public Level(Foundation Foundation)
@@ -41,6 +43,29 @@ namespace LevelEditor
         public string GetFilePath()
         {
             return filePath;
+        }
+
+        public void CopyAsCode(string[] Code)
+        {
+            if (Code == null)
+            {
+                code = null;
+                return;
+            }
+
+            code = new string[Code.Length];
+            Code.CopyTo(code, 0);
+        }
+
+        public void RecopyCode()
+        {
+            string[] temp = code;
+            CopyAsCode(temp);
+        }
+
+        public string[] GetCode()
+        {
+            return code;
         }
 
         public void Add(Instance I)
@@ -111,6 +136,21 @@ namespace LevelEditor
 
                 FS.WriteLine(foundation.Dictionary.GetFilePath());
 
+                if (code == null || code.Length == 0)
+                {
+                    FS.WriteLine(0);
+                }
+                else
+                {
+                    FS.WriteLine(code.Length);
+                    foreach (string line in code) FS.WriteLine(line);
+                }
+
+                FS.WriteLine("" + foundation.Plane.GridCellSize.Width);
+                FS.WriteLine("" + foundation.Plane.GridCellSize.Height);
+                FS.WriteLine("" + foundation.Plane.IsDrawGrid);
+                FS.WriteLine("" + foundation.Plane.IsSnapGrid);
+
                 FS.WriteLine("" + lastId);
 
                 FS.WriteLine("" + list.Count);
@@ -143,6 +183,38 @@ namespace LevelEditor
                 if (!String.Equals(type, TypeToken)) return false;
 
                 FS.ReadLine();
+
+                int codeLen;
+                success = Int32.TryParse(FS.ReadLine(), out codeLen);
+                if (!success) return success;
+                if (codeLen == 0)
+                {
+                    code = null;
+                }
+                else
+                {
+                    code = new string[codeLen];
+                    for (int i = 0; i < codeLen; ++i)
+                    {
+                        code[i] = FS.ReadLine();
+                        if (i + 1 < codeLen) code[i] += "\r\n";
+                    }
+                }
+
+                int width, height;
+                success = Int32.TryParse(FS.ReadLine(), out width);
+                if (!success) return success;
+                success = Int32.TryParse(FS.ReadLine(), out height);
+                if (!success) return success;
+                foundation.Plane.GridCellSize = new Size(width, height);
+
+                bool grid;
+                success = Boolean.TryParse(FS.ReadLine(), out grid);
+                if (!success) return success;
+                foundation.Plane.IsDrawGrid = grid;
+                success = Boolean.TryParse(FS.ReadLine(), out grid);
+                if (!success) return success;
+                foundation.Plane.IsSnapGrid = grid;
 
                 success = Int32.TryParse(FS.ReadLine(), out lastId);
                 if (!success) return success;

@@ -25,6 +25,11 @@ namespace LevelEditor
             pictureBoxEdit.Image = foundation.Plane.Image;
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
+        }
+
         internal Color PlaneBackColor
         {
             get { return pictureBoxEdit.BackColor; }
@@ -129,6 +134,10 @@ namespace LevelEditor
             else foundation.Plane.RedrawIncrm();
 
             pictureBoxEdit.Image = foundation.Plane.Image;
+            numericGridW.Value = foundation.Plane.GridCellSize.Width;
+            numericGridH.Value = foundation.Plane.GridCellSize.Height;
+            checkShowGrid.Checked = foundation.Plane.IsDrawGrid;
+            checkSnapGrid.Checked = foundation.Plane.IsSnapGrid;
         }
 
         internal void onInstanceLocationChanged(Instance I)
@@ -186,6 +195,8 @@ namespace LevelEditor
         {
             int index = dictionaryBox.SelectedIndex;
 
+            selectedDefValid = false;
+
             if (index >= 0) foundation.DeleteDefinition(index);
         }
 
@@ -206,6 +217,8 @@ namespace LevelEditor
         private void buttonDeleteInst_Click(object sender, EventArgs e)
         {
             int index = levelBox.SelectedIndex;
+
+            selectedInstValid = false;
 
             if (index >= 0) foundation.DeleteInstance(index);
         }
@@ -260,43 +273,156 @@ namespace LevelEditor
             }
         }
 
+        private void putBaseCode()
+        {
+            foundation.Level.CopyAsCode(richTextCodeBase.Lines);
+        }
+
+        private void takeBaseCode()
+        {
+            string[] code = foundation.Level.GetCode();
+            if (code != null)
+            {
+                richTextCodeBase.Clear();
+
+                foreach (string line in code)
+                    richTextCodeBase.AppendText(line);
+            }
+            else
+            {
+                richTextCodeBase.Lines = null;
+            }
+        }
+
+        int selectedDefIndex;
+        bool selectedDefValid = false;
+
+        private void putSelectedDefCode()
+        {
+            if (selectedDefValid && selectedDefIndex >= 0)
+            {
+                foundation.Dictionary[selectedDefIndex].CopyAsCode(richTextCodeDef.Lines);
+            }
+        }
+
+        private void takeSelectedDefCode()
+        {
+            if (!selectedDefValid)
+            {
+                richTextCodeDef.Lines = null;
+                return;
+            }
+
+            string[] code = foundation.Dictionary[selectedDefIndex].GetCode();
+            if (code != null)
+            {
+                richTextCodeDef.Clear();
+
+                foreach (string line in code)
+                    richTextCodeDef.AppendText(line);
+            }
+            else
+            {
+                richTextCodeDef.Lines = null;
+            }
+        }
+
         private void dictionaryBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = dictionaryBox.SelectedIndex;
-            if (index >= 0)
+            putSelectedDefCode();
+
+            selectedDefIndex = dictionaryBox.SelectedIndex;
+            if (selectedDefIndex >= 0)
             {
-                foundation.Plane.MakeInstAtCursor(foundation.Dictionary[index]);
-                defProperties.SelectedObject = foundation.Dictionary[index];
+                selectedDefValid = true;
+
+                foundation.Plane.MakeInstAtCursor(foundation.Dictionary[selectedDefIndex]);
+                defProperties.SelectedObject = foundation.Dictionary[selectedDefIndex];
 
                 buttonMoveUpDef.Enabled = true;
                 buttonMoveDownDef.Enabled = true;
                 buttonDeleteDef.Enabled = true;
+
+                richTextCodeDef.Enabled = true;
+
+                takeSelectedDefCode();
             }
             else
             {
+                selectedDefValid = false;
+
                 buttonMoveUpDef.Enabled = false;
                 buttonMoveDownDef.Enabled = false;
                 buttonDeleteDef.Enabled = false;
+
+                richTextCodeDef.Enabled = false;
+                richTextCodeDef.Lines = null;
+            }
+        }
+
+        int selectedInstIndex = -1;
+        bool selectedInstValid = false;
+
+        private void putSelectedInstCode()
+        {
+            if (selectedInstValid && selectedInstIndex >= 0)
+            {
+                foundation.Level[selectedInstIndex].CopyAsCode(richTextCodeInst.Lines);
+            }
+        }
+
+        private void takeSelectedInstCode()
+        {
+            if (!selectedInstValid)
+            {
+                richTextCodeDef.Lines = null;
+                return;
+            }
+
+            string[] code = foundation.Level[selectedInstIndex].GetCode();
+            if (code != null)
+            {
+                richTextCodeInst.Clear();
+
+                foreach (string line in code)
+                    richTextCodeInst.AppendText(line);
+            }
+            else
+            {
+                richTextCodeInst.Lines = null;
             }
         }
 
         private void levelBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = levelBox.SelectedIndex;
-            if (index >= 0)
+            putSelectedInstCode();
+
+            selectedInstIndex = levelBox.SelectedIndex;
+            if (selectedInstIndex >= 0)
             {
+                selectedInstValid = true;
+
                 foundation.Plane.ForgetInstAtCursor();
-                instProperties.SelectedObject = foundation.Level[index];
+                instProperties.SelectedObject = foundation.Level[selectedInstIndex];
 
                 buttonMoveUpInst.Enabled = true;
                 buttonMoveDownInst.Enabled = true;
                 buttonDeleteInst.Enabled = true;
+
+                richTextCodeInst.Enabled = true;
+
+                takeSelectedInstCode();
             }
             else
             {
+                selectedInstValid = false;
+
                 buttonMoveUpInst.Enabled = false;
                 buttonMoveDownInst.Enabled = false;
                 buttonDeleteInst.Enabled = false;
+
+                richTextCodeInst.Enabled = false;
+                richTextCodeInst.Lines = null;
             }
         }
 
@@ -331,6 +457,10 @@ namespace LevelEditor
             // @TODO@ ask about saving
 
             foundation.Reset();
+
+            takeBaseCode();
+            takeSelectedDefCode();
+            takeSelectedInstCode();
         }
 
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -338,6 +468,10 @@ namespace LevelEditor
             // @TODO@ ask about saving
 
             foundation.ResetLevel();
+
+            takeBaseCode();
+            takeSelectedDefCode();
+            takeSelectedInstCode();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -358,7 +492,10 @@ namespace LevelEditor
             if (dictFilePath != null)
             {
                 if (foundation.Dictionary.Load(dictFilePath))
-                    foundation.Level.Load(openFileDialog.FileName);
+                {
+                    if (foundation.Level.Load(openFileDialog.FileName))
+                        takeBaseCode();
+                }
             }
             else
             {
@@ -406,6 +543,10 @@ namespace LevelEditor
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            putBaseCode();
+            putSelectedDefCode();
+            putSelectedInstCode();
+
             if (foundation.Dictionary.GetFilePath() != null && 
                 foundation.Dictionary.GetFilePath().Length != 0)
             {
@@ -431,13 +572,28 @@ namespace LevelEditor
 
         private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            putSelectedDefCode();
+
             saveDictionaryAskPath();
         }
 
         private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // @TODO@ track for changes
+
+            putBaseCode();
+            putSelectedInstCode();
+
             saveToolStripMenuItem1_Click(null, null);
+        }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            putBaseCode();
+            putSelectedDefCode();
+            putSelectedInstCode();
+
+            // @TODO@
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -471,7 +627,7 @@ namespace LevelEditor
         {
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void textCodeInst_TextChanged(object sender, EventArgs e)
         {
         }
     }
