@@ -60,23 +60,35 @@ namespace LevelEditor
             form.onDictionaryChanged(dictionary.Count - 1);
         }
 
-        public void AddInstAtCursorToLevel()
+        public void AddObjTemporasToLevel()
         {
-            if (plane.InstAtCursor != null)
+            if (plane.ObjTemporas != null)
             {
-                level.Add(plane.InstAtCursor);
-                plane.RemakeInstAtCursor();
+                level.Add(plane.ObjTemporas);
+                plane.RemakeObjTemporas();
                 form.onLevelChanged(-1);
             }
         }
 
-        public void MoveInstUp(int index)
+        public void MakeObjTemporas(Definition Definition)
+        {
+            plane.MakeObjTemporas(Definition);
+            form.onPlaneChanged(false);
+        }
+
+        public void ForgetObjTemporas()
+        {
+            plane.ForgetObjTemporas();
+            form.onPlaneChanged(true);
+        }
+
+        public void MoveObjUp(int index)
         {
             if (level.MoveUp(index))
                 form.onLevelChanged(index - 1);
         }
 
-        public void MoveInstDown(int index)
+        public void MoveObjDown(int index)
         {
             if (level.MoveDown(index))
                 form.onLevelChanged(index + 1);
@@ -94,7 +106,7 @@ namespace LevelEditor
                 form.onDictionaryChanged(index + 1);
         }
 
-        public void DeleteInstance(int index)
+        public void DeleteObject(int index)
         {
             if (index < 0 || index >= level.Count) return;
 
@@ -103,24 +115,24 @@ namespace LevelEditor
             form.onLevelChanged(-1);
         }
 
-        public void DeleteInstanceAt(Point Pnt)
+        public void DeleteObjectAt(Point Pnt)
         {
             for (int i = level.Count - 1; i >= 0; --i)
             {
-                Instance inst = level[i];
-                if (inst == null) continue;
+                Object obj = level[i];
+                if (obj == null) continue;
 
-                if (inst.GetDefinition() == null) continue;
+                if (obj.GetDefinition() == null) continue;
 
-                Image img = inst.GetDefinition().Image;
+                Image img = obj.GetDefinition().Image;
                 if (img == null) continue;
 
-                if (Pnt.X >= inst.Location.X && 
-                    Pnt.X < inst.Location.X + img.Size.Width &&
-                    Pnt.Y >= inst.Location.Y && 
-                    Pnt.Y < inst.Location.Y + img.Size.Height)
+                if (Pnt.X >= obj.Position.X && 
+                    Pnt.X < obj.Position.X + img.Size.Width &&
+                    Pnt.Y >= obj.Position.Y && 
+                    Pnt.Y < obj.Position.Y + img.Size.Height)
                 {
-                    DeleteInstance(i);
+                    DeleteObject(i);
                     return;
                 }
             }
@@ -132,8 +144,8 @@ namespace LevelEditor
 
             level.DeleteUsingDefinition(dictionary[index]);
 
-            if (plane.InstAtCursor.GetDefinition() == dictionary[index])
-                plane.ForgetInstAtCursor();
+            if (plane.ObjTemporas.GetDefinition() == dictionary[index])
+                ForgetObjTemporas();
 
             dictionary.Delete(index);
 

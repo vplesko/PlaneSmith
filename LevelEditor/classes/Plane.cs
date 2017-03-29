@@ -14,8 +14,8 @@ namespace LevelEditor
         Bitmap wholeImage, levelImage;
         Region clipRegion;
 
-        Instance instAtCursor;
-        bool drawInstAtCursor;
+        Object objTemporas;
+        bool drawObjTemporas;
 
         Size gridCellSize;
         bool drawGrid, snapGrid;
@@ -29,7 +29,7 @@ namespace LevelEditor
             levelImage = new Bitmap(size.Width, size.Height);
 
             clipRegion = new Region();
-            drawInstAtCursor = false;
+            drawObjTemporas = false;
 
             gridCellSize = foundation.Form.GridCellSize;
             drawGrid = foundation.Form.ShouldShowGrid;
@@ -46,50 +46,54 @@ namespace LevelEditor
             get { return wholeImage; }
         }
 
-        public Instance InstAtCursor
+        public Object ObjTemporas
         {
-            get { return instAtCursor; }
+            get { return objTemporas; }
         }
 
         public Size GridCellSize
         {
             get { return gridCellSize; }
-            set
-            {
-                gridCellSize = value;
-                foundation.Form.onPlaneChanged(true);
-            }
+            set { gridCellSize = value; }
         }
 
         public bool IsDrawGrid
         {
             get { return drawGrid; }
-            set
-            {
-                drawGrid = value;
-                foundation.Form.onPlaneChanged(true);
-            }
+            set { drawGrid = value; }
         }
 
         public bool IsSnapGrid
         {
             get { return snapGrid; }
-            set
-            {
-                snapGrid = value;
-            }
+            set { snapGrid = value; }
         }
 
         public void SetSize(Size Size)
         {
             wholeImage = new Bitmap(Size.Width, Size.Height);
             levelImage = new Bitmap(Size.Width, Size.Height);
-            foundation.Form.onPlaneChanged(true);
         }
 
-        public void ShowInstAtCursor()
+        public void SetShowObjTemporas(bool Show)
         {
-            drawInstAtCursor = true;
+            if (Show)
+            {
+                drawObjTemporas = true;
+            }
+            else
+            {
+                drawObjTemporas = false;
+
+                if (objTemporas != null)
+                {
+                    clipRegion = new Region(
+                            new Rectangle(
+                                objTemporas.Position,
+                                objTemporas.GetDefinition().Image.Size
+                                ));
+                }
+            }
         }
 
         public Point SnapToGrid(int X, int Y)
@@ -106,88 +110,71 @@ namespace LevelEditor
             return new Point(X, Y);
         }
 
-        public void MoveInstAtCursor(int X, int Y)
+        public void MoveObjTemporas(int X, int Y)
         {
             Point nextLoc = SnapToGrid(X, Y);
 
-            if (instAtCursor != null && 
-                instAtCursor.GetDefinition() != null && 
-                instAtCursor.GetDefinition().Image != null)
+            if (objTemporas != null && 
+                objTemporas.GetDefinition() != null && 
+                objTemporas.GetDefinition().Image != null)
             {
                 clipRegion = new Region(
                     new Rectangle(
-                        instAtCursor.Location,
-                        instAtCursor.GetDefinition().Image.Size
+                        objTemporas.Position,
+                        objTemporas.GetDefinition().Image.Size
                         ));
 
                 /*double area =
-                    instAtCursor.GetDefinition().Image.Size.Width *
-                    instAtCursor.GetDefinition().Image.Size.Height;
+                    objTemporas.GetDefinition().Image.Size.Width *
+                    objTemporas.GetDefinition().Image.Size.Height;
 
                 if (area > 64 * 64)
                 {
                     clipRegion.Exclude(
                         new Rectangle(
                             nextLoc,
-                            instAtCursor.GetDefinition().Image.Size
+                            objTemporas.GetDefinition().Image.Size
                             ));
                 }*/
 
-                instAtCursor.Location = nextLoc;
+                objTemporas.Position = nextLoc;
             }
         }
 
-        public void HideInstAtCursor()
-        {
-            drawInstAtCursor = false;
-
-            if (instAtCursor != null)
-            {
-                clipRegion = new Region(
-                        new Rectangle(
-                            instAtCursor.Location,
-                            instAtCursor.GetDefinition().Image.Size
-                            ));
-                foundation.Form.onPlaneChanged(false);
-            }
-        }
-
-        public void MakeInstAtCursor(Definition Definition)
+        public void MakeObjTemporas(Definition Definition)
         {
             if (Definition == null) return;
 
-            instAtCursor = new Instance(foundation.Level, Definition);
+            objTemporas = new Object(foundation.Level, Definition);
 
             if (Definition.Image != null)
             {
-                clipRegion = new Region(new Rectangle(instAtCursor.Location, instAtCursor.GetDefinition().Image.Size));
+                clipRegion = new Region(new Rectangle(objTemporas.Position, objTemporas.GetDefinition().Image.Size));
             }
             else
             {
-                clipRegion = new Region(new Rectangle(instAtCursor.Location, new Size(0, 0)));
+                clipRegion = new Region(new Rectangle(objTemporas.Position, new Size(0, 0)));
             }
-            if (drawInstAtCursor) foundation.Form.onPlaneChanged(false);
         }
 
-        public void RemakeInstAtCursor()
+        public void RemakeObjTemporas()
         {
-            if (instAtCursor == null) return;
+            if (objTemporas == null) return;
 
-            Instance tmp = new Instance(foundation.Level, instAtCursor.GetDefinition());
-            tmp.SetLocation(instAtCursor.Location);
-            instAtCursor = tmp;
+            Object tmp = new Object(foundation.Level, objTemporas.GetDefinition());
+            tmp.SetPosition(objTemporas.Position);
+            objTemporas = tmp;
         }
 
-        public void ForgetInstAtCursor()
+        public void ForgetObjTemporas()
         {
-            instAtCursor = null;
-            if (drawInstAtCursor) foundation.Form.onPlaneChanged(true);
+            objTemporas = null;
         }
 
         private void drawPostLevel(Graphics GraphicsWhole)
         {
-            if (instAtCursor != null && drawInstAtCursor)
-                instAtCursor.Draw(GraphicsWhole);
+            if (objTemporas != null && drawObjTemporas)
+                objTemporas.Draw(GraphicsWhole);
 
             if (drawGrid &&
                 gridCellSize.Width >= 8 && gridCellSize.Height >= 8)

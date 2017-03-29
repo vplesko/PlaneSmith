@@ -27,7 +27,21 @@ namespace LevelEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            ToolTip toolTip = new ToolTip();
+
+            toolTip.SetToolTip(this.buttonAddDef, "Add new definition");
+            toolTip.SetToolTip(this.buttonMoveUpDef, "Shift definition up");
+            toolTip.SetToolTip(this.buttonMoveDownDef, "Shift definition down");
+            toolTip.SetToolTip(this.buttonDeleteDef, "Delete definition");
+            toolTip.SetToolTip(this.dictionaryBox, "Click to select definition");
+
+            toolTip.SetToolTip(this.buttonMoveUpObj, "Shift object up");
+            toolTip.SetToolTip(this.buttonMoveDownObj, "Shift object down");
+            toolTip.SetToolTip(this.buttonDeleteObj, "Delete object");
+            toolTip.SetToolTip(this.levelBox, "Click to select object");
+
+            toolTip.SetToolTip(this.checkShowGrid, "Show/hide grid");
+            toolTip.SetToolTip(this.checkSnapGrid, "Align new objects to grid-cells");
         }
 
         internal Color PlaneBackColor
@@ -106,11 +120,11 @@ namespace LevelEditor
             if (SelectedIndex >= 0 && SelectedIndex < levelBox.Items.Count)
             {
                 levelBox.SelectedIndex = SelectedIndex;
-                instProperties.SelectedObject = foundation.Level[SelectedIndex];
+                objProperties.SelectedObject = foundation.Level[SelectedIndex];
             }
             else
             {
-                instProperties.SelectedObject = null;
+                objProperties.SelectedObject = null;
             }
 
             onPlaneChanged(true);
@@ -140,9 +154,9 @@ namespace LevelEditor
             checkSnapGrid.Checked = foundation.Plane.IsSnapGrid;
         }
 
-        internal void onInstanceLocationChanged(Instance I)
+        internal void onObjPositionChanged(Object I)
         {
-            if (I == foundation.Plane.InstAtCursor)
+            if (I == foundation.Plane.ObjTemporas)
             {
                 foundation.Plane.RedrawIncrm();
                 pictureBoxEdit.Image = foundation.Plane.Image;
@@ -204,83 +218,84 @@ namespace LevelEditor
         {
             int index = levelBox.SelectedIndex;
 
-            if (index >= 0) foundation.MoveInstUp(index);
+            if (index >= 0) foundation.MoveObjUp(index);
         }
 
         private void buttonMoveDownInst_Click(object sender, EventArgs e)
         {
             int index = levelBox.SelectedIndex;
 
-            if (index >= 0) foundation.MoveInstDown(index);
+            if (index >= 0) foundation.MoveObjDown(index);
         }
 
         private void buttonDeleteInst_Click(object sender, EventArgs e)
         {
             int index = levelBox.SelectedIndex;
 
-            selectedInstValid = false;
+            selectedObjValid = false;
 
-            if (index >= 0) foundation.DeleteInstance(index);
+            if (index >= 0) foundation.DeleteObject(index);
         }
 
         private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
         {
-            foundation.Plane.ShowInstAtCursor();
+            foundation.Plane.SetShowObjTemporas(true);
         }
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
-            if (foundation.Plane.InstAtCursor == null) return;
+            if (foundation.Plane.ObjTemporas == null) return;
 
-            Point prev = foundation.Plane.InstAtCursor.Location;
+            Point prev = foundation.Plane.ObjTemporas.Position;
 
-            foundation.Plane.MoveInstAtCursor(e.X, e.Y);
+            foundation.Plane.MoveObjTemporas(e.X, e.Y);
 
             if (foundation.Plane.IsSnapGrid &&
                 (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
                 (Control.ModifierKeys & Keys.Shift) != 0)
             {
-                Point curr = foundation.Plane.InstAtCursor.Location;
+                Point curr = foundation.Plane.ObjTemporas.Position;
                 curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
 
                 if (prev.X != curr.X || prev.Y != curr.Y)
-                    foundation.AddInstAtCursorToLevel();
+                    foundation.AddObjTemporasToLevel();
             }
         }
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
         {
-            foundation.Plane.HideInstAtCursor();
+            foundation.Plane.SetShowObjTemporas(false);
+            onPlaneChanged(false);
         }
 
         private void pictureBoxEdit_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                foundation.AddInstAtCursorToLevel();
+                foundation.AddObjTemporasToLevel();
             }
             else if (e.Button == MouseButtons.Right)
             {
-                if (foundation.Plane.InstAtCursor != null)
+                if (foundation.Plane.ObjTemporas != null)
                 {
                     dictionaryBox.ClearSelected();
-                    foundation.Plane.ForgetInstAtCursor();
+                    foundation.ForgetObjTemporas();
                 }
                 else
                 {
-                    foundation.DeleteInstanceAt(e.Location);
+                    foundation.DeleteObjectAt(e.Location);
                 }
             }
         }
 
         private void putBaseCode()
         {
-            foundation.Level.CopyAsCode(richTextCodeBase.Lines);
+            foundation.Level.GetCode().CopyFrom(richTextCodeBase.Lines);
         }
 
         private void takeBaseCode()
         {
-            string[] code = foundation.Level.GetCode();
+            string[] code = foundation.Level.GetCode().Lines;
             if (code != null)
             {
                 richTextCodeBase.Clear();
@@ -301,7 +316,7 @@ namespace LevelEditor
         {
             if (selectedDefValid && selectedDefIndex >= 0)
             {
-                foundation.Dictionary[selectedDefIndex].CopyAsCode(richTextCodeDef.Lines);
+                foundation.Dictionary[selectedDefIndex].GetCode().CopyFrom(richTextCodeDef.Lines);
             }
         }
 
@@ -313,7 +328,7 @@ namespace LevelEditor
                 return;
             }
 
-            string[] code = foundation.Dictionary[selectedDefIndex].GetCode();
+            string[] code = foundation.Dictionary[selectedDefIndex].GetCode().Lines;
             if (code != null)
             {
                 richTextCodeDef.Clear();
@@ -336,7 +351,7 @@ namespace LevelEditor
             {
                 selectedDefValid = true;
 
-                foundation.Plane.MakeInstAtCursor(foundation.Dictionary[selectedDefIndex]);
+                foundation.MakeObjTemporas(foundation.Dictionary[selectedDefIndex]);
                 defProperties.SelectedObject = foundation.Dictionary[selectedDefIndex];
 
                 buttonMoveUpDef.Enabled = true;
@@ -360,69 +375,69 @@ namespace LevelEditor
             }
         }
 
-        int selectedInstIndex = -1;
-        bool selectedInstValid = false;
+        int selectedObjIndex = -1;
+        bool selectedObjValid = false;
 
-        private void putSelectedInstCode()
+        private void putSelectedObjCode()
         {
-            if (selectedInstValid && selectedInstIndex >= 0)
+            if (selectedObjValid && selectedObjIndex >= 0)
             {
-                foundation.Level[selectedInstIndex].CopyAsCode(richTextCodeInst.Lines);
+                foundation.Level[selectedObjIndex].GetCode().CopyFrom(richTextCodeObj.Lines);
             }
         }
 
-        private void takeSelectedInstCode()
+        private void takeSelectedObjCode()
         {
-            if (!selectedInstValid)
+            if (!selectedObjValid)
             {
                 richTextCodeDef.Lines = null;
                 return;
             }
 
-            string[] code = foundation.Level[selectedInstIndex].GetCode();
+            string[] code = foundation.Level[selectedObjIndex].GetCode().Lines;
             if (code != null)
             {
-                richTextCodeInst.Clear();
+                richTextCodeObj.Clear();
 
                 foreach (string line in code)
-                    richTextCodeInst.AppendText(line);
+                    richTextCodeObj.AppendText(line);
             }
             else
             {
-                richTextCodeInst.Lines = null;
+                richTextCodeObj.Lines = null;
             }
         }
 
         private void levelBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            putSelectedInstCode();
+            putSelectedObjCode();
 
-            selectedInstIndex = levelBox.SelectedIndex;
-            if (selectedInstIndex >= 0)
+            selectedObjIndex = levelBox.SelectedIndex;
+            if (selectedObjIndex >= 0)
             {
-                selectedInstValid = true;
+                selectedObjValid = true;
 
-                foundation.Plane.ForgetInstAtCursor();
-                instProperties.SelectedObject = foundation.Level[selectedInstIndex];
+                foundation.ForgetObjTemporas();
+                objProperties.SelectedObject = foundation.Level[selectedObjIndex];
 
-                buttonMoveUpInst.Enabled = true;
-                buttonMoveDownInst.Enabled = true;
-                buttonDeleteInst.Enabled = true;
+                buttonMoveUpObj.Enabled = true;
+                buttonMoveDownObj.Enabled = true;
+                buttonDeleteObj.Enabled = true;
 
-                richTextCodeInst.Enabled = true;
+                richTextCodeObj.Enabled = true;
 
-                takeSelectedInstCode();
+                takeSelectedObjCode();
             }
             else
             {
-                selectedInstValid = false;
+                selectedObjValid = false;
 
-                buttonMoveUpInst.Enabled = false;
-                buttonMoveDownInst.Enabled = false;
-                buttonDeleteInst.Enabled = false;
+                buttonMoveUpObj.Enabled = false;
+                buttonMoveDownObj.Enabled = false;
+                buttonDeleteObj.Enabled = false;
 
-                richTextCodeInst.Enabled = false;
-                richTextCodeInst.Lines = null;
+                richTextCodeObj.Enabled = false;
+                richTextCodeObj.Lines = null;
             }
         }
 
@@ -432,6 +447,7 @@ namespace LevelEditor
             size.Width = (int)numericGridW.Value;
             size.Height = foundation.Plane.GridCellSize.Height;
             foundation.Plane.GridCellSize = size;
+            onPlaneChanged(true);
         }
 
         private void numericGridH_ValueChanged(object sender, EventArgs e)
@@ -440,16 +456,18 @@ namespace LevelEditor
             size.Width = foundation.Plane.GridCellSize.Width;
             size.Height = (int)numericGridH.Value;
             foundation.Plane.GridCellSize = size;
+            onPlaneChanged(true);
         }
 
         private void checkShowGrid_CheckedChanged(object sender, EventArgs e)
         {
             foundation.Plane.IsDrawGrid = checkShowGrid.Checked;
+            onPlaneChanged(true);
         }
 
         private void checkSnapGrid_CheckedChanged(object sender, EventArgs e)
         {
-            foundation.Plane.IsSnapGrid = checkShowGrid.Checked;
+            foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -460,7 +478,7 @@ namespace LevelEditor
 
             takeBaseCode();
             takeSelectedDefCode();
-            takeSelectedInstCode();
+            takeSelectedObjCode();
         }
 
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -471,7 +489,7 @@ namespace LevelEditor
 
             takeBaseCode();
             takeSelectedDefCode();
-            takeSelectedInstCode();
+            takeSelectedObjCode();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -545,7 +563,7 @@ namespace LevelEditor
         {
             putBaseCode();
             putSelectedDefCode();
-            putSelectedInstCode();
+            putSelectedObjCode();
 
             if (foundation.Dictionary.GetFilePath() != null && 
                 foundation.Dictionary.GetFilePath().Length != 0)
@@ -582,7 +600,7 @@ namespace LevelEditor
             // @TODO@ track for changes
 
             putBaseCode();
-            putSelectedInstCode();
+            putSelectedObjCode();
 
             saveToolStripMenuItem1_Click(null, null);
         }
@@ -591,7 +609,7 @@ namespace LevelEditor
         {
             putBaseCode();
             putSelectedDefCode();
-            putSelectedInstCode();
+            putSelectedObjCode();
 
             // @TODO@
         }

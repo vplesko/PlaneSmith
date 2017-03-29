@@ -18,18 +18,22 @@ namespace LevelEditor
         Image image;
         string imagePath;
 
-        string[] code;
+        Code code;
 
         public Definition(Dictionary Dictionary)
         {
             dictionary = Dictionary;
             name = "";
+
+            code = new Code();
         }
 
         public Definition(Dictionary Dict, string Name)
         {
             dictionary = Dict;
             name = Name;
+
+            code = new Code();
         }
 
         [Description("The name by which this definition will be referenced in your code."), 
@@ -44,7 +48,7 @@ namespace LevelEditor
             }
         }
 
-        [Description("This image presents the appearance of instances of this definition."),
+        [Description("This image presents the appearance of objects of this definition."),
         Category("General")]
         public Image Image
         {
@@ -76,21 +80,7 @@ namespace LevelEditor
             get { return id; }
         }
 
-        public void CopyAsCode(string[] Code)
-        {
-            code = new string[Code.Length];
-            Code.CopyTo(code, 0);
-        }
-
-        public void RecopyCode()
-        {
-            if (code == null) return;
-
-            string[] temp = code;
-            CopyAsCode(temp);
-        }
-
-        public string[] GetCode()
+        public Code GetCode()
         {
             return code;
         }
@@ -106,21 +96,12 @@ namespace LevelEditor
             FS.WriteLine(name);
             FS.WriteLine(imagePath);
 
-            if (code == null || code.Length == 0)
-            {
-                FS.WriteLine(0);
-            }
-            else
-            {
-                FS.WriteLine(code.Length);
-                foreach (string line in code) FS.WriteLine(line);
-            }
+            code.Save(FS);
         }
 
         public bool Load(System.IO.StreamReader FS)
         {
-            bool success = Int32.TryParse(FS.ReadLine(), out id);
-            if (!success) return success;
+            if (!Int32.TryParse(FS.ReadLine(), out id)) return false;
 
             name = FS.ReadLine();
 
@@ -131,24 +112,9 @@ namespace LevelEditor
                 image = new Bitmap(tmp);
             }
 
-            int codeLen;
-            success = Int32.TryParse(FS.ReadLine(), out codeLen);
-            if (!success) return success;
-            if (codeLen == 0)
-            {
-                code = null;
-            }
-            else
-            {
-                code = new string[codeLen];
-                for (int i = 0; i < codeLen; ++i)
-                {
-                    code[i] = FS.ReadLine();
-                    if (i + 1 < codeLen) code[i] += "\r\n";
-                }
-            }
+            if (!code.Load(FS)) return false;
 
-            return success;
+            return true;
         }
     }
 }

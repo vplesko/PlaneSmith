@@ -14,15 +14,17 @@ namespace LevelEditor
         Foundation foundation;
 
         int lastId = 0;
-        List<Instance> list = new List<Instance>();
+        List<Object> list = new List<Object>();
 
-        string[] code;
+        Code code;
 
         string filePath = null;
 
         public Level(Foundation Foundation)
         {
             foundation = Foundation;
+
+            code = new Code();
         }
 
         public Foundation Foundation
@@ -35,7 +37,7 @@ namespace LevelEditor
             get { return list.Count; }
         }
 
-        public Instance this[int index]
+        public Object this[int index]
         {
             get { return list[index]; }
         }
@@ -45,40 +47,22 @@ namespace LevelEditor
             return filePath;
         }
 
-        public void CopyAsCode(string[] Code)
-        {
-            if (Code == null)
-            {
-                code = null;
-                return;
-            }
-
-            code = new string[Code.Length];
-            Code.CopyTo(code, 0);
-        }
-
-        public void RecopyCode()
-        {
-            string[] temp = code;
-            CopyAsCode(temp);
-        }
-
-        public string[] GetCode()
+        public Code GetCode()
         {
             return code;
         }
 
-        public void Add(Instance I)
+        public void Add(Object O)
         {
-            I.SetId(lastId++);
-            list.Add(I);
+            O.SetId(lastId++);
+            list.Add(O);
         }
 
         public bool MoveUp(int index)
         {
             if (index - 1 < 0 || index >= list.Count) return false;
 
-            Instance temp = list[index];
+            Object temp = list[index];
             list[index] = list[index - 1];
             list[index - 1] = temp;
 
@@ -89,7 +73,7 @@ namespace LevelEditor
         {
             if (index < 0 || index + 1 >= list.Count) return false;
 
-            Instance temp = list[index];
+            Object temp = list[index];
             list[index] = list[index + 1];
             list[index + 1] = temp;
 
@@ -123,7 +107,7 @@ namespace LevelEditor
 
         public void Draw(Graphics G)
         {
-            foreach (Instance I in list) I.Draw(G);
+            foreach (Object O in list) O.Draw(G);
         }
 
         public bool Save(string FilePath)
@@ -136,15 +120,7 @@ namespace LevelEditor
 
                 FS.WriteLine(foundation.Dictionary.GetFilePath());
 
-                if (code == null || code.Length == 0)
-                {
-                    FS.WriteLine(0);
-                }
-                else
-                {
-                    FS.WriteLine(code.Length);
-                    foreach (string line in code) FS.WriteLine(line);
-                }
+                code.Save(FS);
 
                 FS.WriteLine("" + foundation.Plane.GridCellSize.Width);
                 FS.WriteLine("" + foundation.Plane.GridCellSize.Height);
@@ -155,7 +131,7 @@ namespace LevelEditor
 
                 FS.WriteLine("" + list.Count);
 
-                foreach (Instance I in list)
+                foreach (Object I in list)
                 {
                     I.Save(FS);
                 }
@@ -173,7 +149,6 @@ namespace LevelEditor
         public bool Load(string FilePath)
         {
             filePath = FilePath;
-            bool success;
 
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
@@ -184,55 +159,33 @@ namespace LevelEditor
 
                 FS.ReadLine();
 
-                int codeLen;
-                success = Int32.TryParse(FS.ReadLine(), out codeLen);
-                if (!success) return success;
-                if (codeLen == 0)
-                {
-                    code = null;
-                }
-                else
-                {
-                    code = new string[codeLen];
-                    for (int i = 0; i < codeLen; ++i)
-                    {
-                        code[i] = FS.ReadLine();
-                        if (i + 1 < codeLen) code[i] += "\r\n";
-                    }
-                }
+                if (!code.Load(FS)) return false;
 
                 int width, height;
-                success = Int32.TryParse(FS.ReadLine(), out width);
-                if (!success) return success;
-                success = Int32.TryParse(FS.ReadLine(), out height);
-                if (!success) return success;
+                if (!Int32.TryParse(FS.ReadLine(), out width)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out height)) return false;
                 foundation.Plane.GridCellSize = new Size(width, height);
 
                 bool grid;
-                success = Boolean.TryParse(FS.ReadLine(), out grid);
-                if (!success) return success;
+                if (!Boolean.TryParse(FS.ReadLine(), out grid)) return false;
                 foundation.Plane.IsDrawGrid = grid;
-                success = Boolean.TryParse(FS.ReadLine(), out grid);
-                if (!success) return success;
+                if (!Boolean.TryParse(FS.ReadLine(), out grid)) return false;
                 foundation.Plane.IsSnapGrid = grid;
 
-                success = Int32.TryParse(FS.ReadLine(), out lastId);
-                if (!success) return success;
+                if (!Int32.TryParse(FS.ReadLine(), out lastId)) return false;
 
                 int cnt;
-                success = Int32.TryParse(FS.ReadLine(), out cnt);
-                if (!success) return success;
+                if (!Int32.TryParse(FS.ReadLine(), out cnt)) return false;
 
                 for (int i = 0; i < cnt; ++i)
                 {
-                    Instance I = new Instance(this);
-                    success = I.Load(FS, foundation.Dictionary);
-                    if (!success) return success;
+                    Object I = new Object(this);
+                    if (!I.Load(FS)) return false;
                     list.Add(I);
                 }
             }
 
-            return success;
+            return true;
         }
     }
 }

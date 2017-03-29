@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="classes\Code.cs" />
     <Compile Include="classes\Definition.cs" />
     <Compile Include="classes\Dictionary.cs" />
     <Compile Include="classes\Foundation.cs" />
@@ -58,7 +59,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="classes\Instance.cs" />
+    <Compile Include="classes\Object.cs" />
     <Compile Include="classes\Level.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

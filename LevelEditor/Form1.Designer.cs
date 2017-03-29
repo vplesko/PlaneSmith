@@ -34,7 +34,7 @@
             this.dictionaryBox = new System.Windows.Forms.ListBox();
             this.buttonAddDef = new System.Windows.Forms.Button();
             this.defProperties = new System.Windows.Forms.PropertyGrid();
-            this.instProperties = new System.Windows.Forms.PropertyGrid();
+            this.objProperties = new System.Windows.Forms.PropertyGrid();
             this.numericGridW = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.numericGridH = new System.Windows.Forms.NumericUpDown();
@@ -52,14 +52,14 @@
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonMoveUpDef = new System.Windows.Forms.Button();
             this.buttonMoveDownDef = new System.Windows.Forms.Button();
-            this.buttonMoveUpInst = new System.Windows.Forms.Button();
-            this.buttonMoveDownInst = new System.Windows.Forms.Button();
+            this.buttonMoveUpObj = new System.Windows.Forms.Button();
+            this.buttonMoveDownObj = new System.Windows.Forms.Button();
             this.buttonDeleteDef = new System.Windows.Forms.Button();
-            this.buttonDeleteInst = new System.Windows.Forms.Button();
+            this.buttonDeleteObj = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
             this.tabCode = new System.Windows.Forms.TabPage();
-            this.richTextCodeInst = new System.Windows.Forms.RichTextBox();
+            this.richTextCodeObj = new System.Windows.Forms.RichTextBox();
             this.richTextCodeDef = new System.Windows.Forms.RichTextBox();
             this.richTextCodeBase = new System.Windows.Forms.RichTextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
@@ -126,12 +126,12 @@
             this.defProperties.Size = new System.Drawing.Size(194, 192);
             this.defProperties.TabIndex = 6;
             // 
-            // instProperties
+            // objProperties
             // 
-            this.instProperties.Location = new System.Drawing.Point(775, 357);
-            this.instProperties.Name = "instProperties";
-            this.instProperties.Size = new System.Drawing.Size(197, 192);
-            this.instProperties.TabIndex = 7;
+            this.objProperties.Location = new System.Drawing.Point(775, 357);
+            this.objProperties.Name = "objProperties";
+            this.objProperties.Size = new System.Drawing.Size(197, 192);
+            this.objProperties.TabIndex = 7;
             // 
             // numericGridW
             // 
@@ -308,27 +308,27 @@
             this.buttonMoveDownDef.UseVisualStyleBackColor = true;
             this.buttonMoveDownDef.Click += new System.EventHandler(this.buttonMoveDownDef_Click);
             // 
-            // buttonMoveUpInst
+            // buttonMoveUpObj
             // 
-            this.buttonMoveUpInst.Enabled = false;
-            this.buttonMoveUpInst.Location = new System.Drawing.Point(775, 28);
-            this.buttonMoveUpInst.Name = "buttonMoveUpInst";
-            this.buttonMoveUpInst.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveUpInst.TabIndex = 17;
-            this.buttonMoveUpInst.Text = "↑";
-            this.buttonMoveUpInst.UseVisualStyleBackColor = true;
-            this.buttonMoveUpInst.Click += new System.EventHandler(this.buttonMoveUpInst_Click);
+            this.buttonMoveUpObj.Enabled = false;
+            this.buttonMoveUpObj.Location = new System.Drawing.Point(775, 28);
+            this.buttonMoveUpObj.Name = "buttonMoveUpObj";
+            this.buttonMoveUpObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveUpObj.TabIndex = 17;
+            this.buttonMoveUpObj.Text = "↑";
+            this.buttonMoveUpObj.UseVisualStyleBackColor = true;
+            this.buttonMoveUpObj.Click += new System.EventHandler(this.buttonMoveUpInst_Click);
             // 
-            // buttonMoveDownInst
+            // buttonMoveDownObj
             // 
-            this.buttonMoveDownInst.Enabled = false;
-            this.buttonMoveDownInst.Location = new System.Drawing.Point(818, 28);
-            this.buttonMoveDownInst.Name = "buttonMoveDownInst";
-            this.buttonMoveDownInst.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveDownInst.TabIndex = 18;
-            this.buttonMoveDownInst.Text = "↓";
-            this.buttonMoveDownInst.UseVisualStyleBackColor = true;
-            this.buttonMoveDownInst.Click += new System.EventHandler(this.buttonMoveDownInst_Click);
+            this.buttonMoveDownObj.Enabled = false;
+            this.buttonMoveDownObj.Location = new System.Drawing.Point(818, 28);
+            this.buttonMoveDownObj.Name = "buttonMoveDownObj";
+            this.buttonMoveDownObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveDownObj.TabIndex = 18;
+            this.buttonMoveDownObj.Text = "↓";
+            this.buttonMoveDownObj.UseVisualStyleBackColor = true;
+            this.buttonMoveDownObj.Click += new System.EventHandler(this.buttonMoveDownInst_Click);
             // 
             // buttonDeleteDef
             // 
@@ -341,16 +341,16 @@
             this.buttonDeleteDef.UseVisualStyleBackColor = true;
             this.buttonDeleteDef.Click += new System.EventHandler(this.buttonDeleteDef_Click);
             // 
-            // buttonDeleteInst
+            // buttonDeleteObj
             // 
-            this.buttonDeleteInst.Enabled = false;
-            this.buttonDeleteInst.Location = new System.Drawing.Point(861, 28);
-            this.buttonDeleteInst.Name = "buttonDeleteInst";
-            this.buttonDeleteInst.Size = new System.Drawing.Size(37, 31);
-            this.buttonDeleteInst.TabIndex = 20;
-            this.buttonDeleteInst.Text = "-";
-            this.buttonDeleteInst.UseVisualStyleBackColor = true;
-            this.buttonDeleteInst.Click += new System.EventHandler(this.buttonDeleteInst_Click);
+            this.buttonDeleteObj.Enabled = false;
+            this.buttonDeleteObj.Location = new System.Drawing.Point(861, 28);
+            this.buttonDeleteObj.Name = "buttonDeleteObj";
+            this.buttonDeleteObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonDeleteObj.TabIndex = 20;
+            this.buttonDeleteObj.Text = "-";
+            this.buttonDeleteObj.UseVisualStyleBackColor = true;
+            this.buttonDeleteObj.Click += new System.EventHandler(this.buttonDeleteInst_Click);
             // 
             // tabControl1
             // 
@@ -383,7 +383,7 @@
             // tabCode
             // 
             this.tabCode.BackColor = System.Drawing.SystemColors.Control;
-            this.tabCode.Controls.Add(this.richTextCodeInst);
+            this.tabCode.Controls.Add(this.richTextCodeObj);
             this.tabCode.Controls.Add(this.richTextCodeDef);
             this.tabCode.Controls.Add(this.richTextCodeBase);
             this.tabCode.Controls.Add(this.buttonGenerate);
@@ -397,17 +397,17 @@
             this.tabCode.TabIndex = 1;
             this.tabCode.Text = "Make Output";
             // 
-            // richTextCodeInst
+            // richTextCodeObj
             // 
-            this.richTextCodeInst.AcceptsTab = true;
-            this.richTextCodeInst.Enabled = false;
-            this.richTextCodeInst.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeInst.Location = new System.Drawing.Point(9, 339);
-            this.richTextCodeInst.Name = "richTextCodeInst";
-            this.richTextCodeInst.Size = new System.Drawing.Size(534, 128);
-            this.richTextCodeInst.TabIndex = 9;
-            this.richTextCodeInst.Text = "";
-            this.richTextCodeInst.WordWrap = false;
+            this.richTextCodeObj.AcceptsTab = true;
+            this.richTextCodeObj.Enabled = false;
+            this.richTextCodeObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeObj.Location = new System.Drawing.Point(9, 339);
+            this.richTextCodeObj.Name = "richTextCodeObj";
+            this.richTextCodeObj.Size = new System.Drawing.Size(534, 128);
+            this.richTextCodeObj.TabIndex = 9;
+            this.richTextCodeObj.Text = "";
+            this.richTextCodeObj.WordWrap = false;
             // 
             // richTextCodeDef
             // 
@@ -447,9 +447,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 323);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(78, 13);
+            this.label4.Size = new System.Drawing.Size(68, 13);
             this.label4.TabIndex = 5;
-            this.label4.Text = "Instance code:";
+            this.label4.Text = "Object code:";
             // 
             // label3
             // 
@@ -475,13 +475,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.buttonDeleteInst);
+            this.Controls.Add(this.buttonDeleteObj);
             this.Controls.Add(this.buttonDeleteDef);
-            this.Controls.Add(this.buttonMoveDownInst);
-            this.Controls.Add(this.buttonMoveUpInst);
+            this.Controls.Add(this.buttonMoveDownObj);
+            this.Controls.Add(this.buttonMoveUpObj);
             this.Controls.Add(this.buttonMoveDownDef);
             this.Controls.Add(this.buttonMoveUpDef);
-            this.Controls.Add(this.instProperties);
+            this.Controls.Add(this.objProperties);
             this.Controls.Add(this.defProperties);
             this.Controls.Add(this.buttonAddDef);
             this.Controls.Add(this.dictionaryBox);
@@ -516,7 +516,7 @@
         private System.Windows.Forms.ListBox dictionaryBox;
         private System.Windows.Forms.Button buttonAddDef;
         private System.Windows.Forms.PropertyGrid defProperties;
-        private System.Windows.Forms.PropertyGrid instProperties;
+        private System.Windows.Forms.PropertyGrid objProperties;
         private System.Windows.Forms.NumericUpDown numericGridW;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericGridH;
@@ -534,10 +534,10 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem1;
         private System.Windows.Forms.Button buttonMoveUpDef;
         private System.Windows.Forms.Button buttonMoveDownDef;
-        private System.Windows.Forms.Button buttonMoveUpInst;
-        private System.Windows.Forms.Button buttonMoveDownInst;
+        private System.Windows.Forms.Button buttonMoveUpObj;
+        private System.Windows.Forms.Button buttonMoveDownObj;
         private System.Windows.Forms.Button buttonDeleteDef;
-        private System.Windows.Forms.Button buttonDeleteInst;
+        private System.Windows.Forms.Button buttonDeleteObj;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPlane;
         private System.Windows.Forms.TabPage tabCode;
@@ -546,7 +546,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox richTextCodeBase;
-        private System.Windows.Forms.RichTextBox richTextCodeInst;
+        private System.Windows.Forms.RichTextBox richTextCodeObj;
         private System.Windows.Forms.RichTextBox richTextCodeDef;
     }
 }

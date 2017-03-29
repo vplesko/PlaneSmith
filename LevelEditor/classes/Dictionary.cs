@@ -116,7 +116,6 @@ namespace LevelEditor
         public bool Load(string FilePath)
         {
             filePath = FilePath;
-            bool success;
 
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
@@ -125,23 +124,20 @@ namespace LevelEditor
                 string type = FS.ReadLine();
                 if (!String.Equals(type, TypeToken)) return false;
 
-                success = Int32.TryParse(FS.ReadLine(), out lastId);
-                if (!success) return success;
+                if (!Int32.TryParse(FS.ReadLine(), out lastId)) return false;
 
                 int cnt;
-                success = Int32.TryParse(FS.ReadLine(), out cnt);
-                if (!success) return success;
+                if (!Int32.TryParse(FS.ReadLine(), out cnt)) return false;
 
                 for (int i = 0; i < cnt; ++i)
                 {
                     Definition D = new Definition(this);
-                    success = D.Load(FS);
-                    if (!success) return success;
+                    if (!D.Load(FS)) return false;
                     list.Add(D);
                 }
             }
 
-            return success;
+            return true;
         }
     }
 }
