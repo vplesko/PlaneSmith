@@ -24,7 +24,6 @@ namespace LevelEditor
             level = Lvl;
             definition = null;
             position = new Point();
-
             code = new Code();
         }
 
@@ -33,6 +32,8 @@ namespace LevelEditor
             level = Lvl;
             definition = Def;
             position = new Point();
+            code = new Code();
+            code.CopyFrom(Def.GetCodeObjAuto());
         }
 
         public Definition GetDefinition()

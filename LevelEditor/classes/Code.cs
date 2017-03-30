@@ -15,14 +15,22 @@ namespace LevelEditor
             get { return lines; }
         }
 
-        public void CopyFrom(string[] Code)
+        public void CopyFrom(string[] Lines)
         {
-            lines = new string[Code.Length];
-            Code.CopyTo(lines, 0);
+            if (Lines == null) return;
+
+            lines = new string[Lines.Length];
+            Lines.CopyTo(lines, 0);
         }
 
         public void CopyFrom(Code C)
         {
+            if (C == null)
+            {
+                lines = null;
+                return;
+            }
+
             CopyFrom(C.lines);
         }
 

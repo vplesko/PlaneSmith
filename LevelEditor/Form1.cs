@@ -42,6 +42,13 @@ namespace LevelEditor
 
             toolTip.SetToolTip(this.checkShowGrid, "Show/hide grid");
             toolTip.SetToolTip(this.checkSnapGrid, "Align new objects to grid-cells");
+
+            toolTip.SetToolTip(this.richTextCodeBase, "Starting point for code generation");
+            toolTip.SetToolTip(this.richTextCodeDef, "Definition specific code");
+            toolTip.SetToolTip(this.richTextCodeDefObj, "Code assigned to new objects of this definition");
+            toolTip.SetToolTip(this.richTextCodeObj, "Object specific code");
+
+            toolTip.SetToolTip(this.buttonGenerate, "Generate output into a file");
         }
 
         internal Color PlaneBackColor
@@ -258,7 +265,10 @@ namespace LevelEditor
                 curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
 
                 if (prev.X != curr.X || prev.Y != curr.Y)
+                {
+                    putSelectedDefCode();
                     foundation.AddObjTemporasToLevel();
+                }
             }
         }
 
@@ -272,6 +282,7 @@ namespace LevelEditor
         {
             if (e.Button == MouseButtons.Left)
             {
+                putSelectedDefCode();
                 foundation.AddObjTemporasToLevel();
             }
             else if (e.Button == MouseButtons.Right)
@@ -317,6 +328,12 @@ namespace LevelEditor
             if (selectedDefValid && selectedDefIndex >= 0)
             {
                 foundation.Dictionary[selectedDefIndex].GetCode().CopyFrom(richTextCodeDef.Lines);
+                foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().CopyFrom(richTextCodeDefObj.Lines);
+
+                if (foundation.Plane.ObjTemporas != null)
+                {
+                    foundation.Plane.ObjTemporas.GetCode().CopyFrom(foundation.Dictionary[selectedDefIndex].GetCodeObjAuto());
+                }
             }
         }
 
@@ -340,6 +357,19 @@ namespace LevelEditor
             {
                 richTextCodeDef.Lines = null;
             }
+
+            code = foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().Lines;
+            if (code != null)
+            {
+                richTextCodeDefObj.Clear();
+
+                foreach (string line in code)
+                    richTextCodeDefObj.AppendText(line);
+            }
+            else
+            {
+                richTextCodeDefObj.Lines = null;
+            }
         }
 
         private void dictionaryBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -359,6 +389,7 @@ namespace LevelEditor
                 buttonDeleteDef.Enabled = true;
 
                 richTextCodeDef.Enabled = true;
+                richTextCodeDefObj.Enabled = true;
 
                 takeSelectedDefCode();
             }
@@ -372,6 +403,8 @@ namespace LevelEditor
 
                 richTextCodeDef.Enabled = false;
                 richTextCodeDef.Lines = null;
+                richTextCodeDefObj.Enabled = false;
+                richTextCodeDefObj.Lines = null;
             }
         }
 
@@ -390,7 +423,7 @@ namespace LevelEditor
         {
             if (!selectedObjValid)
             {
-                richTextCodeDef.Lines = null;
+                richTextCodeObj.Lines = null;
                 return;
             }
 

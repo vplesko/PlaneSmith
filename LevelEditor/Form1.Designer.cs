@@ -58,21 +58,25 @@
             this.buttonDeleteObj = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
-            this.tabCode = new System.Windows.Forms.TabPage();
+            this.tabCodeBase = new System.Windows.Forms.TabPage();
             this.richTextCodeObj = new System.Windows.Forms.RichTextBox();
             this.richTextCodeDef = new System.Windows.Forms.RichTextBox();
             this.richTextCodeBase = new System.Windows.Forms.RichTextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.tabCodeDef = new System.Windows.Forms.TabPage();
+            this.tabCodeObj = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.richTextCodeDefObj = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPlane.SuspendLayout();
-            this.tabCode.SuspendLayout();
+            this.tabCodeBase.SuspendLayout();
+            this.tabCodeDef.SuspendLayout();
+            this.tabCodeObj.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBoxEdit
@@ -356,7 +360,9 @@
             // 
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPlane);
-            this.tabControl1.Controls.Add(this.tabCode);
+            this.tabControl1.Controls.Add(this.tabCodeBase);
+            this.tabControl1.Controls.Add(this.tabCodeDef);
+            this.tabControl1.Controls.Add(this.tabCodeObj);
             this.tabControl1.Location = new System.Drawing.Point(212, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -378,33 +384,28 @@
             this.tabPlane.Padding = new System.Windows.Forms.Padding(3);
             this.tabPlane.Size = new System.Drawing.Size(549, 504);
             this.tabPlane.TabIndex = 0;
-            this.tabPlane.Text = "Edit Level";
+            this.tabPlane.Text = "Plane";
             // 
-            // tabCode
+            // tabCodeBase
             // 
-            this.tabCode.BackColor = System.Drawing.SystemColors.Control;
-            this.tabCode.Controls.Add(this.richTextCodeObj);
-            this.tabCode.Controls.Add(this.richTextCodeDef);
-            this.tabCode.Controls.Add(this.richTextCodeBase);
-            this.tabCode.Controls.Add(this.buttonGenerate);
-            this.tabCode.Controls.Add(this.label4);
-            this.tabCode.Controls.Add(this.label3);
-            this.tabCode.Controls.Add(this.label2);
-            this.tabCode.Location = new System.Drawing.Point(4, 25);
-            this.tabCode.Name = "tabCode";
-            this.tabCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCode.Size = new System.Drawing.Size(549, 504);
-            this.tabCode.TabIndex = 1;
-            this.tabCode.Text = "Make Output";
+            this.tabCodeBase.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCodeBase.Controls.Add(this.richTextCodeBase);
+            this.tabCodeBase.Controls.Add(this.buttonGenerate);
+            this.tabCodeBase.Location = new System.Drawing.Point(4, 25);
+            this.tabCodeBase.Name = "tabCodeBase";
+            this.tabCodeBase.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCodeBase.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeBase.TabIndex = 1;
+            this.tabCodeBase.Text = "Base Code";
             // 
             // richTextCodeObj
             // 
             this.richTextCodeObj.AcceptsTab = true;
             this.richTextCodeObj.Enabled = false;
             this.richTextCodeObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeObj.Location = new System.Drawing.Point(9, 339);
+            this.richTextCodeObj.Location = new System.Drawing.Point(3, 3);
             this.richTextCodeObj.Name = "richTextCodeObj";
-            this.richTextCodeObj.Size = new System.Drawing.Size(534, 128);
+            this.richTextCodeObj.Size = new System.Drawing.Size(543, 493);
             this.richTextCodeObj.TabIndex = 9;
             this.richTextCodeObj.Text = "";
             this.richTextCodeObj.WordWrap = false;
@@ -414,9 +415,9 @@
             this.richTextCodeDef.AcceptsTab = true;
             this.richTextCodeDef.Enabled = false;
             this.richTextCodeDef.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDef.Location = new System.Drawing.Point(9, 192);
+            this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
             this.richTextCodeDef.Name = "richTextCodeDef";
-            this.richTextCodeDef.Size = new System.Drawing.Size(534, 128);
+            this.richTextCodeDef.Size = new System.Drawing.Size(543, 229);
             this.richTextCodeDef.TabIndex = 8;
             this.richTextCodeDef.Text = "";
             this.richTextCodeDef.WordWrap = false;
@@ -425,9 +426,9 @@
             // 
             this.richTextCodeBase.AcceptsTab = true;
             this.richTextCodeBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeBase.Location = new System.Drawing.Point(9, 19);
+            this.richTextCodeBase.Location = new System.Drawing.Point(3, 3);
             this.richTextCodeBase.Name = "richTextCodeBase";
-            this.richTextCodeBase.Size = new System.Drawing.Size(534, 154);
+            this.richTextCodeBase.Size = new System.Drawing.Size(543, 464);
             this.richTextCodeBase.TabIndex = 7;
             this.richTextCodeBase.Text = "";
             this.richTextCodeBase.WordWrap = false;
@@ -442,32 +443,58 @@
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
-            // label4
+            // tabCodeDef
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 323);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Object code:";
+            this.tabCodeDef.Controls.Add(this.richTextCodeDefObj);
+            this.tabCodeDef.Controls.Add(this.label3);
+            this.tabCodeDef.Controls.Add(this.label2);
+            this.tabCodeDef.Controls.Add(this.richTextCodeDef);
+            this.tabCodeDef.Location = new System.Drawing.Point(4, 25);
+            this.tabCodeDef.Name = "tabCodeDef";
+            this.tabCodeDef.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeDef.TabIndex = 2;
+            this.tabCodeDef.Text = "Def. Code";
+            this.tabCodeDef.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // tabCodeObj
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 176);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(81, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Definition code:";
+            this.tabCodeObj.Controls.Add(this.richTextCodeObj);
+            this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
+            this.tabCodeObj.Name = "tabCodeObj";
+            this.tabCodeObj.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeObj.TabIndex = 3;
+            this.tabCodeObj.Text = "Obj. Code";
+            this.tabCodeObj.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 3);
+            this.label2.Location = new System.Drawing.Point(3, 3);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Base code:";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Definition code:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(0, 251);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(92, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Object auto code:";
+            // 
+            // richTextCodeDefObj
+            // 
+            this.richTextCodeDefObj.AcceptsTab = true;
+            this.richTextCodeDefObj.Enabled = false;
+            this.richTextCodeDefObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 267);
+            this.richTextCodeDefObj.Name = "richTextCodeDefObj";
+            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 229);
+            this.richTextCodeDefObj.TabIndex = 11;
+            this.richTextCodeDefObj.Text = "";
+            this.richTextCodeDefObj.WordWrap = false;
             // 
             // Form1
             // 
@@ -502,8 +529,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPlane.ResumeLayout(false);
             this.tabPlane.PerformLayout();
-            this.tabCode.ResumeLayout(false);
-            this.tabCode.PerformLayout();
+            this.tabCodeBase.ResumeLayout(false);
+            this.tabCodeDef.ResumeLayout(false);
+            this.tabCodeDef.PerformLayout();
+            this.tabCodeObj.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -540,14 +569,16 @@
         private System.Windows.Forms.Button buttonDeleteObj;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPlane;
-        private System.Windows.Forms.TabPage tabCode;
+        private System.Windows.Forms.TabPage tabCodeBase;
         private System.Windows.Forms.Button buttonGenerate;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox richTextCodeBase;
         private System.Windows.Forms.RichTextBox richTextCodeObj;
         private System.Windows.Forms.RichTextBox richTextCodeDef;
+        private System.Windows.Forms.TabPage tabCodeDef;
+        private System.Windows.Forms.TabPage tabCodeObj;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox richTextCodeDefObj;
     }
 }
 

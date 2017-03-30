@@ -18,7 +18,7 @@ namespace LevelEditor
         Image image;
         string imagePath;
 
-        Code code;
+        Code code, codeObjAuto;
 
         public Definition(Dictionary Dictionary)
         {
@@ -26,6 +26,7 @@ namespace LevelEditor
             name = "";
 
             code = new Code();
+            codeObjAuto = new Code();
         }
 
         public Definition(Dictionary Dict, string Name)
@@ -34,6 +35,7 @@ namespace LevelEditor
             name = Name;
 
             code = new Code();
+            codeObjAuto = new Code();
         }
 
         [Description("The name by which this definition will be referenced in your code."), 
@@ -85,6 +87,11 @@ namespace LevelEditor
             return code;
         }
 
+        public Code GetCodeObjAuto()
+        {
+            return codeObjAuto;
+        }
+
         public override string ToString()
         {
             return Name;
@@ -97,6 +104,7 @@ namespace LevelEditor
             FS.WriteLine(imagePath);
 
             code.Save(FS);
+            codeObjAuto.Save(FS);
         }
 
         public bool Load(System.IO.StreamReader FS)
@@ -113,6 +121,8 @@ namespace LevelEditor
             }
 
             if (!code.Load(FS)) return false;
+
+            if (!codeObjAuto.Load(FS)) return false;
 
             return true;
         }
