@@ -251,12 +251,14 @@ namespace LevelEditor
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
+            labelCoords.Text = foundation.Plane.SnapToGrid(e.X, e.Y).ToString();
+
             if (foundation.Plane.ObjTemporas == null) return;
 
             Point prev = foundation.Plane.ObjTemporas.Position;
 
             foundation.Plane.MoveObjTemporas(e.X, e.Y);
-
+            
             if (foundation.Plane.IsSnapGrid &&
                 (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
                 (Control.ModifierKeys & Keys.Shift) != 0)
@@ -311,8 +313,11 @@ namespace LevelEditor
             {
                 richTextCodeBase.Clear();
 
-                foreach (string line in code)
-                    richTextCodeBase.AppendText(line);
+                for (int i = 0; i < code.Length; ++i)
+                {
+                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
+                    richTextCodeBase.AppendText(code[i]);
+                }
             }
             else
             {
@@ -350,8 +355,11 @@ namespace LevelEditor
             {
                 richTextCodeDef.Clear();
 
-                foreach (string line in code)
-                    richTextCodeDef.AppendText(line);
+                for (int i = 0; i < code.Length; ++i)
+                {
+                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
+                    richTextCodeDef.AppendText(code[i]);
+                }
             }
             else
             {
@@ -363,8 +371,11 @@ namespace LevelEditor
             {
                 richTextCodeDefObj.Clear();
 
-                foreach (string line in code)
-                    richTextCodeDefObj.AppendText(line);
+                for (int i = 0; i < code.Length; ++i)
+                {
+                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
+                    richTextCodeDefObj.AppendText(code[i]);
+                }
             }
             else
             {
@@ -432,8 +443,11 @@ namespace LevelEditor
             {
                 richTextCodeObj.Clear();
 
-                foreach (string line in code)
-                    richTextCodeObj.AppendText(line);
+                for (int i = 0; i < code.Length; ++i)
+                {
+                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
+                    richTextCodeObj.AppendText(code[i]);
+                }
             }
             else
             {
@@ -450,7 +464,7 @@ namespace LevelEditor
             {
                 selectedObjValid = true;
 
-                foundation.ForgetObjTemporas();
+                /*foundation.ForgetObjTemporas();*/
                 objProperties.SelectedObject = foundation.Level[selectedObjIndex];
 
                 buttonMoveUpObj.Enabled = true;
@@ -644,7 +658,18 @@ namespace LevelEditor
             putSelectedDefCode();
             putSelectedObjCode();
 
-            // @TODO@
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text File|*.*";
+            saveFileDialog.Title = "Generate Code Into";
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog.FileName != null &&
+                saveFileDialog.FileName.Length != 0)
+            {
+                string error = foundation.Generator.Generate(saveFileDialog.FileName);
+                if (error == null) MessageBox.Show("Code has been successfully generated.", "Generated");
+                else MessageBox.Show(error, "Error");
+            }
         }
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)

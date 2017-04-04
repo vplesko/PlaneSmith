@@ -59,15 +59,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
             this.tabCodeBase = new System.Windows.Forms.TabPage();
-            this.richTextCodeObj = new System.Windows.Forms.RichTextBox();
-            this.richTextCodeDef = new System.Windows.Forms.RichTextBox();
             this.richTextCodeBase = new System.Windows.Forms.RichTextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.tabCodeDef = new System.Windows.Forms.TabPage();
-            this.tabCodeObj = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.richTextCodeDefObj = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.richTextCodeDef = new System.Windows.Forms.RichTextBox();
+            this.tabCodeObj = new System.Windows.Forms.TabPage();
+            this.richTextCodeObj = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).BeginInit();
@@ -213,7 +213,6 @@
             this.labelCoords.Name = "labelCoords";
             this.labelCoords.Size = new System.Drawing.Size(117, 23);
             this.labelCoords.TabIndex = 13;
-            this.labelCoords.Text = "(0, 0)";
             this.labelCoords.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // menuStrip1
@@ -398,34 +397,10 @@
             this.tabCodeBase.TabIndex = 1;
             this.tabCodeBase.Text = "Base Code";
             // 
-            // richTextCodeObj
-            // 
-            this.richTextCodeObj.AcceptsTab = true;
-            this.richTextCodeObj.Enabled = false;
-            this.richTextCodeObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeObj.Location = new System.Drawing.Point(3, 3);
-            this.richTextCodeObj.Name = "richTextCodeObj";
-            this.richTextCodeObj.Size = new System.Drawing.Size(543, 493);
-            this.richTextCodeObj.TabIndex = 9;
-            this.richTextCodeObj.Text = "";
-            this.richTextCodeObj.WordWrap = false;
-            // 
-            // richTextCodeDef
-            // 
-            this.richTextCodeDef.AcceptsTab = true;
-            this.richTextCodeDef.Enabled = false;
-            this.richTextCodeDef.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
-            this.richTextCodeDef.Name = "richTextCodeDef";
-            this.richTextCodeDef.Size = new System.Drawing.Size(543, 229);
-            this.richTextCodeDef.TabIndex = 8;
-            this.richTextCodeDef.Text = "";
-            this.richTextCodeDef.WordWrap = false;
-            // 
             // richTextCodeBase
             // 
             this.richTextCodeBase.AcceptsTab = true;
-            this.richTextCodeBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeBase.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeBase.Location = new System.Drawing.Point(3, 3);
             this.richTextCodeBase.Name = "richTextCodeBase";
             this.richTextCodeBase.Size = new System.Drawing.Size(543, 464);
@@ -456,24 +431,17 @@
             this.tabCodeDef.Text = "Def. Code";
             this.tabCodeDef.UseVisualStyleBackColor = true;
             // 
-            // tabCodeObj
+            // richTextCodeDefObj
             // 
-            this.tabCodeObj.Controls.Add(this.richTextCodeObj);
-            this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
-            this.tabCodeObj.Name = "tabCodeObj";
-            this.tabCodeObj.Size = new System.Drawing.Size(549, 504);
-            this.tabCodeObj.TabIndex = 3;
-            this.tabCodeObj.Text = "Obj. Code";
-            this.tabCodeObj.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Definition code:";
+            this.richTextCodeDefObj.AcceptsTab = true;
+            this.richTextCodeDefObj.Enabled = false;
+            this.richTextCodeDefObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 267);
+            this.richTextCodeDefObj.Name = "richTextCodeDefObj";
+            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 229);
+            this.richTextCodeDefObj.TabIndex = 11;
+            this.richTextCodeDefObj.Text = "";
+            this.richTextCodeDefObj.WordWrap = false;
             // 
             // label3
             // 
@@ -484,17 +452,48 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Object auto code:";
             // 
-            // richTextCodeDefObj
+            // label2
             // 
-            this.richTextCodeDefObj.AcceptsTab = true;
-            this.richTextCodeDefObj.Enabled = false;
-            this.richTextCodeDefObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 267);
-            this.richTextCodeDefObj.Name = "richTextCodeDefObj";
-            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 229);
-            this.richTextCodeDefObj.TabIndex = 11;
-            this.richTextCodeDefObj.Text = "";
-            this.richTextCodeDefObj.WordWrap = false;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Definition code:";
+            // 
+            // richTextCodeDef
+            // 
+            this.richTextCodeDef.AcceptsTab = true;
+            this.richTextCodeDef.Enabled = false;
+            this.richTextCodeDef.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
+            this.richTextCodeDef.Name = "richTextCodeDef";
+            this.richTextCodeDef.Size = new System.Drawing.Size(543, 229);
+            this.richTextCodeDef.TabIndex = 8;
+            this.richTextCodeDef.Text = "";
+            this.richTextCodeDef.WordWrap = false;
+            // 
+            // tabCodeObj
+            // 
+            this.tabCodeObj.Controls.Add(this.richTextCodeObj);
+            this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
+            this.tabCodeObj.Name = "tabCodeObj";
+            this.tabCodeObj.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeObj.TabIndex = 3;
+            this.tabCodeObj.Text = "Obj. Code";
+            this.tabCodeObj.UseVisualStyleBackColor = true;
+            // 
+            // richTextCodeObj
+            // 
+            this.richTextCodeObj.AcceptsTab = true;
+            this.richTextCodeObj.Enabled = false;
+            this.richTextCodeObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextCodeObj.Location = new System.Drawing.Point(3, 3);
+            this.richTextCodeObj.Name = "richTextCodeObj";
+            this.richTextCodeObj.Size = new System.Drawing.Size(543, 493);
+            this.richTextCodeObj.TabIndex = 9;
+            this.richTextCodeObj.Text = "";
+            this.richTextCodeObj.WordWrap = false;
             // 
             // Form1
             // 

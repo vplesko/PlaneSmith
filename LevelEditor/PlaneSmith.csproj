@@ -52,6 +52,13 @@
     <Compile Include="classes\Definition.cs" />
     <Compile Include="classes\Dictionary.cs" />
     <Compile Include="classes\Foundation.cs" />
+    <Compile Include="classes\generation\Context.cs" />
+    <Compile Include="classes\generation\ContextBase.cs" />
+    <Compile Include="classes\generation\ContextDef.cs" />
+    <Compile Include="classes\generation\ContextFech.cs" />
+    <Compile Include="classes\generation\ContextObj.cs" />
+    <Compile Include="classes\generation\Stack.cs" />
+    <Compile Include="classes\generation\Generator.cs" />
     <Compile Include="classes\Plane.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

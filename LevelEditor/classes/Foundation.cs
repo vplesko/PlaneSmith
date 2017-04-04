@@ -15,14 +15,17 @@ namespace LevelEditor
         Level level;
         Plane plane;
 
+        Generator generator;
+
         public Foundation(Form1 Form)
         {
             form = Form;
 
             dictionary = new Dictionary(this);
             level = new Level(this);
-
             plane = new Plane(this);
+
+            generator = new Generator(this);
         }
 
         public Form1 Form
@@ -43,6 +46,11 @@ namespace LevelEditor
         public Plane Plane
         {
             get { return plane; }
+        }
+
+        public Generator Generator
+        {
+            get { return generator; }
         }
 
         public void AddDefinition(string Name, string ImageFilePath)

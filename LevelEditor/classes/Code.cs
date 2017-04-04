@@ -21,6 +21,9 @@ namespace LevelEditor
 
             lines = new string[Lines.Length];
             Lines.CopyTo(lines, 0);
+
+            for (int i = 0; i < lines.Length - 1; ++i)
+                lines[i] += "\r\n";
         }
 
         public void CopyFrom(Code C)
@@ -31,7 +34,9 @@ namespace LevelEditor
                 return;
             }
 
-            CopyFrom(C.lines);
+            lines = new string[C.Lines.Length];
+            for (int i = 0; i < lines.Length; ++i)
+                lines[i] = C.Lines[i];
         }
 
         public void Save(System.IO.StreamWriter FS)
@@ -43,7 +48,8 @@ namespace LevelEditor
             else
             {
                 FS.WriteLine(lines.Length);
-                foreach (string line in lines) FS.WriteLine(line);
+                foreach (string line in lines) FS.Write(line);
+                FS.WriteLine();
             }
         }
 
