@@ -81,6 +81,9 @@
             // 
             // pictureBoxEdit
             // 
+            this.pictureBoxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
             this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
             this.pictureBoxEdit.Name = "pictureBoxEdit";
@@ -96,6 +99,8 @@
             // 
             // levelBox
             // 
+            this.levelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.levelBox.FormattingEnabled = true;
             this.levelBox.Location = new System.Drawing.Point(775, 61);
             this.levelBox.Name = "levelBox";
@@ -106,6 +111,8 @@
             // 
             // dictionaryBox
             // 
+            this.dictionaryBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dictionaryBox.FormattingEnabled = true;
             this.dictionaryBox.Location = new System.Drawing.Point(12, 61);
             this.dictionaryBox.Name = "dictionaryBox";
@@ -125,6 +132,7 @@
             // 
             // defProperties
             // 
+            this.defProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.defProperties.Location = new System.Drawing.Point(12, 357);
             this.defProperties.Name = "defProperties";
             this.defProperties.Size = new System.Drawing.Size(194, 192);
@@ -132,6 +140,7 @@
             // 
             // objProperties
             // 
+            this.objProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.objProperties.Location = new System.Drawing.Point(775, 357);
             this.objProperties.Name = "objProperties";
             this.objProperties.Size = new System.Drawing.Size(197, 192);
@@ -313,8 +322,9 @@
             // 
             // buttonMoveUpObj
             // 
+            this.buttonMoveUpObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonMoveUpObj.Enabled = false;
-            this.buttonMoveUpObj.Location = new System.Drawing.Point(775, 28);
+            this.buttonMoveUpObj.Location = new System.Drawing.Point(849, 28);
             this.buttonMoveUpObj.Name = "buttonMoveUpObj";
             this.buttonMoveUpObj.Size = new System.Drawing.Size(37, 31);
             this.buttonMoveUpObj.TabIndex = 17;
@@ -324,8 +334,9 @@
             // 
             // buttonMoveDownObj
             // 
+            this.buttonMoveDownObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonMoveDownObj.Enabled = false;
-            this.buttonMoveDownObj.Location = new System.Drawing.Point(818, 28);
+            this.buttonMoveDownObj.Location = new System.Drawing.Point(892, 28);
             this.buttonMoveDownObj.Name = "buttonMoveDownObj";
             this.buttonMoveDownObj.Size = new System.Drawing.Size(37, 31);
             this.buttonMoveDownObj.TabIndex = 18;
@@ -346,8 +357,9 @@
             // 
             // buttonDeleteObj
             // 
+            this.buttonDeleteObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDeleteObj.Enabled = false;
-            this.buttonDeleteObj.Location = new System.Drawing.Point(861, 28);
+            this.buttonDeleteObj.Location = new System.Drawing.Point(935, 28);
             this.buttonDeleteObj.Name = "buttonDeleteObj";
             this.buttonDeleteObj.Size = new System.Drawing.Size(37, 31);
             this.buttonDeleteObj.TabIndex = 20;
@@ -357,6 +369,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPlane);
             this.tabControl1.Controls.Add(this.tabCodeBase);
@@ -400,6 +415,9 @@
             // richTextCodeBase
             // 
             this.richTextCodeBase.AcceptsTab = true;
+            this.richTextCodeBase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextCodeBase.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeBase.Location = new System.Drawing.Point(3, 3);
             this.richTextCodeBase.Name = "richTextCodeBase";
@@ -410,6 +428,7 @@
             // 
             // buttonGenerate
             // 
+            this.buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonGenerate.Location = new System.Drawing.Point(238, 473);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
@@ -434,6 +453,8 @@
             // richTextCodeDefObj
             // 
             this.richTextCodeDefObj.AcceptsTab = true;
+            this.richTextCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextCodeDefObj.Enabled = false;
             this.richTextCodeDefObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 267);
@@ -445,6 +466,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(0, 251);
             this.label3.Name = "label3";
@@ -464,6 +486,9 @@
             // richTextCodeDef
             // 
             this.richTextCodeDef.AcceptsTab = true;
+            this.richTextCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextCodeDef.Enabled = false;
             this.richTextCodeDef.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
@@ -486,6 +511,9 @@
             // richTextCodeObj
             // 
             this.richTextCodeObj.AcceptsTab = true;
+            this.richTextCodeObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextCodeObj.Enabled = false;
             this.richTextCodeObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeObj.Location = new System.Drawing.Point(3, 3);
@@ -520,6 +548,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).EndInit();

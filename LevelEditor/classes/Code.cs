@@ -28,7 +28,7 @@ namespace LevelEditor
 
         public void CopyFrom(Code C)
         {
-            if (C == null)
+            if (C == null || C.Lines == null)
             {
                 lines = null;
                 return;

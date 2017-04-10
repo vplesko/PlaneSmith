@@ -517,6 +517,12 @@ namespace LevelEditor
             foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
         }
 
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            foundation.Plane.SetSize(pictureBoxEdit.Size);
+            onPlaneChanged(true);
+        }
+
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // @TODO@ ask about saving

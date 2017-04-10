@@ -24,16 +24,14 @@ namespace LevelEditor
         {
             foundation = Foundation;
 
-            Size size = foundation.Form.PlaneSize;
-            wholeImage = new Bitmap(size.Width, size.Height);
-            levelImage = new Bitmap(size.Width, size.Height);
-
             clipRegion = new Region();
             drawObjTemporas = false;
 
             gridCellSize = foundation.Form.GridCellSize;
             drawGrid = foundation.Form.ShouldShowGrid;
             snapGrid = foundation.Form.ShouldSnapGrid;
+
+            SetSize(foundation.Form.PlaneSize);
         }
 
         public Foundation Foundation
