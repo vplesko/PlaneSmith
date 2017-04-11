@@ -69,6 +69,8 @@ namespace LevelEditor
 
         public void SetSize(Size Size)
         {
+            if (Size == null || Size.Width == 0 || Size.Height == 0) return;
+
             wholeImage = new Bitmap(Size.Width, Size.Height);
             levelImage = new Bitmap(Size.Width, Size.Height);
         }
@@ -184,6 +186,8 @@ namespace LevelEditor
 
                 for (int i = 0; i < wholeImage.Height; i += gridCellSize.Height)
                     GraphicsWhole.DrawLine(pen, 0, i, wholeImage.Width, i);
+
+                GraphicsWhole.DrawEllipse(pen, -4, -4, 8, 8);
             }
         }
 

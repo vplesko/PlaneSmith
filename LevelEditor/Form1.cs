@@ -202,12 +202,16 @@ namespace LevelEditor
         {
             int index = dictionaryBox.SelectedIndex;
 
+            selectedDefValid = false;
+
             if (index >= 0) foundation.MoveDefUp(index);
         }
 
         private void buttonMoveDownDef_Click(object sender, EventArgs e)
         {
             int index = dictionaryBox.SelectedIndex;
+
+            selectedDefValid = false;
 
             if (index >= 0) foundation.MoveDefDown(index);
         }
@@ -225,12 +229,16 @@ namespace LevelEditor
         {
             int index = levelBox.SelectedIndex;
 
+            selectedObjValid = false;
+
             if (index >= 0) foundation.MoveObjUp(index);
         }
 
         private void buttonMoveDownInst_Click(object sender, EventArgs e)
         {
             int index = levelBox.SelectedIndex;
+
+            selectedObjValid = false;
 
             if (index >= 0) foundation.MoveObjDown(index);
         }
@@ -249,28 +257,45 @@ namespace LevelEditor
             foundation.Plane.SetShowObjTemporas(true);
         }
 
+        private void shiftAddTemporas()
+        {
+            if (foundation.Plane.ObjTemporas == null) return;
+
+            Point curr = foundation.Plane.ObjTemporas.Position;
+            curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
+
+            bool put = true;
+
+            for (int i = 0; i < foundation.Level.Count; ++i)
+            {
+                if (foundation.Level[i].Position.Equals(curr) &&
+                    foundation.Level[i].GetDefinition() == foundation.Plane.ObjTemporas.GetDefinition())
+                {
+                    put = false;
+                    break;
+                }
+            }
+
+            if (put)
+            {
+                putSelectedDefCode();
+                foundation.AddObjTemporasToLevel();
+            }
+        }
+
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
             labelCoords.Text = foundation.Plane.SnapToGrid(e.X, e.Y).ToString();
 
             if (foundation.Plane.ObjTemporas == null) return;
 
-            Point prev = foundation.Plane.ObjTemporas.Position;
-
             foundation.Plane.MoveObjTemporas(e.X, e.Y);
-            
+
             if (foundation.Plane.IsSnapGrid &&
                 (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
                 (Control.ModifierKeys & Keys.Shift) != 0)
             {
-                Point curr = foundation.Plane.ObjTemporas.Position;
-                curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
-
-                if (prev.X != curr.X || prev.Y != curr.Y)
-                {
-                    putSelectedDefCode();
-                    foundation.AddObjTemporasToLevel();
-                }
+                shiftAddTemporas();
             }
         }
 
@@ -285,7 +310,17 @@ namespace LevelEditor
             if (e.Button == MouseButtons.Left)
             {
                 putSelectedDefCode();
-                foundation.AddObjTemporasToLevel();
+
+                if (foundation.Plane.IsSnapGrid &&
+                    (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
+                    (Control.ModifierKeys & Keys.Shift) != 0)
+                {
+                    shiftAddTemporas();
+                }
+                else
+                {
+                    foundation.AddObjTemporasToLevel();
+                }
             }
             else if (e.Button == MouseButtons.Right)
             {
@@ -529,6 +564,9 @@ namespace LevelEditor
 
             foundation.Reset();
 
+            selectedDefValid = false;
+            selectedObjValid = false;
+
             takeBaseCode();
             takeSelectedDefCode();
             takeSelectedObjCode();
@@ -539,6 +577,8 @@ namespace LevelEditor
             // @TODO@ ask about saving
 
             foundation.ResetLevel();
+
+            selectedObjValid = false;
 
             takeBaseCode();
             takeSelectedDefCode();
@@ -675,6 +715,27 @@ namespace LevelEditor
                 string error = foundation.Generator.Generate(saveFileDialog.FileName);
                 if (error == null) MessageBox.Show("Code has been successfully generated.", "Generated");
                 else MessageBox.Show(error, "Error");
+            }
+        }
+
+        private void buttonReinsertObjCode_Click(object sender, EventArgs e)
+        {
+            if (selectedDefValid && selectedDefIndex >= 0)
+            {
+                putSelectedDefCode();
+
+                Definition def = foundation.Dictionary[selectedDefIndex];
+                Code code = def.GetCodeObjAuto();
+
+                for (int i = 0; i < foundation.Level.Count; ++i)
+                {
+                    if (foundation.Level[i].GetDefinition() == def)
+                    {
+                        foundation.Level[i].GetCode().CopyFrom(code);
+                    }
+                }
+
+                takeSelectedObjCode();
             }
         }
 

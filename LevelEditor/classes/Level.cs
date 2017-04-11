@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -149,6 +150,8 @@ namespace LevelEditor
         public bool Load(string FilePath)
         {
             filePath = FilePath;
+
+            if (!File.Exists(filePath)) return false;
 
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {

@@ -130,15 +130,7 @@ namespace LevelEditor
                 Object obj = level[i];
                 if (obj == null) continue;
 
-                if (obj.GetDefinition() == null) continue;
-
-                Image img = obj.GetDefinition().Image;
-                if (img == null) continue;
-
-                if (Pnt.X >= obj.Position.X && 
-                    Pnt.X < obj.Position.X + img.Size.Width &&
-                    Pnt.Y >= obj.Position.Y && 
-                    Pnt.Y < obj.Position.Y + img.Size.Height)
+                if (obj.Contains(Pnt))
                 {
                     DeleteObject(i);
                     return;

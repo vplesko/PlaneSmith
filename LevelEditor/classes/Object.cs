@@ -76,6 +76,16 @@ namespace LevelEditor
             return code;
         }
 
+        public bool Contains(Point Pnt)
+        {
+            if (definition == null) return false;
+
+            return Pnt.X >= Position.X &&
+                Pnt.X < Position.X + definition.Image.Size.Width &&
+                Pnt.Y >= Position.Y &&
+                Pnt.Y < Position.Y + definition.Image.Size.Height;
+        }
+
         public void Draw(Graphics G)
         {
             if (definition != null && definition.Image != null) G.DrawImage(definition.Image, Position);

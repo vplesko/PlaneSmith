@@ -62,6 +62,7 @@
             this.richTextCodeBase = new System.Windows.Forms.RichTextBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.tabCodeDef = new System.Windows.Forms.TabPage();
+            this.buttonReinsertObjCode = new System.Windows.Forms.Button();
             this.richTextCodeDefObj = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -439,6 +440,7 @@
             // 
             // tabCodeDef
             // 
+            this.tabCodeDef.Controls.Add(this.buttonReinsertObjCode);
             this.tabCodeDef.Controls.Add(this.richTextCodeDefObj);
             this.tabCodeDef.Controls.Add(this.label3);
             this.tabCodeDef.Controls.Add(this.label2);
@@ -450,6 +452,17 @@
             this.tabCodeDef.Text = "Def. Code";
             this.tabCodeDef.UseVisualStyleBackColor = true;
             // 
+            // buttonReinsertObjCode
+            // 
+            this.buttonReinsertObjCode.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonReinsertObjCode.Location = new System.Drawing.Point(221, 473);
+            this.buttonReinsertObjCode.Name = "buttonReinsertObjCode";
+            this.buttonReinsertObjCode.Size = new System.Drawing.Size(109, 23);
+            this.buttonReinsertObjCode.TabIndex = 12;
+            this.buttonReinsertObjCode.Text = "Reinsert obj. codes";
+            this.buttonReinsertObjCode.UseVisualStyleBackColor = true;
+            this.buttonReinsertObjCode.Click += new System.EventHandler(this.buttonReinsertObjCode_Click);
+            // 
             // richTextCodeDefObj
             // 
             this.richTextCodeDefObj.AcceptsTab = true;
@@ -457,9 +470,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextCodeDefObj.Enabled = false;
             this.richTextCodeDefObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 267);
+            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 256);
             this.richTextCodeDefObj.Name = "richTextCodeDefObj";
-            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 229);
+            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 211);
             this.richTextCodeDefObj.TabIndex = 11;
             this.richTextCodeDefObj.Text = "";
             this.richTextCodeDefObj.WordWrap = false;
@@ -468,7 +481,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 251);
+            this.label3.Location = new System.Drawing.Point(0, 240);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 10;
@@ -493,7 +506,7 @@
             this.richTextCodeDef.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
             this.richTextCodeDef.Name = "richTextCodeDef";
-            this.richTextCodeDef.Size = new System.Drawing.Size(543, 229);
+            this.richTextCodeDef.Size = new System.Drawing.Size(543, 218);
             this.richTextCodeDef.TabIndex = 8;
             this.richTextCodeDef.Text = "";
             this.richTextCodeDef.WordWrap = false;
@@ -607,6 +620,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox richTextCodeDefObj;
+        private System.Windows.Forms.Button buttonReinsertObjCode;
     }
 }
 
