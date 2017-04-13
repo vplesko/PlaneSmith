@@ -15,7 +15,7 @@ namespace LevelEditor
         {
             def = Def;
 
-            string[] code = Def.GetCode().Lines;
+            string[] code = Def.GetCode().LinesAsArray;
             if (code != null)
             {
                 lines = new string[code.Length];

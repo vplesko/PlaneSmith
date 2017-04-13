@@ -58,24 +58,24 @@
             this.buttonDeleteObj = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
-            this.tabCodeBase = new System.Windows.Forms.TabPage();
-            this.richTextCodeBase = new System.Windows.Forms.RichTextBox();
+            this.tabCodeLevel = new System.Windows.Forms.TabPage();
+            this.scintillaCodeLevel = new ScintillaNET.Scintilla();
             this.buttonGenerate = new System.Windows.Forms.Button();
             this.tabCodeDef = new System.Windows.Forms.TabPage();
+            this.scintillaCodeDef = new ScintillaNET.Scintilla();
             this.buttonReinsertObjCode = new System.Windows.Forms.Button();
-            this.richTextCodeDefObj = new System.Windows.Forms.RichTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.richTextCodeDef = new System.Windows.Forms.RichTextBox();
             this.tabCodeObj = new System.Windows.Forms.TabPage();
-            this.richTextCodeObj = new System.Windows.Forms.RichTextBox();
+            this.scintillaCodeDefObj = new ScintillaNET.Scintilla();
+            this.scintillaCodeObj = new ScintillaNET.Scintilla();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPlane.SuspendLayout();
-            this.tabCodeBase.SuspendLayout();
+            this.tabCodeLevel.SuspendLayout();
             this.tabCodeDef.SuspendLayout();
             this.tabCodeObj.SuspendLayout();
             this.SuspendLayout();
@@ -375,7 +375,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPlane);
-            this.tabControl1.Controls.Add(this.tabCodeBase);
+            this.tabControl1.Controls.Add(this.tabCodeLevel);
             this.tabControl1.Controls.Add(this.tabCodeDef);
             this.tabControl1.Controls.Add(this.tabCodeObj);
             this.tabControl1.Location = new System.Drawing.Point(212, 28);
@@ -401,31 +401,29 @@
             this.tabPlane.TabIndex = 0;
             this.tabPlane.Text = "Plane";
             // 
-            // tabCodeBase
+            // tabCodeLevel
             // 
-            this.tabCodeBase.BackColor = System.Drawing.SystemColors.Control;
-            this.tabCodeBase.Controls.Add(this.richTextCodeBase);
-            this.tabCodeBase.Controls.Add(this.buttonGenerate);
-            this.tabCodeBase.Location = new System.Drawing.Point(4, 25);
-            this.tabCodeBase.Name = "tabCodeBase";
-            this.tabCodeBase.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCodeBase.Size = new System.Drawing.Size(549, 504);
-            this.tabCodeBase.TabIndex = 1;
-            this.tabCodeBase.Text = "Base Code";
+            this.tabCodeLevel.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCodeLevel.Controls.Add(this.scintillaCodeLevel);
+            this.tabCodeLevel.Controls.Add(this.buttonGenerate);
+            this.tabCodeLevel.Location = new System.Drawing.Point(4, 25);
+            this.tabCodeLevel.Name = "tabCodeLevel";
+            this.tabCodeLevel.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCodeLevel.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeLevel.TabIndex = 1;
+            this.tabCodeLevel.Text = "Level Code";
             // 
-            // richTextCodeBase
+            // scintillaCodeLevel
             // 
-            this.richTextCodeBase.AcceptsTab = true;
-            this.richTextCodeBase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.scintillaCodeLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextCodeBase.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeBase.Location = new System.Drawing.Point(3, 3);
-            this.richTextCodeBase.Name = "richTextCodeBase";
-            this.richTextCodeBase.Size = new System.Drawing.Size(543, 464);
-            this.richTextCodeBase.TabIndex = 7;
-            this.richTextCodeBase.Text = "";
-            this.richTextCodeBase.WordWrap = false;
+            this.scintillaCodeLevel.Location = new System.Drawing.Point(3, 3);
+            this.scintillaCodeLevel.Name = "scintillaCodeLevel";
+            this.scintillaCodeLevel.Size = new System.Drawing.Size(540, 464);
+            this.scintillaCodeLevel.TabIndex = 7;
+            this.scintillaCodeLevel.UseTabs = true;
+            this.scintillaCodeLevel.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
             // 
             // buttonGenerate
             // 
@@ -440,17 +438,29 @@
             // 
             // tabCodeDef
             // 
+            this.tabCodeDef.Controls.Add(this.scintillaCodeDefObj);
+            this.tabCodeDef.Controls.Add(this.scintillaCodeDef);
             this.tabCodeDef.Controls.Add(this.buttonReinsertObjCode);
-            this.tabCodeDef.Controls.Add(this.richTextCodeDefObj);
             this.tabCodeDef.Controls.Add(this.label3);
             this.tabCodeDef.Controls.Add(this.label2);
-            this.tabCodeDef.Controls.Add(this.richTextCodeDef);
             this.tabCodeDef.Location = new System.Drawing.Point(4, 25);
             this.tabCodeDef.Name = "tabCodeDef";
             this.tabCodeDef.Size = new System.Drawing.Size(549, 504);
             this.tabCodeDef.TabIndex = 2;
             this.tabCodeDef.Text = "Def. Code";
             this.tabCodeDef.UseVisualStyleBackColor = true;
+            // 
+            // scintillaCodeDef
+            // 
+            this.scintillaCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scintillaCodeDef.Location = new System.Drawing.Point(4, 20);
+            this.scintillaCodeDef.Name = "scintillaCodeDef";
+            this.scintillaCodeDef.Size = new System.Drawing.Size(540, 217);
+            this.scintillaCodeDef.TabIndex = 13;
+            this.scintillaCodeDef.UseTabs = true;
+            this.scintillaCodeDef.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
             // 
             // buttonReinsertObjCode
             // 
@@ -462,20 +472,6 @@
             this.buttonReinsertObjCode.Text = "Reinsert obj. codes";
             this.buttonReinsertObjCode.UseVisualStyleBackColor = true;
             this.buttonReinsertObjCode.Click += new System.EventHandler(this.buttonReinsertObjCode_Click);
-            // 
-            // richTextCodeDefObj
-            // 
-            this.richTextCodeDefObj.AcceptsTab = true;
-            this.richTextCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextCodeDefObj.Enabled = false;
-            this.richTextCodeDefObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDefObj.Location = new System.Drawing.Point(3, 256);
-            this.richTextCodeDefObj.Name = "richTextCodeDefObj";
-            this.richTextCodeDefObj.Size = new System.Drawing.Size(543, 211);
-            this.richTextCodeDefObj.TabIndex = 11;
-            this.richTextCodeDefObj.Text = "";
-            this.richTextCodeDefObj.WordWrap = false;
             // 
             // label3
             // 
@@ -496,24 +492,9 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Definition code:";
             // 
-            // richTextCodeDef
-            // 
-            this.richTextCodeDef.AcceptsTab = true;
-            this.richTextCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextCodeDef.Enabled = false;
-            this.richTextCodeDef.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeDef.Location = new System.Drawing.Point(3, 19);
-            this.richTextCodeDef.Name = "richTextCodeDef";
-            this.richTextCodeDef.Size = new System.Drawing.Size(543, 218);
-            this.richTextCodeDef.TabIndex = 8;
-            this.richTextCodeDef.Text = "";
-            this.richTextCodeDef.WordWrap = false;
-            // 
             // tabCodeObj
             // 
-            this.tabCodeObj.Controls.Add(this.richTextCodeObj);
+            this.tabCodeObj.Controls.Add(this.scintillaCodeObj);
             this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
             this.tabCodeObj.Name = "tabCodeObj";
             this.tabCodeObj.Size = new System.Drawing.Size(549, 504);
@@ -521,20 +502,28 @@
             this.tabCodeObj.Text = "Obj. Code";
             this.tabCodeObj.UseVisualStyleBackColor = true;
             // 
-            // richTextCodeObj
+            // scintillaCodeDefObj
             // 
-            this.richTextCodeObj.AcceptsTab = true;
-            this.richTextCodeObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.scintillaCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.scintillaCodeDefObj.Location = new System.Drawing.Point(6, 256);
+            this.scintillaCodeDefObj.Name = "scintillaCodeDefObj";
+            this.scintillaCodeDefObj.Size = new System.Drawing.Size(540, 211);
+            this.scintillaCodeDefObj.TabIndex = 14;
+            this.scintillaCodeDefObj.UseTabs = true;
+            this.scintillaCodeDefObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            // 
+            // scintillaCodeObj
+            // 
+            this.scintillaCodeObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextCodeObj.Enabled = false;
-            this.richTextCodeObj.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextCodeObj.Location = new System.Drawing.Point(3, 3);
-            this.richTextCodeObj.Name = "richTextCodeObj";
-            this.richTextCodeObj.Size = new System.Drawing.Size(543, 493);
-            this.richTextCodeObj.TabIndex = 9;
-            this.richTextCodeObj.Text = "";
-            this.richTextCodeObj.WordWrap = false;
+            this.scintillaCodeObj.Location = new System.Drawing.Point(3, 3);
+            this.scintillaCodeObj.Name = "scintillaCodeObj";
+            this.scintillaCodeObj.Size = new System.Drawing.Size(540, 493);
+            this.scintillaCodeObj.TabIndex = 8;
+            this.scintillaCodeObj.UseTabs = true;
+            this.scintillaCodeObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
             // 
             // Form1
             // 
@@ -570,7 +559,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPlane.ResumeLayout(false);
             this.tabPlane.PerformLayout();
-            this.tabCodeBase.ResumeLayout(false);
+            this.tabCodeLevel.ResumeLayout(false);
             this.tabCodeDef.ResumeLayout(false);
             this.tabCodeDef.PerformLayout();
             this.tabCodeObj.ResumeLayout(false);
@@ -610,17 +599,17 @@
         private System.Windows.Forms.Button buttonDeleteObj;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPlane;
-        private System.Windows.Forms.TabPage tabCodeBase;
+        private System.Windows.Forms.TabPage tabCodeLevel;
         private System.Windows.Forms.Button buttonGenerate;
-        private System.Windows.Forms.RichTextBox richTextCodeBase;
-        private System.Windows.Forms.RichTextBox richTextCodeObj;
-        private System.Windows.Forms.RichTextBox richTextCodeDef;
         private System.Windows.Forms.TabPage tabCodeDef;
         private System.Windows.Forms.TabPage tabCodeObj;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RichTextBox richTextCodeDefObj;
         private System.Windows.Forms.Button buttonReinsertObjCode;
+        private ScintillaNET.Scintilla scintillaCodeLevel;
+        private ScintillaNET.Scintilla scintillaCodeDef;
+        private ScintillaNET.Scintilla scintillaCodeDefObj;
+        private ScintillaNET.Scintilla scintillaCodeObj;
     }
 }
 

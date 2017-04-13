@@ -11,7 +11,7 @@ namespace LevelEditor
         public ContextBase(Generator Generator)
             : base(Generator)
         {
-            string[] code = Generator.Foundation.Level.GetCode().Lines;
+            string[] code = Generator.Foundation.Level.GetCode().LinesAsArray;
             if (code != null)
             {
                 lines = new string[code.Length];

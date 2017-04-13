@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using ScintillaNET;
 
 namespace LevelEditor
 {
@@ -43,12 +44,21 @@ namespace LevelEditor
             toolTip.SetToolTip(this.checkShowGrid, "Show/hide grid");
             toolTip.SetToolTip(this.checkSnapGrid, "Align new objects to grid-cells");
 
-            toolTip.SetToolTip(this.richTextCodeBase, "Starting point for code generation");
-            toolTip.SetToolTip(this.richTextCodeDef, "Definition specific code");
-            toolTip.SetToolTip(this.richTextCodeDefObj, "Code assigned to new objects of this definition");
-            toolTip.SetToolTip(this.richTextCodeObj, "Object specific code");
+            toolTip.SetToolTip(this.scintillaCodeLevel, "Starting point for code generation");
+            toolTip.SetToolTip(this.scintillaCodeDef, "Definition specific code");
+            toolTip.SetToolTip(this.scintillaCodeDefObj, "Code assigned to new objects of this definition");
+            toolTip.SetToolTip(this.scintillaCodeObj, "Object specific code");
 
             toolTip.SetToolTip(this.buttonGenerate, "Generate output into a file");
+
+            foreach (Scintilla S in 
+                new Scintilla[] { scintillaCodeLevel, scintillaCodeDef, scintillaCodeDefObj, scintillaCodeObj })
+            {
+                S.Styles[Style.Default].Font = "Consolas";
+                S.Styles[Style.Default].Size = 14;
+                S.SetWhitespaceForeColor(true, Color.SteelBlue);
+                S.Margins[0].Width = 24;
+            }
         }
 
         internal Color PlaneBackColor
@@ -338,25 +348,25 @@ namespace LevelEditor
 
         private void putBaseCode()
         {
-            foundation.Level.GetCode().CopyFrom(richTextCodeBase.Lines);
+            foundation.Level.GetCode().CopySplitLines(scintillaCodeLevel.Text);
         }
 
         private void takeBaseCode()
         {
-            string[] code = foundation.Level.GetCode().Lines;
+            string[] code = foundation.Level.GetCode().LinesAsArray;
             if (code != null)
             {
-                richTextCodeBase.Clear();
+                scintillaCodeLevel.ClearAll();
 
                 for (int i = 0; i < code.Length; ++i)
                 {
                     //if (i > 0) richTextCodeBase.AppendText("\r\n");
-                    richTextCodeBase.AppendText(code[i]);
+                    scintillaCodeLevel.AppendText(code[i]);
                 }
             }
             else
             {
-                richTextCodeBase.Lines = null;
+                scintillaCodeLevel.ClearAll();
             }
         }
 
@@ -367,8 +377,8 @@ namespace LevelEditor
         {
             if (selectedDefValid && selectedDefIndex >= 0)
             {
-                foundation.Dictionary[selectedDefIndex].GetCode().CopyFrom(richTextCodeDef.Lines);
-                foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().CopyFrom(richTextCodeDefObj.Lines);
+                foundation.Dictionary[selectedDefIndex].GetCode().CopySplitLines(scintillaCodeDef.Text);
+                foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().CopySplitLines(scintillaCodeDefObj.Text);
 
                 if (foundation.Plane.ObjTemporas != null)
                 {
@@ -381,40 +391,40 @@ namespace LevelEditor
         {
             if (!selectedDefValid)
             {
-                richTextCodeDef.Lines = null;
+                scintillaCodeDef.ClearAll();
                 return;
             }
 
-            string[] code = foundation.Dictionary[selectedDefIndex].GetCode().Lines;
+            string[] code = foundation.Dictionary[selectedDefIndex].GetCode().LinesAsArray;
             if (code != null)
             {
-                richTextCodeDef.Clear();
+                scintillaCodeDef.ClearAll();
 
                 for (int i = 0; i < code.Length; ++i)
                 {
                     //if (i > 0) richTextCodeBase.AppendText("\r\n");
-                    richTextCodeDef.AppendText(code[i]);
+                    scintillaCodeDef.AppendText(code[i]);
                 }
             }
             else
             {
-                richTextCodeDef.Lines = null;
+                scintillaCodeDef.ClearAll();
             }
 
-            code = foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().Lines;
+            code = foundation.Dictionary[selectedDefIndex].GetCodeObjAuto().LinesAsArray;
             if (code != null)
             {
-                richTextCodeDefObj.Clear();
+                scintillaCodeDefObj.ClearAll();
 
                 for (int i = 0; i < code.Length; ++i)
                 {
                     //if (i > 0) richTextCodeBase.AppendText("\r\n");
-                    richTextCodeDefObj.AppendText(code[i]);
+                    scintillaCodeDefObj.AppendText(code[i]);
                 }
             }
             else
             {
-                richTextCodeDefObj.Lines = null;
+                scintillaCodeDefObj.ClearAll();
             }
         }
 
@@ -434,8 +444,8 @@ namespace LevelEditor
                 buttonMoveDownDef.Enabled = true;
                 buttonDeleteDef.Enabled = true;
 
-                richTextCodeDef.Enabled = true;
-                richTextCodeDefObj.Enabled = true;
+                scintillaCodeDef.Enabled = true;
+                scintillaCodeDefObj.Enabled = true;
 
                 takeSelectedDefCode();
             }
@@ -447,10 +457,10 @@ namespace LevelEditor
                 buttonMoveDownDef.Enabled = false;
                 buttonDeleteDef.Enabled = false;
 
-                richTextCodeDef.Enabled = false;
-                richTextCodeDef.Lines = null;
-                richTextCodeDefObj.Enabled = false;
-                richTextCodeDefObj.Lines = null;
+                scintillaCodeDef.Enabled = false;
+                scintillaCodeDef.ClearAll();
+                scintillaCodeDefObj.Enabled = false;
+                scintillaCodeDefObj.ClearAll();
             }
         }
 
@@ -461,7 +471,7 @@ namespace LevelEditor
         {
             if (selectedObjValid && selectedObjIndex >= 0)
             {
-                foundation.Level[selectedObjIndex].GetCode().CopyFrom(richTextCodeObj.Lines);
+                foundation.Level[selectedObjIndex].GetCode().CopySplitLines(scintillaCodeObj.Text);
             }
         }
 
@@ -469,24 +479,24 @@ namespace LevelEditor
         {
             if (!selectedObjValid)
             {
-                richTextCodeObj.Lines = null;
+                scintillaCodeObj.ClearAll();
                 return;
             }
 
-            string[] code = foundation.Level[selectedObjIndex].GetCode().Lines;
+            string[] code = foundation.Level[selectedObjIndex].GetCode().LinesAsArray;
             if (code != null)
             {
-                richTextCodeObj.Clear();
+                scintillaCodeObj.ClearAll();
 
                 for (int i = 0; i < code.Length; ++i)
                 {
                     //if (i > 0) richTextCodeBase.AppendText("\r\n");
-                    richTextCodeObj.AppendText(code[i]);
+                    scintillaCodeObj.AppendText(code[i]);
                 }
             }
             else
             {
-                richTextCodeObj.Lines = null;
+                scintillaCodeObj.ClearAll();
             }
         }
 
@@ -506,7 +516,7 @@ namespace LevelEditor
                 buttonMoveDownObj.Enabled = true;
                 buttonDeleteObj.Enabled = true;
 
-                richTextCodeObj.Enabled = true;
+                scintillaCodeObj.Enabled = true;
 
                 takeSelectedObjCode();
             }
@@ -518,8 +528,8 @@ namespace LevelEditor
                 buttonMoveDownObj.Enabled = false;
                 buttonDeleteObj.Enabled = false;
 
-                richTextCodeObj.Enabled = false;
-                richTextCodeObj.Lines = null;
+                scintillaCodeObj.Enabled = false;
+                scintillaCodeObj.ClearAll();
             }
         }
 
@@ -634,6 +644,25 @@ namespace LevelEditor
             }
         }
 
+        private void saveDictionary(bool AskPathRegardless)
+        {
+            putBaseCode();
+            putSelectedDefCode();
+            putSelectedObjCode();
+
+            if (!AskPathRegardless &&
+                foundation.Dictionary.GetFilePath() != null &&
+                foundation.Dictionary.GetFilePath().Length != 0)
+            {
+                if (!foundation.Dictionary.Save()) return;
+            }
+            else
+            {
+                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
+                if (!saveDictionaryAskPath()) return;
+            }
+        }
+
         private bool saveLevelAskPath()
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -652,27 +681,16 @@ namespace LevelEditor
             }
         }
 
-        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void saveLevel(bool AskPathRegardless)
         {
             putBaseCode();
-            putSelectedDefCode();
             putSelectedObjCode();
 
-            if (foundation.Dictionary.GetFilePath() != null && 
-                foundation.Dictionary.GetFilePath().Length != 0)
-            {
-                if (!foundation.Dictionary.Save()) return;
-            }
-            else
-            {
-                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
-                if (!saveDictionaryAskPath()) return;
-            }
-
-            if (foundation.Level.GetFilePath() != null &&
+            if (!AskPathRegardless &&
+                foundation.Level.GetFilePath() != null &&
                 foundation.Level.GetFilePath().Length != 0)
             {
-                foundation.Level.Save();
+                if (!foundation.Level.Save()) return;
             }
             else
             {
@@ -681,21 +699,20 @@ namespace LevelEditor
             }
         }
 
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            saveDictionary(false);
+            saveLevel(false);
+        }
+
         private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            putSelectedDefCode();
-
-            saveDictionaryAskPath();
+            saveDictionary(true);
         }
 
         private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // @TODO@ track for changes
-
-            putBaseCode();
-            putSelectedObjCode();
-
-            saveToolStripMenuItem1_Click(null, null);
+            saveLevel(true);
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)

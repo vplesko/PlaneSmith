@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="ScintillaNET">
+      <HintPath>jacobslusser.ScintillaNET.Signed.3.6.3\ScintillaNET.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +54,7 @@
     <Compile Include="classes\Code.cs" />
     <Compile Include="classes\Definition.cs" />
     <Compile Include="classes\Dictionary.cs" />
+    <Compile Include="classes\ErrorText.cs" />
     <Compile Include="classes\Foundation.cs" />
     <Compile Include="classes\generation\Context.cs" />
     <Compile Include="classes\generation\ContextBase.cs" />
