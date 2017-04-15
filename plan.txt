@@ -1,0 +1,13 @@
+error msg when load fails
+
+relative dictionary file path in lvl file
+
+track if any changes made, don't ask to save if not
+
+coding improvements and features
+
+code error msgs
+
+polish and bugs
+
+release

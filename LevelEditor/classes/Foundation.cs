@@ -68,10 +68,16 @@ namespace LevelEditor
             form.onDictionaryChanged(dictionary.Count - 1);
         }
 
+        public void MoveObjTemporas(int X, int Y)
+        {
+            plane.MoveObjTemporas(plane.InverseTransform(X, Y));
+        }
+
         public void AddObjTemporasToLevel()
         {
             if (plane.ObjTemporas != null)
             {
+                //plane.ObjTemporas.Position = plane.InverseTransform(plane.ObjTemporas.Position);
                 level.Add(plane.ObjTemporas);
                 plane.RemakeObjTemporas();
                 form.onLevelChanged(-1);
@@ -125,12 +131,14 @@ namespace LevelEditor
 
         public void DeleteObjectAt(Point Pnt)
         {
+            Point loc = plane.InverseTransform(Pnt);
+
             for (int i = level.Count - 1; i >= 0; --i)
             {
                 Object obj = level[i];
                 if (obj == null) continue;
 
-                if (obj.Contains(Pnt))
+                if (obj.Contains(loc))
                 {
                     DeleteObject(i);
                     return;

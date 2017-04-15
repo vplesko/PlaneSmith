@@ -28,6 +28,9 @@ namespace LevelEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            showGridToolStripMenuItem.Checked = checkShowGrid.Checked;
+            snapToGridToolStripMenuItem.Checked = checkSnapGrid.Checked;
+
             ToolTip toolTip = new ToolTip();
 
             toolTip.SetToolTip(this.buttonAddDef, "Add new definition");
@@ -228,11 +231,30 @@ namespace LevelEditor
 
         private void buttonDeleteDef_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to delete this definition and all objects associated with it?", "", MessageBoxButtons.YesNo) == DialogResult.No) return;
+
             int index = dictionaryBox.SelectedIndex;
 
             selectedDefValid = false;
 
-            if (index >= 0) foundation.DeleteDefinition(index);
+            if (index >= 0)
+            {
+                foundation.DeleteDefinition(index);
+
+                if (foundation.Dictionary.Count == 0)
+                {
+                    buttonMoveUpDef.Enabled = false;
+                    buttonMoveDownDef.Enabled = false;
+                    buttonDeleteDef.Enabled = false;
+                }
+
+                if (foundation.Level.Count == 0)
+                {
+                    buttonMoveUpObj.Enabled = false;
+                    buttonMoveDownObj.Enabled = false;
+                    buttonDeleteObj.Enabled = false;
+                }
+            }
         }
 
         private void buttonMoveUpInst_Click(object sender, EventArgs e)
@@ -259,8 +281,20 @@ namespace LevelEditor
 
             selectedObjValid = false;
 
-            if (index >= 0) foundation.DeleteObject(index);
+            if (index >= 0)
+            {
+                foundation.DeleteObject(index);
+
+                if (foundation.Level.Count == 0)
+                {
+                    buttonMoveUpObj.Enabled = false;
+                    buttonMoveDownObj.Enabled = false;
+                    buttonDeleteObj.Enabled = false;
+                }
+            }
         }
+
+        Point? mouseMiddleHoldStart = null;
 
         private void pictureBoxEdit_MouseEnter(object sender, EventArgs e)
         {
@@ -272,7 +306,7 @@ namespace LevelEditor
             if (foundation.Plane.ObjTemporas == null) return;
 
             Point curr = foundation.Plane.ObjTemporas.Position;
-            curr = foundation.Plane.SnapToGrid(curr.X, curr.Y);
+            curr = foundation.Plane.SnapToGrid(curr.X, curr.Y, false);
 
             bool put = true;
 
@@ -295,11 +329,11 @@ namespace LevelEditor
 
         private void pictureBoxEdit_MouseMove(object sender, MouseEventArgs e)
         {
-            labelCoords.Text = foundation.Plane.SnapToGrid(e.X, e.Y).ToString();
+            labelCoords.Text = foundation.Plane.GetCoordsOnPlane(e.X, e.Y).ToString();
 
             if (foundation.Plane.ObjTemporas == null) return;
 
-            foundation.Plane.MoveObjTemporas(e.X, e.Y);
+            foundation.MoveObjTemporas(e.X, e.Y);
 
             if (foundation.Plane.IsSnapGrid &&
                 (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
@@ -311,6 +345,7 @@ namespace LevelEditor
 
         private void pictureBoxEdit_MouseLeave(object sender, EventArgs e)
         {
+            mouseMiddleHoldStart = null;
             foundation.Plane.SetShowObjTemporas(false);
             onPlaneChanged(false);
         }
@@ -342,7 +377,45 @@ namespace LevelEditor
                 else
                 {
                     foundation.DeleteObjectAt(e.Location);
+
+                    if (foundation.Level.Count == 0)
+                    {
+                        buttonMoveUpObj.Enabled = false;
+                        buttonMoveDownObj.Enabled = false;
+                        buttonDeleteObj.Enabled = false;
+                    }
                 }
+            }
+            else if (e.Button == MouseButtons.Middle)
+            {
+                mouseMiddleHoldStart = new Point(e.X, e.Y);
+            }
+        }
+
+        private void pictureBoxEdit_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                if (mouseMiddleHoldStart != null)
+                {
+                    Point trans = foundation.Plane.Translation;
+                    trans.X += e.X - mouseMiddleHoldStart.Value.X;
+                    trans.Y += e.Y - mouseMiddleHoldStart.Value.Y;
+                    foundation.Plane.SetTranslation(trans.X, trans.Y);
+
+                    mouseMiddleHoldStart = null;
+                    onPlaneChanged(true);
+                }
+            }
+        }
+
+        private void pictureBoxEdit_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Middle)
+            {
+                foundation.Plane.SetTranslation(0, 0);
+                mouseMiddleHoldStart = null;
+                onPlaneChanged(true);
             }
         }
 
@@ -553,12 +626,14 @@ namespace LevelEditor
 
         private void checkShowGrid_CheckedChanged(object sender, EventArgs e)
         {
+            showGridToolStripMenuItem.Checked = checkShowGrid.Checked;
             foundation.Plane.IsDrawGrid = checkShowGrid.Checked;
             onPlaneChanged(true);
         }
 
         private void checkSnapGrid_CheckedChanged(object sender, EventArgs e)
         {
+            snapToGridToolStripMenuItem.Checked = checkSnapGrid.Checked;
             foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
         }
 
@@ -570,7 +645,7 @@ namespace LevelEditor
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // @TODO@ ask about saving
+            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
 
             foundation.Reset();
 
@@ -584,7 +659,7 @@ namespace LevelEditor
 
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // @TODO@ ask about saving
+            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
 
             foundation.ResetLevel();
 
@@ -597,7 +672,7 @@ namespace LevelEditor
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // @TODO@ will user lose all unsaved data?
+            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "PSM Files|*.psm;*.txt";
@@ -644,7 +719,7 @@ namespace LevelEditor
             }
         }
 
-        private void saveDictionary(bool AskPathRegardless)
+        private bool saveDictionary(bool AskPathRegardless)
         {
             putBaseCode();
             putSelectedDefCode();
@@ -654,12 +729,12 @@ namespace LevelEditor
                 foundation.Dictionary.GetFilePath() != null &&
                 foundation.Dictionary.GetFilePath().Length != 0)
             {
-                if (!foundation.Dictionary.Save()) return;
+                return foundation.Dictionary.Save();
             }
             else
             {
                 MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
-                if (!saveDictionaryAskPath()) return;
+                return saveDictionaryAskPath();
             }
         }
 
@@ -681,7 +756,7 @@ namespace LevelEditor
             }
         }
 
-        private void saveLevel(bool AskPathRegardless)
+        private bool saveLevel(bool AskPathRegardless)
         {
             putBaseCode();
             putSelectedObjCode();
@@ -690,12 +765,12 @@ namespace LevelEditor
                 foundation.Level.GetFilePath() != null &&
                 foundation.Level.GetFilePath().Length != 0)
             {
-                if (!foundation.Level.Save()) return;
+                return foundation.Level.Save();
             }
             else
             {
                 MessageBox.Show("You will now save the level.", "Save Level");
-                saveLevelAskPath();
+                return saveLevelAskPath();
             }
         }
 
@@ -713,6 +788,19 @@ namespace LevelEditor
         private void saveLevelAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveLevel(true);
+        }
+
+        private DialogResult askAboutSavingAndSave()
+        {
+            DialogResult res = MessageBox.Show("Would you like to save before continuing?", "Save First", MessageBoxButtons.YesNoCancel);
+
+            if (res == DialogResult.Yes)
+            {
+                saveDictionary(false);
+                saveLevel(false);
+            }
+
+            return res;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
@@ -758,9 +846,32 @@ namespace LevelEditor
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            // @TODO@ ask about saving
-
             Application.Exit();
+        }
+
+        private void showGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkShowGrid.Checked = showGridToolStripMenuItem.Checked;
+            foundation.Plane.IsDrawGrid = checkShowGrid.Checked;
+            onPlaneChanged(true);
+        }
+
+        private void snapToGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            checkSnapGrid.Checked = snapToGridToolStripMenuItem.Checked;
+            foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
+        }
+
+        private void resetOffsetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foundation.Plane.SetTranslation(0, 0);
+            mouseMiddleHoldStart = null;
+            onPlaneChanged(true);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (askAboutSavingAndSave() == DialogResult.Cancel) e.Cancel = true;
         }
 
         private void levelBox_MouseLeave(object sender, EventArgs e)
@@ -788,6 +899,10 @@ namespace LevelEditor
         }
 
         private void textCodeInst_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void pictureBoxEdit_Resize(object sender, EventArgs e)
         {
         }
     }
