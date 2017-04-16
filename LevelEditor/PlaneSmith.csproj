@@ -51,16 +51,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="classes\Code.cs" />
+    <Compile Include="classes\generation\Code.cs" />
     <Compile Include="classes\Definition.cs" />
     <Compile Include="classes\Dictionary.cs" />
-    <Compile Include="classes\ErrorText.cs" />
+    <Compile Include="classes\errors\Error.cs" />
+    <Compile Include="classes\errors\ErrorLoad.cs" />
+    <Compile Include="classes\errors\ErrorLoadDict.cs" />
+    <Compile Include="classes\errors\ErrorLoadLvl.cs" />
     <Compile Include="classes\Foundation.cs" />
     <Compile Include="classes\generation\Context.cs" />
     <Compile Include="classes\generation\ContextBase.cs" />
     <Compile Include="classes\generation\ContextDef.cs" />
     <Compile Include="classes\generation\ContextFech.cs" />
     <Compile Include="classes\generation\ContextObj.cs" />
+    <Compile Include="classes\generation\ICodeContainer.cs" />
     <Compile Include="classes\generation\Stack.cs" />
     <Compile Include="classes\generation\Generator.cs" />
     <Compile Include="classes\Plane.cs" />

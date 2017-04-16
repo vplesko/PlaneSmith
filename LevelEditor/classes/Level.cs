@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace LevelEditor
 {
-    class Level
+    class Level : ICodeContainer
     {
         public static string TypeToken = "Level file";
 
@@ -19,13 +19,15 @@ namespace LevelEditor
 
         Code code;
 
+        bool changed = false;
+
         string filePath = null;
 
         public Level(Foundation Foundation)
         {
             foundation = Foundation;
 
-            code = new Code();
+            code = new Code(this);
         }
 
         public Foundation Foundation
@@ -43,9 +45,15 @@ namespace LevelEditor
             get { return list[index]; }
         }
 
-        public string GetFilePath()
+        public string FilePath
         {
-            return filePath;
+            get { return filePath; }
+        }
+
+        public bool Changed
+        {
+            get { return changed; }
+            set { changed = value; }
         }
 
         public Code GetCode()
@@ -53,10 +61,17 @@ namespace LevelEditor
             return code;
         }
 
+        public void OnCodeChanged(Code Code)
+        {
+            changed = true;
+        }
+
         public void Add(Object O)
         {
             O.SetId(lastId++);
             list.Add(O);
+
+            changed = true;
         }
 
         public bool MoveUp(int index)
@@ -66,6 +81,8 @@ namespace LevelEditor
             Object temp = list[index];
             list[index] = list[index - 1];
             list[index - 1] = temp;
+
+            changed = true;
 
             return true;
         }
@@ -78,6 +95,8 @@ namespace LevelEditor
             list[index] = list[index + 1];
             list[index + 1] = temp;
 
+            changed = true;
+
             return true;
         }
 
@@ -86,6 +105,8 @@ namespace LevelEditor
             if (index < 0 || index >= list.Count) return;
 
             list.RemoveAt(index);
+
+            changed = true;
         }
 
         public void DeleteUsingDefinition(Definition Def)
@@ -104,6 +125,8 @@ namespace LevelEditor
             {
                 list.RemoveRange(i, list.Count - i);
             }
+
+            changed = true;
         }
 
         public void Draw(Graphics G)
@@ -119,7 +142,14 @@ namespace LevelEditor
             {
                 FS.WriteLine(TypeToken);
 
-                FS.WriteLine(foundation.Dictionary.GetFilePath());
+                string folder = Path.GetDirectoryName(FilePath);
+                if (!folder.EndsWith(Path.DirectorySeparatorChar.ToString()))
+                    folder += Path.DirectorySeparatorChar;
+                Uri from = new Uri(folder);
+
+                Uri to = new Uri(foundation.Dictionary.FilePath);
+
+                FS.WriteLine(Uri.UnescapeDataString(from.MakeRelativeUri(to).ToString().Replace('/', Path.DirectorySeparatorChar)));
 
                 code.Save(FS);
 
@@ -138,6 +168,8 @@ namespace LevelEditor
                 }
             }
 
+            changed = false;
+
             return true;
         }
 
@@ -147,48 +179,58 @@ namespace LevelEditor
             else return Save(filePath);
         }
 
-        public bool Load(string FilePath)
+        public void Load(string FilePath)
         {
             filePath = FilePath;
 
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath))
+                throw new ErrorLoadLvl("File not found", FilePath);
 
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
                 list.Clear();
 
                 string type = FS.ReadLine();
-                if (!String.Equals(type, TypeToken)) return false;
+                if (!String.Equals(type, TypeToken))
+                    throw new ErrorLoadLvl("Invalid file type", FilePath);
 
                 FS.ReadLine();
 
-                if (!code.Load(FS)) return false;
+                if (!code.Load(FS))
+                    throw new ErrorLoadLvl("Could not parse level code", FilePath);
 
                 int width, height;
-                if (!Int32.TryParse(FS.ReadLine(), out width)) return false;
-                if (!Int32.TryParse(FS.ReadLine(), out height)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out width))
+                    throw new ErrorLoadLvl("Grid cell width invalid", FilePath);
+                if (!Int32.TryParse(FS.ReadLine(), out height))
+                    throw new ErrorLoadLvl("Grid cell height invalid", FilePath);
                 foundation.Plane.GridCellSize = new Size(width, height);
 
                 bool grid;
-                if (!Boolean.TryParse(FS.ReadLine(), out grid)) return false;
+                if (!Boolean.TryParse(FS.ReadLine(), out grid))
+                    throw new ErrorLoadLvl("Show grid bool invalid", FilePath);
                 foundation.Plane.IsDrawGrid = grid;
-                if (!Boolean.TryParse(FS.ReadLine(), out grid)) return false;
+                if (!Boolean.TryParse(FS.ReadLine(), out grid))
+                    throw new ErrorLoadLvl("Snap to grid bool invalid", FilePath);
                 foundation.Plane.IsSnapGrid = grid;
 
-                if (!Int32.TryParse(FS.ReadLine(), out lastId)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out lastId))
+                    throw new ErrorLoadLvl("LastId data invalid", FilePath);
 
                 int cnt;
-                if (!Int32.TryParse(FS.ReadLine(), out cnt)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out cnt))
+                    throw new ErrorLoadLvl("Count data invalid", FilePath);
 
                 for (int i = 0; i < cnt; ++i)
                 {
                     Object I = new Object(this);
-                    if (!I.Load(FS)) return false;
+                    if (!I.Load(FS))
+                        throw new ErrorLoadLvl("Could not parse object " + i, FilePath);
                     list.Add(I);
                 }
             }
 
-            return true;
+            changed = false;
         }
     }
 }

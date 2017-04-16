@@ -16,6 +16,8 @@ namespace LevelEditor
         int lastId = 0;
         List<Definition> list = new List<Definition>();
 
+        bool changed = false;
+
         string filePath = null;
 
         public Dictionary(Foundation Foundation)
@@ -38,15 +40,23 @@ namespace LevelEditor
             get { return list[index]; }
         }
 
-        public string GetFilePath()
+        public string FilePath
         {
-            return filePath;
+            get { return filePath; }
+        }
+
+        public bool Changed
+        {
+            get { return changed; }
+            set { changed = value; }
         }
 
         public void Add(Definition T)
         {
             T.SetId(lastId++);
             list.Add(T);
+
+            changed = true;
         }
 
         public bool MoveUp(int index)
@@ -56,6 +66,8 @@ namespace LevelEditor
             Definition temp = list[index];
             list[index] = list[index - 1];
             list[index - 1] = temp;
+
+            changed = true;
 
             return true;
         }
@@ -67,6 +79,8 @@ namespace LevelEditor
             Definition temp = list[index];
             list[index] = list[index + 1];
             list[index + 1] = temp;
+
+            changed = true;
 
             return true;
         }
@@ -85,6 +99,8 @@ namespace LevelEditor
             if (index < 0 || index >= list.Count) return;
 
             list.RemoveAt(index);
+
+            changed = true;
         }
 
         public bool Save(string FilePath)
@@ -105,6 +121,8 @@ namespace LevelEditor
                 }
             }
 
+            changed = false;
+
             return true;
         }
 
@@ -114,33 +132,38 @@ namespace LevelEditor
             else return Save(filePath);
         }
 
-        public bool Load(string FilePath)
+        public void Load(string FilePath)
         {
             filePath = FilePath;
 
-            if (!File.Exists(filePath)) return false;
+            if (!File.Exists(filePath))
+                throw new ErrorLoadDict("File not found", FilePath);
 
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
                 list.Clear();
 
                 string type = FS.ReadLine();
-                if (!String.Equals(type, TypeToken)) return false;
+                if (!String.Equals(type, TypeToken))
+                    throw new ErrorLoadDict("Invalid file type", FilePath);
 
-                if (!Int32.TryParse(FS.ReadLine(), out lastId)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out lastId))
+                    throw new ErrorLoadDict("LastId data invalid", FilePath);
 
                 int cnt;
-                if (!Int32.TryParse(FS.ReadLine(), out cnt)) return false;
+                if (!Int32.TryParse(FS.ReadLine(), out cnt))
+                    throw new ErrorLoadDict("Count data invalid", FilePath);
 
                 for (int i = 0; i < cnt; ++i)
                 {
                     Definition D = new Definition(this);
-                    if (!D.Load(FS)) return false;
+                    if (!D.Load(FS))
+                        throw new ErrorLoadDict("Could not parse definition " + i, FilePath);
                     list.Add(D);
                 }
             }
 
-            return true;
+            changed = false;
         }
     }
 }

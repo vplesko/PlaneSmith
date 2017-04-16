@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace LevelEditor
 {
-    class ErrorText : Exception
+    abstract class ErrorLoad : Error
     {
-        public ErrorText(string Message)
-            : base(Message)
+        protected string file;
+
+        public ErrorLoad(string Str, string File) : base(Str)
         {
+            file = File;
         }
     }
 }

@@ -354,17 +354,39 @@ namespace LevelEditor
         {
             if (e.Button == MouseButtons.Left)
             {
-                putSelectedDefCode();
-
-                if (foundation.Plane.IsSnapGrid &&
-                    (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
-                    (Control.ModifierKeys & Keys.Shift) != 0)
+                if (foundation.Plane.ObjTemporas != null)
                 {
-                    shiftAddTemporas();
+                    putSelectedDefCode();
+
+                    if (foundation.Plane.IsSnapGrid &&
+                        (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
+                        (Control.ModifierKeys & Keys.Shift) != 0)
+                    {
+                        shiftAddTemporas();
+                    }
+                    else
+                    {
+                        foundation.AddObjTemporasToLevel();
+                    }
                 }
                 else
                 {
-                    foundation.AddObjTemporasToLevel();
+                    List<int> indexes = foundation.GetIndexesOfObjsAt(e.Location);
+                    if (indexes.Count == 0) return;
+
+                    if (levelBox.SelectedIndex < 0 || 
+                        !indexes.Contains(levelBox.SelectedIndex))
+                    {
+                        levelBox.SelectedIndex = indexes[0];
+                        return;
+                    }
+
+                    int sel = indexes.IndexOf(levelBox.SelectedIndex);
+
+                    if (sel == indexes.Count - 1)
+                        levelBox.SelectedIndex = indexes[0];
+                    else
+                        levelBox.SelectedIndex = indexes[sel + 1];
                 }
             }
             else if (e.Button == MouseButtons.Right)
@@ -376,7 +398,15 @@ namespace LevelEditor
                 }
                 else
                 {
-                    foundation.DeleteObjectAt(e.Location);
+                    if (levelBox.SelectedIndex >= 0 &&
+                        foundation.ObjContains(levelBox.SelectedIndex, e.Location))
+                    {
+                        foundation.DeleteObject(levelBox.SelectedIndex);
+                    }
+                    else
+                    {
+                        foundation.DeleteObjectAt(e.Location);
+                    }
 
                     if (foundation.Level.Count == 0)
                     {
@@ -637,16 +667,45 @@ namespace LevelEditor
             foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
         }
 
+        private void scintillaCodeLevel_TextChanged(object sender, EventArgs e)
+        {
+            foundation.Level.Changed = true;
+        }
+
+        private void scintillaCodeDef_Click(object sender, EventArgs e)
+        {
+            foundation.Dictionary.Changed = true;
+        }
+
+        private void scintillaCodeDefObj_Click(object sender, EventArgs e)
+        {
+            foundation.Dictionary.Changed = true;
+        }
+
+        private void scintillaCodeObj_Click(object sender, EventArgs e)
+        {
+            foundation.Level.Changed = true;
+        }
+
         private void Form1_Resize(object sender, EventArgs e)
         {
             foundation.Plane.SetSize(pictureBoxEdit.Size);
             onPlaneChanged(true);
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void resetLvl()
         {
-            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
+            foundation.ResetLevel();
 
+            selectedObjValid = false;
+
+            takeBaseCode();
+            takeSelectedDefCode();
+            takeSelectedObjCode();
+        }
+
+        private void resetAll()
+        {
             foundation.Reset();
 
             selectedDefValid = false;
@@ -657,17 +716,18 @@ namespace LevelEditor
             takeSelectedObjCode();
         }
 
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
+
+            resetAll();
+        }
+
         private void newLevelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (askAboutSavingAndSave() == DialogResult.Cancel) return;
 
-            foundation.ResetLevel();
-
-            selectedObjValid = false;
-
-            takeBaseCode();
-            takeSelectedDefCode();
-            takeSelectedObjCode();
+            resetLvl();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -683,22 +743,37 @@ namespace LevelEditor
                 openFileDialog.FileName.Length == 0)
                 return;
 
-            string dictFilePath = foundation.ExtractDictionaryPathFromLevelFile(openFileDialog.FileName);
-
-            if (dictFilePath != null)
+            try
             {
-                if (foundation.Dictionary.Load(dictFilePath))
+                string dictFilePath = foundation.ExtractDictionaryPathFromLevelFile(openFileDialog.FileName);
+
+                if (dictFilePath != null)
                 {
-                    if (foundation.Level.Load(openFileDialog.FileName))
-                        takeBaseCode();
+                    foundation.Dictionary.Load(dictFilePath);
+                    foundation.Level.Load(openFileDialog.FileName);
+                    takeBaseCode();
                 }
-            }
-            else
-            {
-                foundation.Dictionary.Load(openFileDialog.FileName);
-            }
+                else
+                {
+                    foundation.Dictionary.Load(openFileDialog.FileName);
+                }
 
-            onDictAndLevelChanged();
+                onDictAndLevelChanged();
+            }
+            catch (ErrorLoad err)
+            {
+                resetAll();
+
+                MessageBox.Show(err.Description, "Loading error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception err)
+            {
+                resetAll();
+
+                MessageBox.Show("Unrecognized error: " + err.Message, "Loading error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private bool saveDictionaryAskPath()
@@ -726,8 +801,8 @@ namespace LevelEditor
             putSelectedObjCode();
 
             if (!AskPathRegardless &&
-                foundation.Dictionary.GetFilePath() != null &&
-                foundation.Dictionary.GetFilePath().Length != 0)
+                foundation.Dictionary.FilePath != null &&
+                foundation.Dictionary.FilePath.Length != 0)
             {
                 return foundation.Dictionary.Save();
             }
@@ -762,8 +837,8 @@ namespace LevelEditor
             putSelectedObjCode();
 
             if (!AskPathRegardless &&
-                foundation.Level.GetFilePath() != null &&
-                foundation.Level.GetFilePath().Length != 0)
+                foundation.Level.FilePath != null &&
+                foundation.Level.FilePath.Length != 0)
             {
                 return foundation.Level.Save();
             }
@@ -792,6 +867,9 @@ namespace LevelEditor
 
         private DialogResult askAboutSavingAndSave()
         {
+            if (foundation.Dictionary.Changed == false && foundation.Level.Changed == false)
+                return DialogResult.No;
+
             DialogResult res = MessageBox.Show("Would you like to save before continuing?", "Save First", MessageBoxButtons.YesNoCancel);
 
             if (res == DialogResult.Yes)
@@ -903,6 +981,10 @@ namespace LevelEditor
         }
 
         private void pictureBoxEdit_Resize(object sender, EventArgs e)
+        {
+        }
+
+        private void scintillaCodeLevel_Click(object sender, EventArgs e)
         {
         }
     }

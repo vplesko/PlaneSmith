@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,25 +36,11 @@ namespace LevelEditor
             }
             else if (string.Compare(Statement, "IMG_PATH", true) == 0)
             {
-                string defImgPath = def.ImagePath;
-
-                int indexS = defImgPath.LastIndexOf('/');
-                int indexB = defImgPath.LastIndexOf('\\');
-                int index = indexS > indexB ? indexS : indexB;
-
-                if (index < 0) return "";
-                else return defImgPath.Substring(0, index);
+                return Path.GetFileName(def.ImagePath);
             }
             else if (string.Compare(Statement, "IMG_NAME", true) == 0)
             {
-                string defImgPath = def.ImagePath;
-
-                int indexS = defImgPath.LastIndexOf('/');
-                int indexB = defImgPath.LastIndexOf('\\');
-                int index = indexS > indexB ? indexS : indexB;
-
-                if (index < 0) return defImgPath;
-                else return defImgPath.Substring(index + 1);
+                return Path.GetDirectoryName(def.ImagePath);
             }
             else
             {

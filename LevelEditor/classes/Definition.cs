@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace LevelEditor
 {
-    class Definition
+    class Definition : ICodeContainer
     {
         int id;
 
@@ -25,8 +25,8 @@ namespace LevelEditor
             dictionary = Dictionary;
             name = "";
 
-            code = new Code();
-            codeObjAuto = new Code();
+            code = new Code(this);
+            codeObjAuto = new Code(this);
         }
 
         public Definition(Dictionary Dict, string Name)
@@ -34,8 +34,8 @@ namespace LevelEditor
             dictionary = Dict;
             name = Name;
 
-            code = new Code();
-            codeObjAuto = new Code();
+            code = new Code(this);
+            codeObjAuto = new Code(this);
         }
 
         [Description("The name by which this definition will be referenced in your code."), 
@@ -46,6 +46,7 @@ namespace LevelEditor
             set
             {
                 name = value;
+                if (dictionary != null) dictionary.Changed = true;
                 dictionary.Foundation.Form.onDictAndLevelChanged();
             }
         }
@@ -61,6 +62,7 @@ namespace LevelEditor
         {
             image = I;
             imagePath = Path;
+            if (dictionary != null) dictionary.Changed = true;
         }
 
         [Description("This is the path to the file from which the image was loaded."),
@@ -73,6 +75,7 @@ namespace LevelEditor
         public void SetId(int Id)
         {
             id = Id;
+            if (dictionary != null) dictionary.Changed = true;
         }
 
         [Description("This is the ID by which this application manages this definition."),
@@ -85,6 +88,11 @@ namespace LevelEditor
         public Code GetCode()
         {
             return code;
+        }
+
+        public void OnCodeChanged(Code Code)
+        {
+            if (dictionary != null) dictionary.Changed = true;
         }
 
         public Code GetCodeObjAuto()

@@ -469,6 +469,8 @@
             this.scintillaCodeLevel.TabIndex = 7;
             this.scintillaCodeLevel.UseTabs = true;
             this.scintillaCodeLevel.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeLevel.TextChanged += new System.EventHandler(this.scintillaCodeLevel_TextChanged);
+            this.scintillaCodeLevel.Click += new System.EventHandler(this.scintillaCodeLevel_Click);
             // 
             // buttonGenerate
             // 
@@ -505,6 +507,7 @@
             this.scintillaCodeDefObj.TabIndex = 14;
             this.scintillaCodeDefObj.UseTabs = true;
             this.scintillaCodeDefObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeDefObj.Click += new System.EventHandler(this.scintillaCodeDefObj_Click);
             // 
             // scintillaCodeDef
             // 
@@ -517,6 +520,7 @@
             this.scintillaCodeDef.TabIndex = 13;
             this.scintillaCodeDef.UseTabs = true;
             this.scintillaCodeDef.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeDef.Click += new System.EventHandler(this.scintillaCodeDef_Click);
             // 
             // buttonReinsertObjCode
             // 
@@ -569,6 +573,7 @@
             this.scintillaCodeObj.TabIndex = 8;
             this.scintillaCodeObj.UseTabs = true;
             this.scintillaCodeObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeObj.Click += new System.EventHandler(this.scintillaCodeObj_Click);
             // 
             // Form1
             // 

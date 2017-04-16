@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -120,30 +121,14 @@ namespace LevelEditor
                 form.onDictionaryChanged(index + 1);
         }
 
-        public void DeleteObject(int index)
+        public bool ObjContains(Object Obj, Point Pnt)
         {
-            if (index < 0 || index >= level.Count) return;
-
-            level.Delete(index);
-
-            form.onLevelChanged(-1);
+            return Obj.Contains(plane.InverseTransform(Pnt));
         }
 
-        public void DeleteObjectAt(Point Pnt)
+        public bool ObjContains(int ObjIndex, Point Pnt)
         {
-            Point loc = plane.InverseTransform(Pnt);
-
-            for (int i = level.Count - 1; i >= 0; --i)
-            {
-                Object obj = level[i];
-                if (obj == null) continue;
-
-                if (obj.Contains(loc))
-                {
-                    DeleteObject(i);
-                    return;
-                }
-            }
+            return level[ObjIndex].Contains(plane.InverseTransform(Pnt));
         }
 
         public void DeleteDefinition(int index)
@@ -161,19 +146,63 @@ namespace LevelEditor
             form.onPlaneChanged(true);
         }
 
+        public void DeleteObject(int index)
+        {
+            if (index < 0 || index >= level.Count) return;
+
+            level.Delete(index);
+
+            form.onLevelChanged(-1);
+        }
+
+        public void DeleteObjectAt(Point Pnt)
+        {
+            Point loc = plane.InverseTransform(Pnt);
+
+            for (int i = level.Count - 1; i >= 0; --i)
+            {
+                Object obj = level[i];
+
+                if (obj != null && obj.Contains(loc))
+                {
+                    DeleteObject(i);
+                    return;
+                }
+            }
+        }
+
+        public List<int> GetIndexesOfObjsAt(Point Pnt)
+        {
+            Point loc = plane.InverseTransform(Pnt);
+            List<int> list = new List<int>();
+
+            for (int i = level.Count - 1; i >= 0; --i)
+            {
+                Object obj = level[i];
+
+                if (obj != null && obj.Contains(loc))
+                    list.Add(i);
+            }
+
+            return list;
+        }
+
         public string ExtractDictionaryPathFromLevelFile(string FilePath)
         {
+            if (!File.Exists(FilePath))
+                throw new ErrorLoadLvl("File not found", FilePath);
+
             using (System.IO.StreamReader FS = new System.IO.StreamReader(FilePath))
             {
                 string type = FS.ReadLine();
 
                 if (string.Equals(type, Level.TypeToken))
                 {
-                    return FS.ReadLine();
+                    return Path.Combine(Path.GetDirectoryName(FilePath), FS.ReadLine());
                 }
                 else
                 {
-                    return null;
+                    throw new ErrorLoadLvl("Invalid file type", FilePath);
                 }
             }
         }

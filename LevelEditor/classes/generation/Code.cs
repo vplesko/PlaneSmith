@@ -10,7 +10,19 @@ namespace LevelEditor
 {
     class Code
     {
+        ICodeContainer owner;
+
         List<string> lines = new List<string>();
+
+        public Code()
+        {
+            owner = null;
+        }
+
+        public Code(ICodeContainer Owner)
+        {
+            owner = Owner;
+        }
 
         public List<string> Lines
         {
@@ -33,6 +45,8 @@ namespace LevelEditor
                 lines.Add(Lines[i]);
                 lines[i] += "\r\n";
             }
+
+            if (owner != null) owner.OnCodeChanged(this);
         }
 
         public void CopySplitLines(string Text)
@@ -46,6 +60,8 @@ namespace LevelEditor
                 lines.Add(array[i]);
                 if (i + 1 < array.Length) lines[i] += "\r\n";
             }
+
+            if (owner != null) owner.OnCodeChanged(this);
         }
 
         public void CopyFrom(Code C)
@@ -59,6 +75,8 @@ namespace LevelEditor
             lines = new List<string>(C.Lines.Count);
             foreach (string l in C.Lines)
                 lines.Add(l);
+
+            if (owner != null) owner.OnCodeChanged(this);
         }
 
         public void Save(System.IO.StreamWriter FS)

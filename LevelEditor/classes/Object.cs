@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace LevelEditor
 {
-    class Object
+    class Object : ICodeContainer
     {
         int id;
 
@@ -24,7 +24,7 @@ namespace LevelEditor
             level = Lvl;
             definition = null;
             position = new Point();
-            code = new Code();
+            code = new Code(this);
         }
 
         public Object(Level Lvl, Definition Def)
@@ -32,7 +32,7 @@ namespace LevelEditor
             level = Lvl;
             definition = Def;
             position = new Point();
-            code = new Code();
+            code = new Code(this);
             code.CopyFrom(Def.GetCodeObjAuto());
         }
 
@@ -45,6 +45,8 @@ namespace LevelEditor
         {
             position.X = Pos.X;
             position.Y = Pos.Y;
+
+            if (level != null) level.Changed = true;
         }
 
         [Description("The coordinates of this object on the level."),
@@ -55,6 +57,7 @@ namespace LevelEditor
             set
             {
                 SetPosition(value);
+                if (level != null) level.Changed = true;
                 level.Foundation.Form.onObjPositionChanged(this);
             }
         }
@@ -62,6 +65,7 @@ namespace LevelEditor
         public void SetId(int Id)
         {
             id = Id;
+            if (level != null) level.Changed = true;
         }
 
         [Description("This is the ID by which this application manages this object."),
@@ -74,6 +78,11 @@ namespace LevelEditor
         public Code GetCode()
         {
             return code;
+        }
+        
+        public void OnCodeChanged(Code Code)
+        {
+            if (level != null) level.Changed = true;
         }
 
         public bool Contains(Point Pnt)
