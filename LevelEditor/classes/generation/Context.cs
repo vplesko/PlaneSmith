@@ -47,8 +47,8 @@ namespace LevelEditor
                 return null;
             }
 
-            int ind0 = lines[lin].IndexOf("%<", col);
-            int ind1 = ind0 >= 0 ? lines[lin].IndexOf(">%", ind0 + 2) : -1;
+            int ind0 = lines[lin].IndexOf(Generator.SegmBeg, col);
+            int ind1 = ind0 >= 0 ? lines[lin].IndexOf(Generator.SegmEnd, ind0 + 2) : -1;
 
             if (ind0 < 0 || ind1 < 0)
             {

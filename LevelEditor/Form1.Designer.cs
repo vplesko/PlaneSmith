@@ -49,11 +49,17 @@
             this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDictionaryAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveLevelAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.snapToGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetOffsetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.codingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.insertSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.showWhitespacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonMoveUpDef = new System.Windows.Forms.Button();
             this.buttonMoveDownDef = new System.Windows.Forms.Button();
             this.buttonMoveUpObj = new System.Windows.Forms.Button();
@@ -237,7 +243,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.viewToolStripMenuItem,
+            this.codingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(984, 24);
@@ -254,6 +261,7 @@
             this.saveToolStripMenuItem1,
             this.saveDictionaryAsToolStripMenuItem,
             this.saveLevelAsToolStripMenuItem,
+            this.toolStripSeparator1,
             this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
@@ -304,6 +312,11 @@
             this.saveLevelAsToolStripMenuItem.Text = "Save Level As...";
             this.saveLevelAsToolStripMenuItem.Click += new System.EventHandler(this.saveLevelAsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
@@ -343,6 +356,49 @@
             this.resetOffsetToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.resetOffsetToolStripMenuItem.Text = "Reset offset";
             this.resetOffsetToolStripMenuItem.Click += new System.EventHandler(this.resetOffsetToolStripMenuItem_Click);
+            // 
+            // codingToolStripMenuItem
+            // 
+            this.codingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertSegmentToolStripMenuItem,
+            this.generateToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.showWhitespacesToolStripMenuItem});
+            this.codingToolStripMenuItem.Name = "codingToolStripMenuItem";
+            this.codingToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.codingToolStripMenuItem.Text = "Coding";
+            // 
+            // insertSegmentToolStripMenuItem
+            // 
+            this.insertSegmentToolStripMenuItem.Name = "insertSegmentToolStripMenuItem";
+            this.insertSegmentToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.insertSegmentToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.insertSegmentToolStripMenuItem.Text = "Insert segment";
+            this.insertSegmentToolStripMenuItem.Click += new System.EventHandler(this.insertSegmentToolStripMenuItem_Click);
+            // 
+            // generateToolStripMenuItem
+            // 
+            this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
+            this.generateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.B)));
+            this.generateToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.generateToolStripMenuItem.Text = "Generate";
+            this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(191, 6);
+            // 
+            // showWhitespacesToolStripMenuItem
+            // 
+            this.showWhitespacesToolStripMenuItem.Checked = true;
+            this.showWhitespacesToolStripMenuItem.CheckOnClick = true;
+            this.showWhitespacesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showWhitespacesToolStripMenuItem.Name = "showWhitespacesToolStripMenuItem";
+            this.showWhitespacesToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.showWhitespacesToolStripMenuItem.Text = "Show whitespaces";
+            this.showWhitespacesToolStripMenuItem.Click += new System.EventHandler(this.showWhitespacesToolStripMenuItem_Click);
             // 
             // buttonMoveUpDef
             // 
@@ -507,6 +563,7 @@
             this.scintillaCodeDefObj.TabIndex = 14;
             this.scintillaCodeDefObj.UseTabs = true;
             this.scintillaCodeDefObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeDefObj.TextChanged += new System.EventHandler(this.scintillaCodeDefObj_TextChanged);
             this.scintillaCodeDefObj.Click += new System.EventHandler(this.scintillaCodeDefObj_Click);
             // 
             // scintillaCodeDef
@@ -520,6 +577,7 @@
             this.scintillaCodeDef.TabIndex = 13;
             this.scintillaCodeDef.UseTabs = true;
             this.scintillaCodeDef.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeDef.TextChanged += new System.EventHandler(this.scintillaCodeDef_TextChanged);
             this.scintillaCodeDef.Click += new System.EventHandler(this.scintillaCodeDef_Click);
             // 
             // buttonReinsertObjCode
@@ -573,6 +631,7 @@
             this.scintillaCodeObj.TabIndex = 8;
             this.scintillaCodeObj.UseTabs = true;
             this.scintillaCodeObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
+            this.scintillaCodeObj.TextChanged += new System.EventHandler(this.scintillaCodeObj_TextChanged);
             this.scintillaCodeObj.Click += new System.EventHandler(this.scintillaCodeObj_Click);
             // 
             // Form1
@@ -665,6 +724,12 @@
         private System.Windows.Forms.ToolStripMenuItem showGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem snapToGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetOffsetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem codingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem insertSegmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem showWhitespacesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

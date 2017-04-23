@@ -2,6 +2,12 @@ coding improvements and features
 
 code error msgs
 
+code fech keep indents
+
 polish and fixes
 
 release
+
+---------------------------------------------
+
+syntax highlighting

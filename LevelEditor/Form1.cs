@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -15,6 +16,9 @@ namespace LevelEditor
     public partial class Form1 : Form
     {
         Foundation foundation;
+
+        Scintilla[] scintillas;
+        PsmLexer psmLexer;
 
         public Form1()
         {
@@ -54,13 +58,29 @@ namespace LevelEditor
 
             toolTip.SetToolTip(this.buttonGenerate, "Generate output into a file");
 
-            foreach (Scintilla S in 
-                new Scintilla[] { scintillaCodeLevel, scintillaCodeDef, scintillaCodeDefObj, scintillaCodeObj })
+            scintillas = new Scintilla[] { scintillaCodeLevel, scintillaCodeDef, scintillaCodeDefObj, scintillaCodeObj };
+            psmLexer = new PsmLexer();
+
+            foreach (Scintilla scintilla in scintillas)
             {
-                S.Styles[Style.Default].Font = "Consolas";
-                S.Styles[Style.Default].Size = 14;
-                S.SetWhitespaceForeColor(true, Color.SteelBlue);
-                S.Margins[0].Width = 24;
+                scintilla.Styles[Style.Default].Font = "Consolas";
+                scintilla.Styles[Style.Default].Size = 14;
+
+                scintilla.WhitespaceSize = 2;
+                scintilla.ViewWhitespace = showWhitespacesToolStripMenuItem.Checked ? WhitespaceMode.VisibleAlways : WhitespaceMode.Invisible;
+                scintilla.SetWhitespaceForeColor(true, Color.Orange);
+
+                scintilla.Margins[0].Width = scintilla.TextWidth(Style.LineNumber, new string('9', 2)) + 2;
+
+                scintilla.InsertCheck += scintilla_InsertCheck;
+
+                scintilla.Styles[PsmLexer.StyleDefault].ForeColor = Color.Black;
+                scintilla.Styles[PsmLexer.StyleKeyword].ForeColor = Color.Blue;
+                scintilla.Styles[PsmLexer.StyleFreqAtr].ForeColor = Color.Green;
+                scintilla.Styles[PsmLexer.StyleSegment].ForeColor = Color.Maroon;
+
+                scintilla.Lexer = Lexer.Container;
+                scintilla.StyleNeeded += scintilla_StyleNeeded;
             }
         }
 
@@ -667,24 +687,83 @@ namespace LevelEditor
             foundation.Plane.IsSnapGrid = checkSnapGrid.Checked;
         }
 
+        private void recalcLineMarginLength(Scintilla S, ref int currLen)
+        {
+            const int padding = 2;
+
+            int lineLen = S.Lines.Count.ToString().Length;
+            if (currLen != lineLen)
+            {
+                S.Margins[0].Width = S.TextWidth(Style.LineNumber, new string('9', lineLen + 1)) + padding;
+                currLen = lineLen;
+            }
+        }
+
+        private int scintillaCodeLevelLineMarginLength;
         private void scintillaCodeLevel_TextChanged(object sender, EventArgs e)
         {
             foundation.Level.Changed = true;
+
+            recalcLineMarginLength(scintillaCodeLevel, ref scintillaCodeLevelLineMarginLength);
         }
 
-        private void scintillaCodeDef_Click(object sender, EventArgs e)
+        private int scintillaCodeDefLineMarginLength;
+        private void scintillaCodeDef_TextChanged(object sender, EventArgs e)
         {
             foundation.Dictionary.Changed = true;
+
+            recalcLineMarginLength(scintillaCodeDef, ref scintillaCodeDefLineMarginLength);
         }
 
-        private void scintillaCodeDefObj_Click(object sender, EventArgs e)
+        private int scintillaCodeDefObjLineMarginLength;
+        private void scintillaCodeDefObj_TextChanged(object sender, EventArgs e)
         {
             foundation.Dictionary.Changed = true;
+
+            recalcLineMarginLength(scintillaCodeDefObj, ref scintillaCodeDefObjLineMarginLength);
         }
 
-        private void scintillaCodeObj_Click(object sender, EventArgs e)
+        private int scintillaCodeObjLineMarginLength;
+        private void scintillaCodeObj_TextChanged(object sender, EventArgs e)
         {
             foundation.Level.Changed = true;
+
+            recalcLineMarginLength(scintillaCodeObj, ref scintillaCodeObjLineMarginLength);
+        }
+
+        private void scintilla_InsertCheck(object sender, InsertCheckEventArgs e)
+        {
+            Scintilla scintilla = sender as Scintilla;
+
+            if ((e.Text.EndsWith("\r") || e.Text.EndsWith("\n")))
+            {
+                int currLineIndex = scintilla.LineFromPosition(e.Position);
+                Line currLine = scintilla.Lines[currLineIndex];
+                string currLineText = currLine.Text;
+
+                Match indent = Regex.Match(currLineText, @"^\s*");
+
+                int indentLen = e.Position - currLine.Position;
+                if (indentLen > indent.Length) indentLen = indent.Length;
+
+                e.Text += indent.Value.Substring(0, indentLen);
+            }
+        }
+
+        private void scintilla_StyleNeeded(object sender, StyleNeededEventArgs e)
+        {
+            Scintilla scintilla = sender as Scintilla;
+            
+            int startPos = scintilla.GetEndStyled();
+            int endPos = e.Position;
+
+            psmLexer.Style(scintilla, startPos, endPos);
+        }
+
+        private void showWhitespacesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (Scintilla scintilla in scintillas)
+                scintilla.ViewWhitespace = showWhitespacesToolStripMenuItem.Checked ? WhitespaceMode.VisibleAlways : WhitespaceMode.Invisible;
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -881,6 +960,16 @@ namespace LevelEditor
             return res;
         }
 
+        private void insertSegmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Scintilla S = ActiveControl as Scintilla;
+            if (S != null)
+            {
+                S.InsertText(S.CurrentPosition, "" + Generator.SegmBeg + Generator.SegmEnd);
+                S.SetEmptySelection(S.CurrentPosition + ("" + Generator.SegmBeg).Length);
+            }
+        }
+
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             putBaseCode();
@@ -895,10 +984,21 @@ namespace LevelEditor
             if (saveFileDialog.FileName != null &&
                 saveFileDialog.FileName.Length != 0)
             {
-                string error = foundation.Generator.Generate(saveFileDialog.FileName);
-                if (error == null) MessageBox.Show("Code has been successfully generated.", "Generated");
-                else MessageBox.Show(error, "Error");
+                try
+                {
+                    foundation.Generator.Generate(saveFileDialog.FileName);
+                    MessageBox.Show("Code has been successfully generated.", "Generated");
+                }
+                catch (ErrorCode err)
+                {
+                    MessageBox.Show(err.Description, "Code error");
+                }
             }
+        }
+
+        private void generateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonGenerate_Click(null, null);
         }
 
         private void buttonReinsertObjCode_Click(object sender, EventArgs e)
@@ -985,6 +1085,18 @@ namespace LevelEditor
         }
 
         private void scintillaCodeLevel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void scintillaCodeDef_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void scintillaCodeDefObj_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void scintillaCodeObj_Click(object sender, EventArgs e)
         {
         }
     }

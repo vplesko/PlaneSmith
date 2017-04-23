@@ -8,17 +8,19 @@ namespace LevelEditor
 {
     class Generator
     {
+        public static string SegmBeg = "«";
+        public static string SegmEnd = "»";
+
+        public static string Keywords = "FECH OBJ DEF ATR";
+        public static string FreqAtrs = "NL ID IMG_PATH IMG_NAME NAME CODE CODE_OBJ ID X Y";
+        
         Foundation foundation;
         Stack stack;
-
-        System.IO.StreamWriter codeFile;
 
         public Generator(Foundation Foundation)
         {
             foundation = Foundation;
             stack = new Stack(this);
-
-            codeFile = null;
         }
 
         public Foundation Foundation
@@ -31,14 +33,9 @@ namespace LevelEditor
             get { return stack; }
         }
 
-        public System.IO.StreamWriter CodeFile
+        public void Generate(string FilePath)
         {
-            get { return codeFile; }
-        }
-
-        public string Generate(string FilePath)
-        {
-            using (codeFile = new System.IO.StreamWriter(FilePath))
+            using (System.IO.StreamWriter codeFile = new System.IO.StreamWriter(FilePath))
             {
                 stack.Add(new ContextBase(this));
 
@@ -50,9 +47,6 @@ namespace LevelEditor
             }
 
             stack.Clear();
-            codeFile = null;
-
-            return null;
         }
     }
 }
