@@ -9,18 +9,18 @@ namespace LevelEditor
 {
     class Plane
     {
-        Foundation foundation;
+        private Foundation foundation;
 
-        Bitmap wholeImage, levelImage;
-        Region clipRegion;
+        private Bitmap wholeImage, levelImage;
+        private Region clipRegion;
 
-        Object objTemporas;
-        bool drawObjTemporas;
+        private Object objTemporas;
+        private bool drawObjTemporas;
 
-        Size gridCellSize;
-        bool drawGrid, snapGrid;
+        private Size gridCellSize;
+        private bool drawGrid, snapGrid;
 
-        Point translation;
+        private Point translation;
 
         public Plane(Foundation Foundation)
         {

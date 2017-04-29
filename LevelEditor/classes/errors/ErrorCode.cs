@@ -8,21 +8,43 @@ namespace LevelEditor
 {
     class ErrorCode : Error
     {
+        protected string codeOwner;
         protected int line;
-        protected string desc;
 
-        public ErrorCode(int Line, string Desc) : base(Desc)
+        public ErrorCode(string Str) : base(Str)
         {
+            codeOwner = null;
+            line = -1;
+        }
+
+        public ErrorCode(string CodeOwner, int Line, string Str)
+            : base(Str)
+        {
+            codeOwner = CodeOwner;
             line = Line;
-            desc = Desc;
         }
 
         public override string Description
         {
             get
             {
-                return "Error at line " + line + ": " + desc;
+                return "Error" +
+                    (codeOwner != null ? " in code for " + codeOwner : "") +
+                    (line >= 0 ? " at line " + line : "") +
+                    ": " + str;
             }
+        }
+
+        public string CodeOwner
+        {
+            get { return codeOwner; }
+            set { codeOwner = value; }
+        }
+
+        public int Line
+        {
+            get { return line; }
+            set { line = value; }
         }
     }
 }

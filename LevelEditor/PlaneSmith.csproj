@@ -66,8 +66,16 @@
     <Compile Include="classes\generation\ContextFech.cs" />
     <Compile Include="classes\generation\ContextObj.cs" />
     <Compile Include="classes\generation\ICodeContainer.cs" />
+    <Compile Include="classes\generation\Parser.cs" />
     <Compile Include="classes\generation\Stack.cs" />
     <Compile Include="classes\generation\Generator.cs" />
+    <Compile Include="classes\generation\Statement.cs" />
+    <Compile Include="classes\generation\StatementFactory.cs" />
+    <Compile Include="classes\generation\StmAtr.cs" />
+    <Compile Include="classes\generation\StmEnd.cs" />
+    <Compile Include="classes\generation\StmFech.cs" />
+    <Compile Include="classes\generation\StmNewline.cs" />
+    <Compile Include="classes\generation\StmTerminal.cs" />
     <Compile Include="classes\Plane.cs" />
     <Compile Include="classes\PsmLexer.cs" />
     <Compile Include="Form1.cs">

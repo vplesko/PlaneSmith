@@ -8,19 +8,17 @@ namespace LevelEditor
 {
     class Generator
     {
-        public static string SegmBeg = "«";
-        public static string SegmEnd = "»";
+        private Foundation foundation;
 
-        public static string Keywords = "FECH OBJ DEF ATR";
-        public static string FreqAtrs = "NL ID IMG_PATH IMG_NAME NAME CODE CODE_OBJ ID X Y";
-        
-        Foundation foundation;
-        Stack stack;
+        private Stack stack;
+        private Dictionary<Code, Parser> parsers;
 
         public Generator(Foundation Foundation)
         {
             foundation = Foundation;
+
             stack = new Stack(this);
+            parsers = new Dictionary<Code, Parser>();
         }
 
         public Foundation Foundation
@@ -33,8 +31,46 @@ namespace LevelEditor
             get { return stack; }
         }
 
+        public Context CurrentContext
+        {
+            get { return stack.Empty ? null : stack.Peek(); }
+        }
+
+        public Parser GetParsed(Code Code)
+        {
+            return parsers[Code];
+        }
+
         public void Generate(string FilePath)
         {
+            parsers.Clear();
+            stack.Clear();
+
+            Parser parser = new Parser(this);
+            parser.Parse(foundation.Level.GetCode(), "Level");
+            parsers.Add(foundation.Level.GetCode(), parser);
+
+            for (int i = 0; i < foundation.Dictionary.Count; ++i)
+            {
+                Definition def = foundation.Dictionary[i];
+
+                parser = new Parser(this);
+                parser.Parse(def.GetCode(), def.ToStringVerbose());
+                parsers.Add(def.GetCode(), parser);
+
+                parser = new Parser(this);
+                parser.Parse(def.GetCodeObjAuto(), def.ToString() + " (Def.'s obj code)");
+                parsers.Add(def.GetCodeObjAuto(), parser);
+            }
+
+            for (int i = 0; i < foundation.Level.Count; ++i)
+            {
+                Object obj = foundation.Level[i];
+                parser = new Parser(this);
+                parser.Parse(obj.GetCode(), obj.ToStringVerbose());
+                parsers.Add(obj.GetCode(), parser);
+            }
+
             using (System.IO.StreamWriter codeFile = new System.IO.StreamWriter(FilePath))
             {
                 stack.Add(new ContextBase(this));
@@ -46,6 +82,7 @@ namespace LevelEditor
                 }
             }
 
+            parsers.Clear();
             stack.Clear();
         }
     }

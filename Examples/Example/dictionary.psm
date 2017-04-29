@@ -5,56 +5,51 @@ Dictionary file
 Floor
 C:\Users\Vladimir\Desktop\F\PlaneSmith\Examples\Sprites\floor.png
 2
-#include "Floor.h"
-
-2
-makeFloorAtTile(%<X>% / 32, %<Y>% / 32, "assets/sprites/%<DEF.IMG_NAME>%");
-
+«FECH.OBJ.
+»«CODE»«END»
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.IMG_NAME»");
 1
 Wall
 C:\Users\Vladimir\Desktop\F\PlaneSmith\Examples\Sprites\wall.png
 2
-#include "Wall.h"
-
-2
-makeWallAtTile(%<X>% / 32, %<Y>% / 32, "assets/sprites/%<DEF.IMG_NAME>%");
-
+«FECH.OBJ.
+»«CODE»«END»
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.IMG_NAME»");
 2
 Dwarf
 C:\Users\Vladimir\Desktop\F\PlaneSmith\Examples\Sprites\dwarf.png
 2
-#include "Dwarf.h"
-
-6
+«FECH.OBJ.
+»«CODE»«END»
+5
 {
 Dwarf *dwarf = new Dwarf();
-dwarf->setPosition(%<X>%, %<Y>%);
+dwarf->setPosition(«X», «Y»);
 addEnemy(dwarf);
 }
-
 3
 Elf
 C:\Users\Vladimir\Desktop\F\PlaneSmith\Examples\Sprites\ranger.png
 2
-#include "Elf.h"
-
-6
+«FECH.OBJ.
+»«CODE»«END»
+5
 {
 Elf *elf = new Elf();
-elf->setPosition(%<X>%, %<Y>%);
+elf->setPosition(«X», «Y»);
 addEnemy(elf);
 }
-
 4
 Wizard
 C:\Users\Vladimir\Desktop\F\PlaneSmith\Examples\Sprites\wizard.png
 2
-#include "Wizard.h"
-
-6
+«FECH.OBJ.
+»«CODE»«END»
+5
 {
 Player *player = new Wizard();
-player->setPosition(%<X>%, %<Y>%);
+player->setPosition(«X», «Y»);
 addPlayer(player);
 }
-

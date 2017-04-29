@@ -1,13 +1,9 @@
-coding improvements and features
-
-code error msgs
-
 code fech keep indents
+
+code fech split nested statements
+
+change syntax highlighting
 
 polish and fixes
 
 release
-
----------------------------------------------
-
-syntax highlighting

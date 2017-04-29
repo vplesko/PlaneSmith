@@ -27,14 +27,26 @@ namespace LevelEditor
         {
             // @TODO@ it's assumed segment separators are single chars
             // @TODO@ nested segments?
-            // @TODO@ multi-line segments?
 
             // Back up to the line start
             int line = scintilla.LineFromPosition(startPos);
             startPos = scintilla.Lines[line].Position;
 
-            var length = 0;
-            var state = State.DEFAULT;
+            int length = 0;
+            State state = State.DEFAULT;
+
+            if (line > 0)
+            {
+                int prevLine = line - 1;
+                int startPosPrevLine = scintilla.Lines[prevLine].Position;
+                int endPosPrevLine = startPosPrevLine + scintilla.Lines[prevLine].Length - 1;
+                
+                if (scintilla.GetStyleAt(endPosPrevLine) == StyleSegment &&
+                    (char)scintilla.GetCharAt(endPosPrevLine) != Code.SegmEnd[0])
+                {
+                    state = State.SEGMENT;
+                }
+            }
 
             // Start styling
             scintilla.StartStyling(startPos);
@@ -48,7 +60,7 @@ namespace LevelEditor
                 switch (state)
                 {
                     case State.DEFAULT:
-                        if (c == Generator.SegmBeg[0])
+                        if (c == Code.SegmBeg[0])
                         {
                             scintilla.SetStyling(1, StyleSegment);
                             state = State.SEGMENT;
@@ -60,7 +72,7 @@ namespace LevelEditor
                         break;
 
                     case State.SEGMENT:
-                        if (c == Generator.SegmEnd[0])
+                        if (c == Code.SegmEnd[0])
                         {
                             ++length;
                             scintilla.SetStyling(length, StyleSegment);
@@ -76,12 +88,17 @@ namespace LevelEditor
 
                 if (goNext) ++startPos;
             }
+
+            if (length > 0 && state == State.SEGMENT)
+            {
+                scintilla.SetStyling(length, StyleSegment);
+            }
         }
 
         public PsmLexer()
         {
-            keywords = new HashSet<string>(Regex.Split(Generator.Keywords + ' ' + Generator.Keywords.ToLower() ?? string.Empty, @"\s+").Where(l => !string.IsNullOrEmpty(l)));
-            freqAtrs = new HashSet<string>(Regex.Split(Generator.FreqAtrs + ' ' + Generator.FreqAtrs.ToLower() ?? string.Empty, @"\s+").Where(l => !string.IsNullOrEmpty(l)));
+            keywords = new HashSet<string>(Regex.Split(Code.Keywords + ' ' + Code.Keywords.ToLower() ?? string.Empty, @"\s+").Where(l => !string.IsNullOrEmpty(l)));
+            freqAtrs = new HashSet<string>(Regex.Split(Code.FreqAtrs + ' ' + Code.FreqAtrs.ToLower() ?? string.Empty, @"\s+").Where(l => !string.IsNullOrEmpty(l)));
         }
     }
 }

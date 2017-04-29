@@ -8,9 +8,9 @@ namespace LevelEditor
 {
     class Stack
     {
-        Generator generator;
+        private Generator generator;
 
-        LinkedList<Context> list;
+        private LinkedList<Context> list;
 
         public Stack(Generator Generator)
         {

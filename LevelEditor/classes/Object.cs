@@ -10,14 +10,14 @@ namespace LevelEditor
 {
     class Object : ICodeContainer
     {
-        int id;
+        private int id;
 
-        Level level;
+        private Level level;
 
-        Definition definition;
-        Point position;
+        private Definition definition;
+        private Point position;
 
-        Code code;
+        private Code code;
 
         public Object(Level Lvl)
         {
@@ -105,6 +105,11 @@ namespace LevelEditor
             return "[" + id + "] " + 
                 (definition != null ? definition.Name : "??") + 
                 " (" + position.X + ", " + position.Y + ")";
+        }
+
+        public string ToStringVerbose()
+        {
+            return ToString() + " (Obj.)";
         }
 
         public void Save(System.IO.StreamWriter FS)

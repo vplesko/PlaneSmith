@@ -10,15 +10,15 @@ namespace LevelEditor
 {
     class Definition : ICodeContainer
     {
-        int id;
+        private int id;
 
-        Dictionary dictionary;
+        private Dictionary dictionary;
 
-        string name;
-        Image image;
-        string imagePath;
+        private string name;
+        private Image image;
+        private string imagePath;
 
-        Code code, codeObjAuto;
+        private Code code, codeObjAuto;
 
         public Definition(Dictionary Dictionary)
         {
@@ -103,6 +103,11 @@ namespace LevelEditor
         public override string ToString()
         {
             return Name;
+        }
+
+        public string ToStringVerbose()
+        {
+            return ToString() + " (Def.)";
         }
 
         public void Save(System.IO.StreamWriter FS)

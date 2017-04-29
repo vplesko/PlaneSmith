@@ -10,13 +10,13 @@ namespace LevelEditor
 {
     class Foundation
     {
-        Form1 form;
+        private Form1 form;
 
-        Dictionary dictionary;
-        Level level;
-        Plane plane;
+        private Dictionary dictionary;
+        private Level level;
+        private Plane plane;
 
-        Generator generator;
+        private Generator generator;
 
         public Foundation(Form1 Form)
         {

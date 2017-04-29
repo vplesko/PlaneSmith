@@ -10,7 +10,13 @@ namespace LevelEditor
 {
     class Code
     {
-        ICodeContainer owner;
+        public static string SegmBeg = "«";
+        public static string SegmEnd = "»";
+
+        public static string Keywords = "FECH OBJ DEF ATR";
+        public static string FreqAtrs = "NL ID IMG_PATH IMG_NAME NAME CODE CODE_OBJ ID X Y";
+
+        private ICodeContainer owner;
 
         List<string> lines = new List<string>();
 
@@ -43,7 +49,7 @@ namespace LevelEditor
             for (int i = 0; i < Lines.Length - 1; ++i)
             {
                 lines.Add(Lines[i]);
-                lines[i] += "\r\n";
+                lines[i] += Environment.NewLine;
             }
 
             if (owner != null) owner.OnCodeChanged(this);
@@ -58,7 +64,7 @@ namespace LevelEditor
             for (int i = 0; i < array.Length; ++i)
             {
                 lines.Add(array[i]);
-                if (i + 1 < array.Length) lines[i] += "\r\n";
+                if (i + 1 < array.Length) lines[i] += Environment.NewLine;
             }
 
             if (owner != null) owner.OnCodeChanged(this);
@@ -108,7 +114,7 @@ namespace LevelEditor
                 for (int i = 0; i < codeLen; ++i)
                 {
                     lines.Add(FS.ReadLine());
-                    if (i + 1 < codeLen) lines[i] += "\r\n";
+                    if (i + 1 < codeLen) lines[i] += Environment.NewLine;
                 }
             }
 

@@ -64,7 +64,7 @@ namespace LevelEditor
             foreach (Scintilla scintilla in scintillas)
             {
                 scintilla.Styles[Style.Default].Font = "Consolas";
-                scintilla.Styles[Style.Default].Size = 14;
+                scintilla.Styles[Style.Default].Size = 12;
 
                 scintilla.WhitespaceSize = 2;
                 scintilla.ViewWhitespace = showWhitespacesToolStripMenuItem.Checked ? WhitespaceMode.VisibleAlways : WhitespaceMode.Invisible;
@@ -525,7 +525,6 @@ namespace LevelEditor
 
                 for (int i = 0; i < code.Length; ++i)
                 {
-                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
                     scintillaCodeDef.AppendText(code[i]);
                 }
             }
@@ -541,7 +540,6 @@ namespace LevelEditor
 
                 for (int i = 0; i < code.Length; ++i)
                 {
-                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
                     scintillaCodeDefObj.AppendText(code[i]);
                 }
             }
@@ -613,7 +611,6 @@ namespace LevelEditor
 
                 for (int i = 0; i < code.Length; ++i)
                 {
-                    //if (i > 0) richTextCodeBase.AppendText("\r\n");
                     scintillaCodeObj.AppendText(code[i]);
                 }
             }
@@ -965,8 +962,8 @@ namespace LevelEditor
             Scintilla S = ActiveControl as Scintilla;
             if (S != null)
             {
-                S.InsertText(S.CurrentPosition, "" + Generator.SegmBeg + Generator.SegmEnd);
-                S.SetEmptySelection(S.CurrentPosition + ("" + Generator.SegmBeg).Length);
+                S.InsertText(S.CurrentPosition, "" + Code.SegmBeg + Code.SegmEnd);
+                S.SetEmptySelection(S.CurrentPosition + ("" + Code.SegmBeg).Length);
             }
         }
 
@@ -975,6 +972,9 @@ namespace LevelEditor
             putBaseCode();
             putSelectedDefCode();
             putSelectedObjCode();
+
+            saveDictionary(false);
+            saveLevel(false);
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text File|*.*";

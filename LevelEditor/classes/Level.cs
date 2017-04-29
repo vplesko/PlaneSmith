@@ -12,16 +12,16 @@ namespace LevelEditor
     {
         public static string TypeToken = "Level file";
 
-        Foundation foundation;
+        private Foundation foundation;
 
-        int lastId = 0;
-        List<Object> list = new List<Object>();
+        private int lastId = 0;
+        private List<Object> list = new List<Object>();
 
-        Code code;
+        private Code code;
 
-        bool changed = false;
+        private bool changed = false;
 
-        string filePath = null;
+        private string filePath = null;
 
         public Level(Foundation Foundation)
         {

@@ -11,14 +11,14 @@ namespace LevelEditor
     {
         public static string TypeToken = "Dictionary file";
 
-        Foundation foundation;
+        private Foundation foundation;
 
-        int lastId = 0;
-        List<Definition> list = new List<Definition>();
+        private int lastId = 0;
+        private List<Definition> list = new List<Definition>();
 
-        bool changed = false;
+        private bool changed = false;
 
-        string filePath = null;
+        private string filePath = null;
 
         public Dictionary(Foundation Foundation)
         {

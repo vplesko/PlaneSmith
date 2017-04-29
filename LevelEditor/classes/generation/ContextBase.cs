@@ -11,30 +11,39 @@ namespace LevelEditor
         public ContextBase(Generator Generator)
             : base(Generator)
         {
-            string[] code = Generator.Foundation.Level.GetCode().LinesAsArray;
-            if (code != null)
-            {
-                lines = new string[code.Length];
-                code.CopyTo(lines, 0);
-            }
+            SetParser(Generator.GetParsed(generator.Foundation.Level.GetCode()));
         }
 
-        public override string Do(string Statement)
+        public override List<Context> GatherContexts(string context)
         {
-            if (string.Compare(Statement, "FECH(DEF)", true) == 0)
+            context = context.ToUpper();
+
+            if ("DEF".Equals(context))
             {
-                Generator.Stack.Add(new ContextFech(Generator, 0));
-                return null;
+                List<Context> list = new List<Context>(generator.Foundation.Dictionary.Count);
+
+                for (int i = 0; i < generator.Foundation.Dictionary.Count; ++i)
+                {
+                    ContextDef contextDef = new ContextDef(generator, generator.Foundation.Dictionary[i]);
+                    list.Add(contextDef);
+                }
+
+                return list;
             }
-            else if (string.Compare(Statement, "FECH(OBJ)", true) == 0)
+            else if ("OBJ".Equals(context))
             {
-                Generator.Stack.Add(new ContextFech(Generator, 1));
-                return null;
+                List<Context> list = new List<Context>(generator.Foundation.Level.Count);
+
+                for (int i = 0; i < generator.Foundation.Level.Count; ++i)
+                {
+                    ContextObj contextObj = new ContextObj(generator, generator.Foundation.Level[i]);
+                    list.Add(contextObj);
+                }
+
+                return list;
             }
-            else
-            {
-                return null;
-            }
+
+            return base.GatherContexts(context);
         }
     }
 }
