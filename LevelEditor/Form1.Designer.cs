@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.pictureBoxEdit = new System.Windows.Forms.PictureBox();
             this.levelBox = new System.Windows.Forms.ListBox();
             this.dictionaryBox = new System.Windows.Forms.ListBox();
-            this.buttonAddDef = new System.Windows.Forms.Button();
             this.defProperties = new System.Windows.Forms.PropertyGrid();
             this.objProperties = new System.Windows.Forms.PropertyGrid();
             this.numericGridW = new System.Windows.Forms.NumericUpDown();
@@ -60,12 +58,6 @@
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.showWhitespacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonMoveUpDef = new System.Windows.Forms.Button();
-            this.buttonMoveDownDef = new System.Windows.Forms.Button();
-            this.buttonMoveUpObj = new System.Windows.Forms.Button();
-            this.buttonMoveDownObj = new System.Windows.Forms.Button();
-            this.buttonDeleteDef = new System.Windows.Forms.Button();
-            this.buttonDeleteObj = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
             this.tabCodeLevel = new System.Windows.Forms.TabPage();
@@ -79,7 +71,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabCodeObj = new System.Windows.Forms.TabPage();
             this.scintillaCodeObj = new ScintillaNET.Scintilla();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
+            this.pictureBoxEdit = new System.Windows.Forms.PictureBox();
+            this.buttonDeleteObj = new System.Windows.Forms.Button();
+            this.buttonDeleteDef = new System.Windows.Forms.Button();
+            this.buttonMoveDownObj = new System.Windows.Forms.Button();
+            this.buttonMoveUpObj = new System.Windows.Forms.Button();
+            this.buttonMoveDownDef = new System.Windows.Forms.Button();
+            this.buttonMoveUpDef = new System.Windows.Forms.Button();
+            this.buttonAddDef = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -88,37 +87,17 @@
             this.tabCodeLevel.SuspendLayout();
             this.tabCodeDef.SuspendLayout();
             this.tabCodeObj.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBoxEdit
-            // 
-            this.pictureBoxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
-            this.pictureBoxEdit.Name = "pictureBoxEdit";
-            this.pictureBoxEdit.Size = new System.Drawing.Size(537, 464);
-            this.pictureBoxEdit.TabIndex = 0;
-            this.pictureBoxEdit.TabStop = false;
-            this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
-            this.pictureBoxEdit.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxEdit_Paint);
-            this.pictureBoxEdit.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDoubleClick);
-            this.pictureBoxEdit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDown);
-            this.pictureBoxEdit.MouseEnter += new System.EventHandler(this.pictureBoxEdit_MouseEnter);
-            this.pictureBoxEdit.MouseLeave += new System.EventHandler(this.pictureBoxEdit_MouseLeave);
-            this.pictureBoxEdit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseMove);
-            this.pictureBoxEdit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseUp);
-            this.pictureBoxEdit.Resize += new System.EventHandler(this.pictureBoxEdit_Resize);
             // 
             // levelBox
             // 
             this.levelBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.levelBox.FormattingEnabled = true;
-            this.levelBox.Location = new System.Drawing.Point(775, 61);
+            this.levelBox.Location = new System.Drawing.Point(742, 61);
             this.levelBox.Name = "levelBox";
-            this.levelBox.Size = new System.Drawing.Size(197, 290);
+            this.levelBox.Size = new System.Drawing.Size(230, 264);
             this.levelBox.TabIndex = 3;
             this.levelBox.SelectedIndexChanged += new System.EventHandler(this.levelBox_SelectedIndexChanged);
             this.levelBox.MouseLeave += new System.EventHandler(this.levelBox_MouseLeave);
@@ -130,34 +109,24 @@
             this.dictionaryBox.FormattingEnabled = true;
             this.dictionaryBox.Location = new System.Drawing.Point(12, 61);
             this.dictionaryBox.Name = "dictionaryBox";
-            this.dictionaryBox.Size = new System.Drawing.Size(194, 290);
+            this.dictionaryBox.Size = new System.Drawing.Size(230, 264);
             this.dictionaryBox.TabIndex = 4;
             this.dictionaryBox.SelectedIndexChanged += new System.EventHandler(this.dictionaryBox_SelectedIndexChanged);
-            // 
-            // buttonAddDef
-            // 
-            this.buttonAddDef.Image = ((System.Drawing.Image)(resources.GetObject("buttonAddDef.Image")));
-            this.buttonAddDef.Location = new System.Drawing.Point(12, 28);
-            this.buttonAddDef.Name = "buttonAddDef";
-            this.buttonAddDef.Size = new System.Drawing.Size(37, 31);
-            this.buttonAddDef.TabIndex = 5;
-            this.buttonAddDef.UseVisualStyleBackColor = true;
-            this.buttonAddDef.Click += new System.EventHandler(this.buttonAddDef_Click);
             // 
             // defProperties
             // 
             this.defProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.defProperties.Location = new System.Drawing.Point(12, 357);
+            this.defProperties.Location = new System.Drawing.Point(12, 331);
             this.defProperties.Name = "defProperties";
-            this.defProperties.Size = new System.Drawing.Size(194, 192);
+            this.defProperties.Size = new System.Drawing.Size(228, 218);
             this.defProperties.TabIndex = 6;
             // 
             // objProperties
             // 
             this.objProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.objProperties.Location = new System.Drawing.Point(775, 357);
+            this.objProperties.Location = new System.Drawing.Point(742, 331);
             this.objProperties.Name = "objProperties";
-            this.objProperties.Size = new System.Drawing.Size(197, 192);
+            this.objProperties.Size = new System.Drawing.Size(230, 218);
             this.objProperties.TabIndex = 7;
             // 
             // numericGridW
@@ -233,7 +202,7 @@
             // 
             this.labelCoords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCoords.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelCoords.Location = new System.Drawing.Point(426, 3);
+            this.labelCoords.Location = new System.Drawing.Point(357, 3);
             this.labelCoords.Name = "labelCoords";
             this.labelCoords.Size = new System.Drawing.Size(117, 23);
             this.labelCoords.TabIndex = 13;
@@ -400,75 +369,6 @@
             this.showWhitespacesToolStripMenuItem.Text = "Show whitespaces";
             this.showWhitespacesToolStripMenuItem.Click += new System.EventHandler(this.showWhitespacesToolStripMenuItem_Click);
             // 
-            // buttonMoveUpDef
-            // 
-            this.buttonMoveUpDef.Enabled = false;
-            this.buttonMoveUpDef.Image = ((System.Drawing.Image)(resources.GetObject("buttonMoveUpDef.Image")));
-            this.buttonMoveUpDef.Location = new System.Drawing.Point(55, 28);
-            this.buttonMoveUpDef.Name = "buttonMoveUpDef";
-            this.buttonMoveUpDef.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveUpDef.TabIndex = 15;
-            this.buttonMoveUpDef.UseVisualStyleBackColor = true;
-            this.buttonMoveUpDef.Click += new System.EventHandler(this.buttonMoveUpDef_Click);
-            // 
-            // buttonMoveDownDef
-            // 
-            this.buttonMoveDownDef.Enabled = false;
-            this.buttonMoveDownDef.Image = ((System.Drawing.Image)(resources.GetObject("buttonMoveDownDef.Image")));
-            this.buttonMoveDownDef.Location = new System.Drawing.Point(98, 28);
-            this.buttonMoveDownDef.Name = "buttonMoveDownDef";
-            this.buttonMoveDownDef.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveDownDef.TabIndex = 16;
-            this.buttonMoveDownDef.UseVisualStyleBackColor = true;
-            this.buttonMoveDownDef.Click += new System.EventHandler(this.buttonMoveDownDef_Click);
-            // 
-            // buttonMoveUpObj
-            // 
-            this.buttonMoveUpObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMoveUpObj.Enabled = false;
-            this.buttonMoveUpObj.Image = ((System.Drawing.Image)(resources.GetObject("buttonMoveUpObj.Image")));
-            this.buttonMoveUpObj.Location = new System.Drawing.Point(849, 28);
-            this.buttonMoveUpObj.Name = "buttonMoveUpObj";
-            this.buttonMoveUpObj.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveUpObj.TabIndex = 17;
-            this.buttonMoveUpObj.UseVisualStyleBackColor = true;
-            this.buttonMoveUpObj.Click += new System.EventHandler(this.buttonMoveUpInst_Click);
-            // 
-            // buttonMoveDownObj
-            // 
-            this.buttonMoveDownObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonMoveDownObj.Enabled = false;
-            this.buttonMoveDownObj.Image = ((System.Drawing.Image)(resources.GetObject("buttonMoveDownObj.Image")));
-            this.buttonMoveDownObj.Location = new System.Drawing.Point(892, 28);
-            this.buttonMoveDownObj.Name = "buttonMoveDownObj";
-            this.buttonMoveDownObj.Size = new System.Drawing.Size(37, 31);
-            this.buttonMoveDownObj.TabIndex = 18;
-            this.buttonMoveDownObj.UseVisualStyleBackColor = true;
-            this.buttonMoveDownObj.Click += new System.EventHandler(this.buttonMoveDownInst_Click);
-            // 
-            // buttonDeleteDef
-            // 
-            this.buttonDeleteDef.Enabled = false;
-            this.buttonDeleteDef.Image = ((System.Drawing.Image)(resources.GetObject("buttonDeleteDef.Image")));
-            this.buttonDeleteDef.Location = new System.Drawing.Point(141, 28);
-            this.buttonDeleteDef.Name = "buttonDeleteDef";
-            this.buttonDeleteDef.Size = new System.Drawing.Size(37, 31);
-            this.buttonDeleteDef.TabIndex = 19;
-            this.buttonDeleteDef.UseVisualStyleBackColor = true;
-            this.buttonDeleteDef.Click += new System.EventHandler(this.buttonDeleteDef_Click);
-            // 
-            // buttonDeleteObj
-            // 
-            this.buttonDeleteObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDeleteObj.Enabled = false;
-            this.buttonDeleteObj.Image = ((System.Drawing.Image)(resources.GetObject("buttonDeleteObj.Image")));
-            this.buttonDeleteObj.Location = new System.Drawing.Point(935, 28);
-            this.buttonDeleteObj.Name = "buttonDeleteObj";
-            this.buttonDeleteObj.Size = new System.Drawing.Size(37, 31);
-            this.buttonDeleteObj.TabIndex = 20;
-            this.buttonDeleteObj.UseVisualStyleBackColor = true;
-            this.buttonDeleteObj.Click += new System.EventHandler(this.buttonDeleteInst_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -479,10 +379,10 @@
             this.tabControl1.Controls.Add(this.tabCodeLevel);
             this.tabControl1.Controls.Add(this.tabCodeDef);
             this.tabControl1.Controls.Add(this.tabCodeObj);
-            this.tabControl1.Location = new System.Drawing.Point(212, 28);
+            this.tabControl1.Location = new System.Drawing.Point(248, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(557, 533);
+            this.tabControl1.Size = new System.Drawing.Size(488, 533);
             this.tabControl1.TabIndex = 21;
             // 
             // tabPlane
@@ -498,7 +398,7 @@
             this.tabPlane.Location = new System.Drawing.Point(4, 25);
             this.tabPlane.Name = "tabPlane";
             this.tabPlane.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlane.Size = new System.Drawing.Size(549, 504);
+            this.tabPlane.Size = new System.Drawing.Size(480, 504);
             this.tabPlane.TabIndex = 0;
             this.tabPlane.Text = "Plane";
             // 
@@ -510,7 +410,7 @@
             this.tabCodeLevel.Location = new System.Drawing.Point(4, 25);
             this.tabCodeLevel.Name = "tabCodeLevel";
             this.tabCodeLevel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCodeLevel.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeLevel.Size = new System.Drawing.Size(480, 504);
             this.tabCodeLevel.TabIndex = 1;
             this.tabCodeLevel.Text = "Level Code";
             // 
@@ -548,18 +448,19 @@
             this.tabCodeDef.Controls.Add(this.label2);
             this.tabCodeDef.Location = new System.Drawing.Point(4, 25);
             this.tabCodeDef.Name = "tabCodeDef";
-            this.tabCodeDef.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeDef.Size = new System.Drawing.Size(480, 504);
             this.tabCodeDef.TabIndex = 2;
             this.tabCodeDef.Text = "Def. Code";
             this.tabCodeDef.UseVisualStyleBackColor = true;
             // 
             // scintillaCodeDefObj
             // 
-            this.scintillaCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.scintillaCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scintillaCodeDefObj.Location = new System.Drawing.Point(6, 256);
+            this.scintillaCodeDefObj.Location = new System.Drawing.Point(6, 348);
             this.scintillaCodeDefObj.Name = "scintillaCodeDefObj";
-            this.scintillaCodeDefObj.Size = new System.Drawing.Size(540, 211);
+            this.scintillaCodeDefObj.Size = new System.Drawing.Size(471, 119);
             this.scintillaCodeDefObj.TabIndex = 14;
             this.scintillaCodeDefObj.UseTabs = true;
             this.scintillaCodeDefObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -568,12 +469,11 @@
             // 
             // scintillaCodeDef
             // 
-            this.scintillaCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.scintillaCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.scintillaCodeDef.Location = new System.Drawing.Point(4, 20);
             this.scintillaCodeDef.Name = "scintillaCodeDef";
-            this.scintillaCodeDef.Size = new System.Drawing.Size(540, 217);
+            this.scintillaCodeDef.Size = new System.Drawing.Size(471, 309);
             this.scintillaCodeDef.TabIndex = 13;
             this.scintillaCodeDef.UseTabs = true;
             this.scintillaCodeDef.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -583,7 +483,7 @@
             // buttonReinsertObjCode
             // 
             this.buttonReinsertObjCode.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonReinsertObjCode.Location = new System.Drawing.Point(221, 473);
+            this.buttonReinsertObjCode.Location = new System.Drawing.Point(187, 473);
             this.buttonReinsertObjCode.Name = "buttonReinsertObjCode";
             this.buttonReinsertObjCode.Size = new System.Drawing.Size(109, 23);
             this.buttonReinsertObjCode.TabIndex = 12;
@@ -593,9 +493,10 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 240);
+            this.label3.Location = new System.Drawing.Point(3, 332);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 10;
@@ -615,7 +516,7 @@
             this.tabCodeObj.Controls.Add(this.scintillaCodeObj);
             this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
             this.tabCodeObj.Name = "tabCodeObj";
-            this.tabCodeObj.Size = new System.Drawing.Size(549, 504);
+            this.tabCodeObj.Size = new System.Drawing.Size(480, 504);
             this.tabCodeObj.TabIndex = 3;
             this.tabCodeObj.Text = "Obj. Code";
             this.tabCodeObj.UseVisualStyleBackColor = true;
@@ -627,12 +528,112 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.scintillaCodeObj.Location = new System.Drawing.Point(3, 3);
             this.scintillaCodeObj.Name = "scintillaCodeObj";
-            this.scintillaCodeObj.Size = new System.Drawing.Size(540, 493);
+            this.scintillaCodeObj.Size = new System.Drawing.Size(471, 493);
             this.scintillaCodeObj.TabIndex = 8;
             this.scintillaCodeObj.UseTabs = true;
             this.scintillaCodeObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
             this.scintillaCodeObj.TextChanged += new System.EventHandler(this.scintillaCodeObj_TextChanged);
             this.scintillaCodeObj.Click += new System.EventHandler(this.scintillaCodeObj_Click);
+            // 
+            // pictureBoxEdit
+            // 
+            this.pictureBoxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
+            this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
+            this.pictureBoxEdit.Name = "pictureBoxEdit";
+            this.pictureBoxEdit.Size = new System.Drawing.Size(468, 464);
+            this.pictureBoxEdit.TabIndex = 0;
+            this.pictureBoxEdit.TabStop = false;
+            this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
+            this.pictureBoxEdit.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxEdit_Paint);
+            this.pictureBoxEdit.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDoubleClick);
+            this.pictureBoxEdit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDown);
+            this.pictureBoxEdit.MouseEnter += new System.EventHandler(this.pictureBoxEdit_MouseEnter);
+            this.pictureBoxEdit.MouseLeave += new System.EventHandler(this.pictureBoxEdit_MouseLeave);
+            this.pictureBoxEdit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseMove);
+            this.pictureBoxEdit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseUp);
+            this.pictureBoxEdit.Resize += new System.EventHandler(this.pictureBoxEdit_Resize);
+            // 
+            // buttonDeleteObj
+            // 
+            this.buttonDeleteObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDeleteObj.Enabled = false;
+            this.buttonDeleteObj.Image = global::LevelEditor.Properties.Resources.obj_del;
+            this.buttonDeleteObj.Location = new System.Drawing.Point(935, 28);
+            this.buttonDeleteObj.Name = "buttonDeleteObj";
+            this.buttonDeleteObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonDeleteObj.TabIndex = 20;
+            this.buttonDeleteObj.UseVisualStyleBackColor = true;
+            this.buttonDeleteObj.Click += new System.EventHandler(this.buttonDeleteInst_Click);
+            // 
+            // buttonDeleteDef
+            // 
+            this.buttonDeleteDef.Enabled = false;
+            this.buttonDeleteDef.Image = global::LevelEditor.Properties.Resources.def_del;
+            this.buttonDeleteDef.Location = new System.Drawing.Point(141, 28);
+            this.buttonDeleteDef.Name = "buttonDeleteDef";
+            this.buttonDeleteDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonDeleteDef.TabIndex = 19;
+            this.buttonDeleteDef.UseVisualStyleBackColor = true;
+            this.buttonDeleteDef.Click += new System.EventHandler(this.buttonDeleteDef_Click);
+            // 
+            // buttonMoveDownObj
+            // 
+            this.buttonMoveDownObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMoveDownObj.Enabled = false;
+            this.buttonMoveDownObj.Image = global::LevelEditor.Properties.Resources.down_arrow;
+            this.buttonMoveDownObj.Location = new System.Drawing.Point(892, 28);
+            this.buttonMoveDownObj.Name = "buttonMoveDownObj";
+            this.buttonMoveDownObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveDownObj.TabIndex = 18;
+            this.buttonMoveDownObj.UseVisualStyleBackColor = true;
+            this.buttonMoveDownObj.Click += new System.EventHandler(this.buttonMoveDownInst_Click);
+            // 
+            // buttonMoveUpObj
+            // 
+            this.buttonMoveUpObj.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMoveUpObj.Enabled = false;
+            this.buttonMoveUpObj.Image = global::LevelEditor.Properties.Resources.up_arrow;
+            this.buttonMoveUpObj.Location = new System.Drawing.Point(849, 28);
+            this.buttonMoveUpObj.Name = "buttonMoveUpObj";
+            this.buttonMoveUpObj.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveUpObj.TabIndex = 17;
+            this.buttonMoveUpObj.UseVisualStyleBackColor = true;
+            this.buttonMoveUpObj.Click += new System.EventHandler(this.buttonMoveUpInst_Click);
+            // 
+            // buttonMoveDownDef
+            // 
+            this.buttonMoveDownDef.Enabled = false;
+            this.buttonMoveDownDef.Image = global::LevelEditor.Properties.Resources.down_arrow;
+            this.buttonMoveDownDef.Location = new System.Drawing.Point(98, 28);
+            this.buttonMoveDownDef.Name = "buttonMoveDownDef";
+            this.buttonMoveDownDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveDownDef.TabIndex = 16;
+            this.buttonMoveDownDef.UseVisualStyleBackColor = true;
+            this.buttonMoveDownDef.Click += new System.EventHandler(this.buttonMoveDownDef_Click);
+            // 
+            // buttonMoveUpDef
+            // 
+            this.buttonMoveUpDef.Enabled = false;
+            this.buttonMoveUpDef.Image = global::LevelEditor.Properties.Resources.up_arrow;
+            this.buttonMoveUpDef.Location = new System.Drawing.Point(55, 28);
+            this.buttonMoveUpDef.Name = "buttonMoveUpDef";
+            this.buttonMoveUpDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonMoveUpDef.TabIndex = 15;
+            this.buttonMoveUpDef.UseVisualStyleBackColor = true;
+            this.buttonMoveUpDef.Click += new System.EventHandler(this.buttonMoveUpDef_Click);
+            // 
+            // buttonAddDef
+            // 
+            this.buttonAddDef.Image = global::LevelEditor.Properties.Resources.def_add;
+            this.buttonAddDef.Location = new System.Drawing.Point(12, 28);
+            this.buttonAddDef.Name = "buttonAddDef";
+            this.buttonAddDef.Size = new System.Drawing.Size(37, 31);
+            this.buttonAddDef.TabIndex = 5;
+            this.buttonAddDef.UseVisualStyleBackColor = true;
+            this.buttonAddDef.Click += new System.EventHandler(this.buttonAddDef_Click);
             // 
             // Form1
             // 
@@ -661,7 +662,6 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericGridH)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -673,6 +673,7 @@
             this.tabCodeDef.ResumeLayout(false);
             this.tabCodeDef.PerformLayout();
             this.tabCodeObj.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

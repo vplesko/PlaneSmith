@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,10 +59,15 @@ namespace LevelEditor
             get { return image; }
         }
 
-        public void SetImage(Image I, string Path)
+        public void SetImage(Image I, string ImagePath)
         {
             image = I;
-            imagePath = Path;
+
+            Uri from = new Uri(Directory.GetCurrentDirectory());
+            Uri to = new Uri(ImagePath);
+
+            imagePath = Uri.UnescapeDataString(from.MakeRelativeUri(to).ToString().Replace('/', Path.DirectorySeparatorChar));
+                        
             if (dictionary != null) dictionary.Changed = true;
         }
 

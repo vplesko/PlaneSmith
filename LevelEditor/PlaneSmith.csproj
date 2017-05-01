@@ -116,6 +116,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="planesmith.ico" />
+    <None Include="png\obj_del.png" />
+    <None Include="png\def_del.png" />
+    <None Include="png\down_arrow.png" />
+    <None Include="png\def_add.png" />
     <None Include="png\up_arrow.png" />
     <None Include="planesmith.png" />
   </ItemGroup>

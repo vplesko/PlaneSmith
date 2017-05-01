@@ -32,6 +32,8 @@ namespace LevelEditor
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
+
             showGridToolStripMenuItem.Checked = checkShowGrid.Checked;
             snapToGridToolStripMenuItem.Checked = checkSnapGrid.Checked;
 
@@ -351,15 +353,29 @@ namespace LevelEditor
         {
             labelCoords.Text = foundation.Plane.GetCoordsOnPlane(e.X, e.Y).ToString();
 
-            if (foundation.Plane.ObjTemporas == null) return;
-
-            foundation.MoveObjTemporas(e.X, e.Y);
-
-            if (foundation.Plane.IsSnapGrid &&
-                (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
-                (Control.ModifierKeys & Keys.Shift) != 0)
+            if (foundation.Plane.ObjTemporas != null)
             {
-                shiftAddTemporas();
+                foundation.MoveObjTemporas(e.X, e.Y);
+
+                if (foundation.Plane.IsSnapGrid &&
+                    (Control.MouseButtons & MouseButtons.Left) == MouseButtons.Left &&
+                    (Control.ModifierKeys & Keys.Shift) != 0)
+                {
+                    shiftAddTemporas();
+                }
+            }
+
+            // drawing is slow (stupid GDI+)
+            if (mouseMiddleHoldStart != null)
+            {
+                Point trans = foundation.Plane.Translation;
+                trans.X += e.X - mouseMiddleHoldStart.Value.X;
+                trans.Y += e.Y - mouseMiddleHoldStart.Value.Y;
+                foundation.Plane.SetTranslation(trans.X, trans.Y);
+                
+                mouseMiddleHoldStart = new Point(e.X, e.Y);
+
+                onPlaneChanged(true);
             }
         }
 
@@ -884,8 +900,10 @@ namespace LevelEditor
             }
             else
             {
-                MessageBox.Show("You will now save the dictionary.", "Save Dictionary");
-                return saveDictionaryAskPath();
+                if (MessageBox.Show("You will now save the dictionary.", "Save Dictionary", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    return saveDictionaryAskPath();
+                else
+                    return false;
             }
         }
 
@@ -920,15 +938,17 @@ namespace LevelEditor
             }
             else
             {
-                MessageBox.Show("You will now save the level.", "Save Level");
-                return saveLevelAskPath();
+                if (MessageBox.Show("You will now save the level.", "Save Level", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                    return saveLevelAskPath();
+                else
+                    return false;
             }
         }
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            saveDictionary(false);
-            saveLevel(false);
+            if (saveDictionary(false))
+                saveLevel(false);
         }
 
         private void saveDictionaryAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -950,8 +970,8 @@ namespace LevelEditor
 
             if (res == DialogResult.Yes)
             {
-                saveDictionary(false);
-                saveLevel(false);
+                if (saveDictionary(false))
+                    saveLevel(false);
             }
 
             return res;
@@ -969,12 +989,7 @@ namespace LevelEditor
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            putBaseCode();
-            putSelectedDefCode();
-            putSelectedObjCode();
-
-            saveDictionary(false);
-            saveLevel(false);
+            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text File|*.*";
@@ -991,7 +1006,8 @@ namespace LevelEditor
                 }
                 catch (ErrorCode err)
                 {
-                    MessageBox.Show(err.Description, "Code error");
+                    MessageBox.Show(err.Description, "Code error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

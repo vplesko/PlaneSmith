@@ -25,8 +25,7 @@ namespace LevelEditor
 
         public void Style(Scintilla scintilla, int startPos, int endPos)
         {
-            // @TODO@ it's assumed segment separators are single chars
-            // @TODO@ nested segments?
+            // TODO it's assumed segment separators are single chars
 
             // Back up to the line start
             int line = scintilla.LineFromPosition(startPos);
