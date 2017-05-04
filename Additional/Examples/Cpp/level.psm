@@ -1,0 +1,1889 @@
+Level file
+dictionary.psm
+10
+#include "Level1.h"
+
+«FECH.DEF.
+»#include "«NAME».h"«END»
+
+void Level1::setupLevel() {
+«FECH.DEF.
+
+»«CODE»«END»
+}
+32
+32
+True
+True
+307
+304
+0
+0
+32
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+1
+0
+32
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+2
+0
+32
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+3
+0
+64
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+4
+0
+64
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+5
+0
+64
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+6
+0
+96
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+7
+0
+96
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+8
+0
+96
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+9
+0
+128
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+10
+0
+160
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+11
+0
+192
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+12
+0
+64
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+13
+0
+64
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+14
+0
+64
+192
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+15
+0
+64
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+16
+0
+224
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+17
+0
+256
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+18
+0
+288
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+19
+0
+320
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+20
+0
+224
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+21
+0
+224
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+22
+0
+224
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+23
+0
+224
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+24
+0
+256
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+25
+0
+256
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+26
+0
+256
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+27
+0
+256
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+28
+0
+288
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+29
+0
+288
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+30
+0
+288
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+31
+0
+288
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+32
+0
+320
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+33
+0
+320
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+34
+0
+320
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+35
+0
+320
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+36
+0
+352
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+37
+0
+384
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+38
+0
+384
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+39
+0
+384
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+40
+0
+416
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+41
+0
+416
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+42
+0
+416
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+43
+0
+448
+32
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+44
+0
+448
+64
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+45
+0
+448
+96
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+46
+0
+416
+128
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+47
+0
+416
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+48
+0
+448
+160
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+49
+0
+448
+192
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+50
+0
+448
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+51
+0
+448
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+52
+0
+448
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+53
+0
+448
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+54
+0
+448
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+55
+0
+480
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+56
+0
+480
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+57
+0
+480
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+58
+0
+480
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+59
+0
+480
+192
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+60
+0
+512
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+61
+0
+512
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+62
+0
+512
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+63
+0
+544
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+64
+0
+544
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+65
+0
+544
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+66
+0
+576
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+67
+0
+576
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+68
+0
+576
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+69
+0
+608
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+70
+0
+608
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+71
+0
+608
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+72
+0
+416
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+73
+0
+384
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+74
+0
+352
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+75
+0
+320
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+76
+0
+320
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+77
+0
+320
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+78
+0
+320
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+79
+0
+320
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+80
+0
+96
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+81
+0
+128
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+82
+0
+160
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+83
+0
+192
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+84
+0
+224
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+85
+0
+256
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+86
+0
+288
+224
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+87
+0
+96
+256
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+88
+0
+96
+288
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+90
+0
+96
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+91
+0
+128
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+92
+0
+96
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+93
+0
+96
+384
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+94
+0
+64
+384
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+95
+0
+64
+416
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+96
+0
+64
+448
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+97
+0
+64
+480
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+98
+0
+64
+512
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+99
+0
+96
+448
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+100
+0
+128
+448
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+101
+0
+160
+448
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+102
+0
+160
+480
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+103
+0
+192
+480
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+104
+0
+224
+480
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+105
+0
+256
+480
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+106
+0
+160
+512
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+107
+0
+160
+544
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+108
+0
+192
+544
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+109
+0
+224
+544
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+110
+0
+160
+576
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+111
+0
+160
+608
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+112
+0
+192
+608
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+113
+0
+224
+608
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+114
+0
+160
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+115
+0
+288
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+116
+0
+256
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+117
+0
+224
+384
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+118
+0
+224
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+119
+0
+224
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+120
+0
+192
+384
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+121
+0
+192
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+122
+0
+192
+320
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+123
+0
+160
+384
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+124
+0
+160
+352
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+125
+1
+0
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+126
+1
+0
+64
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+127
+1
+0
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+128
+1
+0
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+129
+1
+32
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+130
+1
+64
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+131
+1
+96
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+132
+1
+128
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+133
+1
+128
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+134
+1
+160
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+135
+1
+192
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+136
+1
+192
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+137
+1
+224
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+138
+1
+256
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+139
+1
+288
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+140
+1
+320
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+141
+1
+352
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+142
+1
+352
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+143
+1
+384
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+144
+1
+416
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+145
+1
+448
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+146
+1
+480
+0
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+147
+1
+480
+32
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+148
+1
+480
+64
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+149
+1
+480
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+150
+1
+480
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+151
+1
+448
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+152
+1
+352
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+153
+1
+352
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+154
+1
+384
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+155
+1
+128
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+156
+1
+160
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+157
+1
+192
+96
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+158
+1
+0
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+159
+1
+32
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+160
+1
+96
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+161
+1
+128
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+162
+1
+192
+128
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+163
+1
+32
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+164
+1
+32
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+165
+1
+32
+224
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+166
+1
+96
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+167
+1
+96
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+168
+1
+192
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+169
+1
+128
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+170
+1
+160
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+171
+1
+192
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+172
+1
+224
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+174
+1
+288
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+175
+1
+320
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+176
+1
+352
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+177
+1
+352
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+178
+1
+352
+224
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+179
+1
+352
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+180
+1
+352
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+181
+1
+352
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+182
+1
+384
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+183
+1
+416
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+184
+1
+416
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+185
+1
+416
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+186
+1
+416
+224
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+187
+1
+416
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+188
+1
+384
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+189
+1
+384
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+190
+1
+480
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+191
+1
+512
+160
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+192
+1
+512
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+193
+1
+544
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+194
+1
+576
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+195
+1
+608
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+196
+1
+640
+192
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+197
+1
+640
+224
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+198
+1
+640
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+199
+1
+640
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+200
+1
+640
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+201
+1
+608
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+202
+1
+576
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+203
+1
+544
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+204
+1
+512
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+205
+1
+480
+352
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+206
+1
+512
+352
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+207
+1
+128
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+208
+1
+160
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+209
+1
+192
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+210
+1
+224
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+211
+1
+256
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+212
+1
+288
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+213
+1
+128
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+214
+1
+160
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+215
+1
+192
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+216
+1
+224
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+217
+1
+256
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+218
+1
+288
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+219
+1
+288
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+220
+1
+256
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+221
+1
+32
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+222
+1
+64
+256
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+223
+1
+64
+288
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+224
+1
+64
+320
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+225
+1
+64
+352
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+226
+1
+32
+352
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+227
+1
+32
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+228
+1
+32
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+229
+1
+32
+448
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+230
+1
+32
+480
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+231
+1
+32
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+232
+1
+32
+544
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+233
+1
+64
+544
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+234
+1
+96
+544
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+235
+1
+96
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+236
+1
+96
+480
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+237
+1
+128
+480
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+238
+1
+128
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+239
+1
+128
+544
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+240
+1
+128
+576
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+241
+1
+128
+608
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+242
+1
+128
+640
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+243
+1
+160
+640
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+244
+1
+192
+640
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+245
+1
+224
+640
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+246
+1
+256
+640
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+247
+1
+256
+608
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+248
+1
+256
+576
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+249
+1
+224
+576
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+250
+1
+192
+576
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+251
+1
+256
+544
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+252
+1
+256
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+253
+1
+224
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+254
+1
+192
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+255
+1
+288
+512
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+256
+1
+288
+480
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+257
+1
+288
+448
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+258
+1
+256
+448
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+259
+1
+224
+448
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+260
+1
+192
+448
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+261
+1
+128
+352
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+262
+1
+128
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+263
+1
+96
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+264
+1
+128
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+265
+1
+160
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+266
+1
+192
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+267
+1
+224
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+268
+1
+256
+416
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+269
+1
+256
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+270
+1
+288
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+271
+1
+320
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+272
+1
+416
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+273
+1
+448
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+274
+1
+480
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+275
+1
+352
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+276
+1
+384
+384
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+277
+5
+56
+52
+5
+{
+Player *player = new Wizard();
+player->setPosition(«X», «Y»);
+addPlayer(player);
+}
+278
+3
+260
+62
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+279
+3
+286
+140
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+280
+4
+433
+48
+6
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+elf->getLoot()->addKey();
+addEnemy(elf);
+}
+281
+4
+597
+232
+5
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+addEnemy(elf);
+}
+282
+4
+595
+279
+5
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+addEnemy(elf);
+}
+283
+3
+167
+380
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+284
+3
+211
+318
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+285
+4
+258
+480
+5
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+addEnemy(elf);
+}
+286
+4
+223
+545
+5
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+addEnemy(elf);
+}
+287
+3
+64
+510
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+288
+6
+320
+32
+1
+putItemAtTile(new Potion(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+289
+6
+480
+256
+1
+putItemAtTile(new Potion(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+290
+6
+192
+352
+1
+putItemAtTile(new Potion(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+291
+6
+160
+544
+1
+putItemAtTile(new Potion(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+292
+7
+224
+608
+1
+putItemAtTile(new Staff(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+293
+2
+64
+128
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+294
+2
+128
+64
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+295
+2
+192
+64
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+296
+2
+352
+64
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+297
+2
+416
+128
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+298
+2
+96
+256
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+300
+2
+352
+352
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+301
+2
+192
+480
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+302
+2
+192
+608
+2
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+getTile(«X» / 32, «Y» / 32)->getDoor()->setLocked(true);
+303
+2
+64
+480
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+304
+2
+256
+192
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+305
+2
+128
+320
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+306
+2
+256
+352
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");

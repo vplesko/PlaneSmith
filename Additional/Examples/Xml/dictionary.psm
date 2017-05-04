@@ -1,0 +1,83 @@
+Dictionary file
+8
+8
+0
+Floor
+Examples\Sprites\floor.png
+4
+<«NAME»s>
+	«FECH.OBJ.
+	»«CODE»«END»
+</«NAME»s>
+1
+<«DEF.NAME» x="«X»" y="«Y»" sprite="assets/sprites/«DEF.NAME».png"/>
+1
+Wall
+Examples\Sprites\wall.png
+4
+<«NAME»s>
+	«FECH.OBJ.
+	»«CODE»«END»
+</«NAME»s>
+1
+<«DEF.NAME» x="«X»" y="«Y»" sprite="assets/sprites/«DEF.NAME».png"/>
+2
+Door
+Examples\Sprites\door.png
+4
+<«NAME»s>
+	«FECH.OBJ.
+	»«CODE»«END»
+</«NAME»s>
+1
+<«DEF.NAME» x="«X»" y="«Y»" sprite="assets/sprites/«DEF.NAME».png"/>
+3
+Dwarf
+Examples\Sprites\dwarf.png
+4
+<«NAME»s>
+	«FECH.OBJ.
+	»«CODE»«END»
+</«NAME»s>
+1
+<«DEF.NAME» x="«X»" y="«Y»"/>
+4
+Elf
+Examples\Sprites\elf.png
+4
+<«NAME»s>
+	«FECH.OBJ.
+	»«CODE»«END»
+</«NAME»s>
+1
+<«DEF.NAME» x="«X»" y="«Y»"/>
+5
+Wizard
+Examples\Sprites\wizard.png
+4
+<Player>
+	«FECH.OBJ.
+	»«CODE»«END»
+</Player>
+1
+<«DEF.NAME» x="«X»" y="«Y»"/>
+6
+Potion
+Examples\Sprites\potion.png
+4
+<Items>
+	«FECH.OBJ.
+	»«CODE»«END»
+</Items>
+1
+<«DEF.NAME» x="«X»" y="«Y»" sprite="assets/sprites/«DEF.NAME».png"/>
+7
+Staff
+Examples\Sprites\staff.png
+4
+<Items>
+	«FECH.OBJ.
+	»«CODE»«END»
+</Items>
+1
+<«DEF.NAME» x="«X»" y="«Y»" sprite="assets/sprites/«DEF.NAME».png"/>

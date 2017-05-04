@@ -1,0 +1,331 @@
+<level>
+<Floors>
+	<Floor x="32" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="32" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="32" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="128" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="192" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="352" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="384" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="384" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="384" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="32" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="64" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="96" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="128" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="160" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="192" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="448" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="480" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="480" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="480" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="480" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="480" y="192" sprite="assets/sprites/Floor.png"/>
+	<Floor x="512" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="512" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="512" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="544" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="544" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="544" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="576" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="576" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="576" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="608" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="608" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="608" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="416" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="384" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="352" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="320" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="128" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="224" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="256" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="288" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="128" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="384" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="384" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="416" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="448" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="480" sprite="assets/sprites/Floor.png"/>
+	<Floor x="64" y="512" sprite="assets/sprites/Floor.png"/>
+	<Floor x="96" y="448" sprite="assets/sprites/Floor.png"/>
+	<Floor x="128" y="448" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="448" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="480" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="480" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="480" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="480" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="512" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="544" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="544" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="544" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="576" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="608" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="608" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="608" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="288" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="256" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="384" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="224" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="384" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="352" sprite="assets/sprites/Floor.png"/>
+	<Floor x="192" y="320" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="384" sprite="assets/sprites/Floor.png"/>
+	<Floor x="160" y="352" sprite="assets/sprites/Floor.png"/>
+</Floors>
+
+<Walls>
+	<Wall x="0" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="0" y="64" sprite="assets/sprites/Wall.png"/>
+	<Wall x="0" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="0" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="320" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="448" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="0" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="32" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="64" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="448" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="96" sprite="assets/sprites/Wall.png"/>
+	<Wall x="0" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="128" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="224" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="320" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="224" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="224" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="512" y="160" sprite="assets/sprites/Wall.png"/>
+	<Wall x="512" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="544" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="576" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="608" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="640" y="192" sprite="assets/sprites/Wall.png"/>
+	<Wall x="640" y="224" sprite="assets/sprites/Wall.png"/>
+	<Wall x="640" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="640" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="640" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="608" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="576" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="544" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="512" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="352" sprite="assets/sprites/Wall.png"/>
+	<Wall x="512" y="352" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="256" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="288" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="320" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="352" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="352" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="448" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="480" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="32" y="544" sprite="assets/sprites/Wall.png"/>
+	<Wall x="64" y="544" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="544" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="480" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="480" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="544" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="576" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="608" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="640" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="640" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="640" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="640" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="640" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="608" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="576" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="576" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="576" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="544" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="512" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="480" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="448" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="448" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="448" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="448" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="352" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="96" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="128" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="160" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="192" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="224" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="416" sprite="assets/sprites/Wall.png"/>
+	<Wall x="256" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="288" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="320" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="416" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="448" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="480" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="352" y="384" sprite="assets/sprites/Wall.png"/>
+	<Wall x="384" y="384" sprite="assets/sprites/Wall.png"/>
+</Walls>
+
+<Doors>
+	<Door x="64" y="128" sprite="assets/sprites/Door.png"/>
+	<Door x="128" y="64" sprite="assets/sprites/Door.png"/>
+	<Door x="192" y="64" sprite="assets/sprites/Door.png"/>
+	<Door x="352" y="64" sprite="assets/sprites/Door.png"/>
+	<Door x="416" y="128" sprite="assets/sprites/Door.png"/>
+	<Door x="96" y="256" sprite="assets/sprites/Door.png"/>
+	<Door x="352" y="352" sprite="assets/sprites/Door.png"/>
+	<Door x="192" y="480" sprite="assets/sprites/Door.png"/>
+	<Door x="192" y="608" sprite="assets/sprites/Door.png" locked="true"/>
+	<Door x="64" y="480" sprite="assets/sprites/Door.png"/>
+	<Door x="256" y="192" sprite="assets/sprites/Door.png"/>
+	<Door x="128" y="320" sprite="assets/sprites/Door.png"/>
+	<Door x="256" y="352" sprite="assets/sprites/Door.png"/>
+</Doors>
+
+<Dwarfs>
+	<Dwarf x="260" y="62"/>
+	<Dwarf x="286" y="140"/>
+	<Dwarf x="167" y="380"/>
+	<Dwarf x="211" y="318"/>
+	<Dwarf x="64" y="510"/>
+</Dwarfs>
+
+<Elfs>
+	<Elf x="433" y="48">
+		<Loot type="key"/>
+	</Elf>
+	<Elf x="597" y="232"/>
+	<Elf x="595" y="279"/>
+	<Elf x="258" y="480"/>
+	<Elf x="223" y="545"/>
+</Elfs>
+
+<Player>
+	<Wizard x="56" y="52"/>
+</Player>
+
+<Items>
+	<Potion x="320" y="32" sprite="assets/sprites/Potion.png"/>
+	<Potion x="480" y="256" sprite="assets/sprites/Potion.png"/>
+	<Potion x="192" y="352" sprite="assets/sprites/Potion.png"/>
+	<Potion x="160" y="544" sprite="assets/sprites/Potion.png"/>
+</Items>
+
+<Items>
+	<Staff x="224" y="608" sprite="assets/sprites/Staff.png"/>
+</Items>
+</level>

@@ -982,6 +982,7 @@ namespace LevelEditor
             Scintilla S = ActiveControl as Scintilla;
             if (S != null)
             {
+                S.ReplaceSelection("");
                 S.InsertText(S.CurrentPosition, "" + Code.SegmBeg + Code.SegmEnd);
                 S.SetEmptySelection(S.CurrentPosition + ("" + Code.SegmBeg).Length);
             }
@@ -989,7 +990,12 @@ namespace LevelEditor
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            if (askAboutSavingAndSave() == DialogResult.Cancel) return;
+            if (foundation.Dictionary.Changed == true ||
+                foundation.Level.Changed == true)
+            {
+                if (saveDictionary(false))
+                    saveLevel(false);
+            }
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Text File|*.*";

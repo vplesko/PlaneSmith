@@ -57,14 +57,8 @@ namespace LevelEditor
         public void AddDefinition(string Name, string ImageFilePath)
         {
             Definition definition = new Definition(dictionary, Name);
-
+            definition.SetImage(ImageFilePath);
             dictionary.Add(definition);
-
-            // This way the image file is unlocked after loading
-            using (Image tmp = new Bitmap(ImageFilePath))
-            {
-                definition.SetImage(new Bitmap(tmp), ImageFilePath);
-            }
 
             form.onDictionaryChanged(dictionary.Count - 1);
         }
@@ -202,7 +196,7 @@ namespace LevelEditor
                 }
                 else
                 {
-                    throw new ErrorLoadLvl("Invalid file type", FilePath);
+                    return null;
                 }
             }
         }

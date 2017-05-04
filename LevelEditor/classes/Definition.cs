@@ -59,15 +59,16 @@ namespace LevelEditor
             get { return image; }
         }
 
-        public void SetImage(Image I, string ImagePath)
+        public void SetImage(string ImagePath)
         {
-            image = I;
+            // This way the image file is unlocked after loading
+            using (Image tmp = new Bitmap(ImagePath))
+            {
+                image = new Bitmap(tmp);
+            }
 
-            Uri from = new Uri(Directory.GetCurrentDirectory());
-            Uri to = new Uri(ImagePath);
+            imagePath = ImagePath;
 
-            imagePath = Uri.UnescapeDataString(from.MakeRelativeUri(to).ToString().Replace('/', Path.DirectorySeparatorChar));
-                        
             if (dictionary != null) dictionary.Changed = true;
         }
 
@@ -76,6 +77,11 @@ namespace LevelEditor
         public string ImagePath
         {
             get { return imagePath; }
+            set
+            {
+                SetImage(value);
+                dictionary.Foundation.Form.onDictAndLevelChanged();
+            }
         }
 
         public void SetId(int Id)

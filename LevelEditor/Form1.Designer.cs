@@ -60,6 +60,7 @@
             this.showWhitespacesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPlane = new System.Windows.Forms.TabPage();
+            this.pictureBoxEdit = new System.Windows.Forms.PictureBox();
             this.tabCodeLevel = new System.Windows.Forms.TabPage();
             this.scintillaCodeLevel = new ScintillaNET.Scintilla();
             this.buttonGenerate = new System.Windows.Forms.Button();
@@ -71,7 +72,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabCodeObj = new System.Windows.Forms.TabPage();
             this.scintillaCodeObj = new ScintillaNET.Scintilla();
-            this.pictureBoxEdit = new System.Windows.Forms.PictureBox();
             this.buttonDeleteObj = new System.Windows.Forms.Button();
             this.buttonDeleteDef = new System.Windows.Forms.Button();
             this.buttonMoveDownObj = new System.Windows.Forms.Button();
@@ -84,10 +84,10 @@
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPlane.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             this.tabCodeLevel.SuspendLayout();
             this.tabCodeDef.SuspendLayout();
             this.tabCodeObj.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // levelBox
@@ -118,7 +118,7 @@
             this.defProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.defProperties.Location = new System.Drawing.Point(12, 331);
             this.defProperties.Name = "defProperties";
-            this.defProperties.Size = new System.Drawing.Size(228, 218);
+            this.defProperties.Size = new System.Drawing.Size(228, 223);
             this.defProperties.TabIndex = 6;
             // 
             // objProperties
@@ -126,7 +126,7 @@
             this.objProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.objProperties.Location = new System.Drawing.Point(742, 331);
             this.objProperties.Name = "objProperties";
-            this.objProperties.Size = new System.Drawing.Size(230, 218);
+            this.objProperties.Size = new System.Drawing.Size(230, 223);
             this.objProperties.TabIndex = 7;
             // 
             // numericGridW
@@ -402,6 +402,27 @@
             this.tabPlane.TabIndex = 0;
             this.tabPlane.Text = "Plane";
             // 
+            // pictureBoxEdit
+            // 
+            this.pictureBoxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
+            this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
+            this.pictureBoxEdit.Name = "pictureBoxEdit";
+            this.pictureBoxEdit.Size = new System.Drawing.Size(468, 464);
+            this.pictureBoxEdit.TabIndex = 0;
+            this.pictureBoxEdit.TabStop = false;
+            this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
+            this.pictureBoxEdit.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxEdit_Paint);
+            this.pictureBoxEdit.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDoubleClick);
+            this.pictureBoxEdit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDown);
+            this.pictureBoxEdit.MouseEnter += new System.EventHandler(this.pictureBoxEdit_MouseEnter);
+            this.pictureBoxEdit.MouseLeave += new System.EventHandler(this.pictureBoxEdit_MouseLeave);
+            this.pictureBoxEdit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseMove);
+            this.pictureBoxEdit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseUp);
+            this.pictureBoxEdit.Resize += new System.EventHandler(this.pictureBoxEdit_Resize);
+            // 
             // tabCodeLevel
             // 
             this.tabCodeLevel.BackColor = System.Drawing.SystemColors.Control;
@@ -419,9 +440,9 @@
             this.scintillaCodeLevel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scintillaCodeLevel.Location = new System.Drawing.Point(3, 3);
+            this.scintillaCodeLevel.Location = new System.Drawing.Point(6, 37);
             this.scintillaCodeLevel.Name = "scintillaCodeLevel";
-            this.scintillaCodeLevel.Size = new System.Drawing.Size(540, 464);
+            this.scintillaCodeLevel.Size = new System.Drawing.Size(471, 464);
             this.scintillaCodeLevel.TabIndex = 7;
             this.scintillaCodeLevel.UseTabs = true;
             this.scintillaCodeLevel.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -430,12 +451,12 @@
             // 
             // buttonGenerate
             // 
-            this.buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonGenerate.Location = new System.Drawing.Point(238, 473);
+            this.buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.buttonGenerate.Location = new System.Drawing.Point(204, 8);
             this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
+            this.buttonGenerate.Size = new System.Drawing.Size(80, 23);
             this.buttonGenerate.TabIndex = 6;
-            this.buttonGenerate.Text = "Generate!";
+            this.buttonGenerate.Text = "GENERATE!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
             // 
@@ -458,6 +479,7 @@
             this.scintillaCodeDefObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.scintillaCodeDefObj.Enabled = false;
             this.scintillaCodeDefObj.Location = new System.Drawing.Point(6, 348);
             this.scintillaCodeDefObj.Name = "scintillaCodeDefObj";
             this.scintillaCodeDefObj.Size = new System.Drawing.Size(471, 119);
@@ -471,7 +493,8 @@
             // 
             this.scintillaCodeDef.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scintillaCodeDef.Location = new System.Drawing.Point(4, 20);
+            this.scintillaCodeDef.Enabled = false;
+            this.scintillaCodeDef.Location = new System.Drawing.Point(6, 20);
             this.scintillaCodeDef.Name = "scintillaCodeDef";
             this.scintillaCodeDef.Size = new System.Drawing.Size(471, 309);
             this.scintillaCodeDef.TabIndex = 13;
@@ -483,7 +506,7 @@
             // buttonReinsertObjCode
             // 
             this.buttonReinsertObjCode.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonReinsertObjCode.Location = new System.Drawing.Point(187, 473);
+            this.buttonReinsertObjCode.Location = new System.Drawing.Point(190, 473);
             this.buttonReinsertObjCode.Name = "buttonReinsertObjCode";
             this.buttonReinsertObjCode.Size = new System.Drawing.Size(109, 23);
             this.buttonReinsertObjCode.TabIndex = 12;
@@ -526,35 +549,15 @@
             this.scintillaCodeObj.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.scintillaCodeObj.Location = new System.Drawing.Point(3, 3);
+            this.scintillaCodeObj.Enabled = false;
+            this.scintillaCodeObj.Location = new System.Drawing.Point(3, 8);
             this.scintillaCodeObj.Name = "scintillaCodeObj";
-            this.scintillaCodeObj.Size = new System.Drawing.Size(471, 493);
+            this.scintillaCodeObj.Size = new System.Drawing.Size(471, 488);
             this.scintillaCodeObj.TabIndex = 8;
             this.scintillaCodeObj.UseTabs = true;
             this.scintillaCodeObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
             this.scintillaCodeObj.TextChanged += new System.EventHandler(this.scintillaCodeObj_TextChanged);
             this.scintillaCodeObj.Click += new System.EventHandler(this.scintillaCodeObj_Click);
-            // 
-            // pictureBoxEdit
-            // 
-            this.pictureBoxEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
-            this.pictureBoxEdit.Name = "pictureBoxEdit";
-            this.pictureBoxEdit.Size = new System.Drawing.Size(468, 464);
-            this.pictureBoxEdit.TabIndex = 0;
-            this.pictureBoxEdit.TabStop = false;
-            this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
-            this.pictureBoxEdit.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxEdit_Paint);
-            this.pictureBoxEdit.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDoubleClick);
-            this.pictureBoxEdit.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseDown);
-            this.pictureBoxEdit.MouseEnter += new System.EventHandler(this.pictureBoxEdit_MouseEnter);
-            this.pictureBoxEdit.MouseLeave += new System.EventHandler(this.pictureBoxEdit_MouseLeave);
-            this.pictureBoxEdit.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseMove);
-            this.pictureBoxEdit.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxEdit_MouseUp);
-            this.pictureBoxEdit.Resize += new System.EventHandler(this.pictureBoxEdit_Resize);
             // 
             // buttonDeleteObj
             // 
@@ -669,11 +672,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPlane.ResumeLayout(false);
             this.tabPlane.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
             this.tabCodeLevel.ResumeLayout(false);
             this.tabCodeDef.ResumeLayout(false);
             this.tabCodeDef.PerformLayout();
             this.tabCodeObj.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEdit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

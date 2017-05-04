@@ -1,0 +1,79 @@
+Dictionary file
+8
+8
+0
+Floor
+Examples\Sprites\floor.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+1
+makeFloorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+1
+Wall
+Examples\Sprites\wall.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+1
+makeWallAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+2
+Door
+Examples\Sprites\door.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+1
+makeDoorAtTile(«X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+3
+Dwarf
+Examples\Sprites\dwarf.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+5
+{
+Enemy *dwarf = new Dwarf();
+dwarf->setPosition(«X», «Y»);
+addEnemy(dwarf);
+}
+4
+Elf
+Examples\Sprites\elf.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+5
+{
+Enemy *elf = new Elf();
+elf->setPosition(«X», «Y»);
+addEnemy(elf);
+}
+5
+Wizard
+Examples\Sprites\wizard.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+5
+{
+Player *player = new Wizard();
+player->setPosition(«X», «Y»);
+addPlayer(player);
+}
+6
+Potion
+Examples\Sprites\potion.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+1
+putItemAtTile(new Potion(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
+7
+Staff
+Examples\Sprites\staff.png
+2
+«FECH.OBJ.
+»«CODE»«END»
+1
+putItemAtTile(new Staff(), «X» / 32, «Y» / 32, "assets/sprites/«DEF.NAME».png");
