@@ -154,12 +154,20 @@ namespace LevelEditor
                 if (!Int32.TryParse(FS.ReadLine(), out cnt))
                     throw new ErrorLoadDict("Count data invalid", FilePath);
 
-                for (int i = 0; i < cnt; ++i)
+                try
                 {
-                    Definition D = new Definition(this);
-                    if (!D.Load(FS))
-                        throw new ErrorLoadDict("Could not parse definition " + i, FilePath);
-                    list.Add(D);
+                    for (int i = 0; i < cnt; ++i)
+                    {
+                        Definition D = new Definition(this);
+                        if (!D.Load(FS))
+                            throw new ErrorLoadDict("Could not parse definition " + i, FilePath);
+                        list.Add(D);
+                    }
+                }
+                catch (ErrorLoadDict e)
+                {
+                    e.File = FilePath;
+                    throw e;
                 }
             }
 

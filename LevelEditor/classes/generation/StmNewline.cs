@@ -14,7 +14,7 @@ namespace LevelEditor
 
         public static bool IsThisYou(string str, string cln)
         {
-            return "NL".Equals(cln);
+            return false; //"NL".Equals(cln);
         }
     }
 }

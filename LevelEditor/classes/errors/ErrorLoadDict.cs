@@ -13,6 +13,12 @@ namespace LevelEditor
 
         }
 
+        public string File
+        {
+            get { return file; }
+            set { file = value; }
+        }
+
         public override string Description
         {
             get

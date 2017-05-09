@@ -140,9 +140,15 @@ namespace LevelEditor
 
             imagePath = FS.ReadLine();
 
-            using (Image tmp = new Bitmap(imagePath))
+            try
             {
-                image = new Bitmap(tmp);
+                using (Image tmp = new Bitmap(imagePath))
+                {
+                    image = new Bitmap(tmp);
+                }
+            } catch (Exception e)
+            {
+                throw new ErrorLoadDict("Image file path is invalid", null);
             }
 
             if (!code.Load(FS)) return false;
