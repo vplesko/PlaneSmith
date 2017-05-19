@@ -14,6 +14,38 @@ namespace LevelEditor
             SetParser(Generator.GetParsed(generator.Foundation.Level.GetCode()));
         }
 
+        public override string Do(Statement Statement)
+        {
+            if (Statement is StmAtr)
+            {
+                StmAtr stmAtr = Statement as StmAtr;
+
+                if (stmAtr.Owner != null)
+                {
+                    throw new ErrorCode("level", -1, "Invalid attribute owner: " + stmAtr.Owner);
+                }
+
+                string attr = stmAtr.Attribute;
+
+                if (string.Compare(attr, "OBJ_CNT", true) == 0)
+                {
+                    return "" + generator.Foundation.Level.Count;
+                }
+                else if (string.Compare(attr, "DEF_CNT", true) == 0)
+                {
+                    return "" + generator.Foundation.Dictionary.Count;
+                }
+                else
+                {
+                    throw new ErrorCode("level", -1, "Invalid attribute name: " + stmAtr.Attribute);
+                }
+            }
+            else
+            {
+                return base.Do(Statement);
+            }
+        }
+
         public override List<Context> GatherContexts(string context)
         {
             context = context.ToUpper();

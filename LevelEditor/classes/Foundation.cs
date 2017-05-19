@@ -165,6 +165,21 @@ namespace LevelEditor
             }
         }
 
+        public List<Object> GetObjsOf(Definition Def)
+        {
+            List<Object> list = new List<Object>(level.Count);
+
+            for (int i = 0; i < generator.Foundation.level.Count; ++i)
+            {
+                Object obj = level[i];
+
+                if (obj.GetDefinition() == Def)
+                    list.Add(obj);
+            }
+
+            return list;
+        }
+
         public List<int> GetIndexesOfObjsAt(Point Pnt)
         {
             Point loc = plane.InverseTransform(Pnt);

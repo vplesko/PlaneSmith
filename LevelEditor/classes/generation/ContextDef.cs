@@ -47,6 +47,10 @@ namespace LevelEditor
                 {
                     return Path.GetFileName(def.ImagePath);
                 }
+                else if (string.Compare(attr, "OBJ_CNT", true) == 0)
+                {
+                    return "" + generator.Foundation.GetObjsOf(def).Count;
+                }
                 else if (string.Compare(attr, "CODE", true) == 0)
                 {
                     ContextDef contextDef = new ContextDef(generator, def);
@@ -82,20 +86,15 @@ namespace LevelEditor
         {
             if ("OBJ".Equals(context))
             {
-                List<Context> list = new List<Context>(generator.Foundation.Level.Count);
+                List<Object> listObj = generator.Foundation.GetObjsOf(def);
+                List<Context> listCntxt = new List<Context>(listObj.Count);
 
-                for (int i = 0; i < generator.Foundation.Level.Count; ++i)
+                for (int i = 0; i < listObj.Count; ++i)
                 {
-                    Object obj = generator.Foundation.Level[i];
-
-                    if (obj.GetDefinition() == def)
-                    {
-                        ContextObj contextObj = new ContextObj(generator, obj);
-                        list.Add(contextObj);
-                    }
+                    listCntxt.Add(new ContextObj(generator, listObj[i]));
                 }
 
-                return list;
+                return listCntxt;
             }
 
             return base.GatherContexts(context);

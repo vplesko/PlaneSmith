@@ -109,7 +109,7 @@
             this.dictionaryBox.FormattingEnabled = true;
             this.dictionaryBox.Location = new System.Drawing.Point(12, 61);
             this.dictionaryBox.Name = "dictionaryBox";
-            this.dictionaryBox.Size = new System.Drawing.Size(269, 238);
+            this.dictionaryBox.Size = new System.Drawing.Size(288, 238);
             this.dictionaryBox.TabIndex = 4;
             this.dictionaryBox.SelectedIndexChanged += new System.EventHandler(this.dictionaryBox_SelectedIndexChanged);
             // 
@@ -118,7 +118,7 @@
             this.defProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.defProperties.Location = new System.Drawing.Point(12, 308);
             this.defProperties.Name = "defProperties";
-            this.defProperties.Size = new System.Drawing.Size(269, 223);
+            this.defProperties.Size = new System.Drawing.Size(288, 223);
             this.defProperties.TabIndex = 6;
             // 
             // objProperties
@@ -202,7 +202,7 @@
             // 
             this.labelCoords.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelCoords.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelCoords.Location = new System.Drawing.Point(478, 3);
+            this.labelCoords.Location = new System.Drawing.Point(459, 3);
             this.labelCoords.Name = "labelCoords";
             this.labelCoords.Size = new System.Drawing.Size(117, 23);
             this.labelCoords.TabIndex = 13;
@@ -379,10 +379,10 @@
             this.tabControl1.Controls.Add(this.tabCodeLevel);
             this.tabControl1.Controls.Add(this.tabCodeDef);
             this.tabControl1.Controls.Add(this.tabCodeObj);
-            this.tabControl1.Location = new System.Drawing.Point(283, 28);
+            this.tabControl1.Location = new System.Drawing.Point(302, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(609, 510);
+            this.tabControl1.Size = new System.Drawing.Size(590, 510);
             this.tabControl1.TabIndex = 21;
             // 
             // tabPlane
@@ -398,7 +398,7 @@
             this.tabPlane.Location = new System.Drawing.Point(4, 25);
             this.tabPlane.Name = "tabPlane";
             this.tabPlane.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlane.Size = new System.Drawing.Size(601, 481);
+            this.tabPlane.Size = new System.Drawing.Size(582, 481);
             this.tabPlane.TabIndex = 0;
             this.tabPlane.Text = "Plane";
             // 
@@ -410,7 +410,7 @@
             this.pictureBoxEdit.BackColor = System.Drawing.Color.LightBlue;
             this.pictureBoxEdit.Location = new System.Drawing.Point(6, 32);
             this.pictureBoxEdit.Name = "pictureBoxEdit";
-            this.pictureBoxEdit.Size = new System.Drawing.Size(589, 441);
+            this.pictureBoxEdit.Size = new System.Drawing.Size(570, 441);
             this.pictureBoxEdit.TabIndex = 0;
             this.pictureBoxEdit.TabStop = false;
             this.pictureBoxEdit.Click += new System.EventHandler(this.pictureBoxEdit_Click);
@@ -431,7 +431,7 @@
             this.tabCodeLevel.Location = new System.Drawing.Point(4, 25);
             this.tabCodeLevel.Name = "tabCodeLevel";
             this.tabCodeLevel.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCodeLevel.Size = new System.Drawing.Size(601, 481);
+            this.tabCodeLevel.Size = new System.Drawing.Size(582, 481);
             this.tabCodeLevel.TabIndex = 1;
             this.tabCodeLevel.Text = "Level Code";
             // 
@@ -442,7 +442,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.scintillaCodeLevel.Location = new System.Drawing.Point(6, 37);
             this.scintillaCodeLevel.Name = "scintillaCodeLevel";
-            this.scintillaCodeLevel.Size = new System.Drawing.Size(592, 441);
+            this.scintillaCodeLevel.Size = new System.Drawing.Size(573, 441);
             this.scintillaCodeLevel.TabIndex = 7;
             this.scintillaCodeLevel.UseTabs = true;
             this.scintillaCodeLevel.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -452,7 +452,7 @@
             // buttonGenerate
             // 
             this.buttonGenerate.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.buttonGenerate.Location = new System.Drawing.Point(260, 8);
+            this.buttonGenerate.Location = new System.Drawing.Point(255, 8);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(80, 23);
             this.buttonGenerate.TabIndex = 6;
@@ -469,7 +469,7 @@
             this.tabCodeDef.Controls.Add(this.label2);
             this.tabCodeDef.Location = new System.Drawing.Point(4, 25);
             this.tabCodeDef.Name = "tabCodeDef";
-            this.tabCodeDef.Size = new System.Drawing.Size(601, 481);
+            this.tabCodeDef.Size = new System.Drawing.Size(582, 481);
             this.tabCodeDef.TabIndex = 2;
             this.tabCodeDef.Text = "Def. Code";
             this.tabCodeDef.UseVisualStyleBackColor = true;
@@ -482,7 +482,7 @@
             this.scintillaCodeDefObj.Enabled = false;
             this.scintillaCodeDefObj.Location = new System.Drawing.Point(6, 348);
             this.scintillaCodeDefObj.Name = "scintillaCodeDefObj";
-            this.scintillaCodeDefObj.Size = new System.Drawing.Size(592, 96);
+            this.scintillaCodeDefObj.Size = new System.Drawing.Size(573, 96);
             this.scintillaCodeDefObj.TabIndex = 14;
             this.scintillaCodeDefObj.UseTabs = true;
             this.scintillaCodeDefObj.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -496,7 +496,7 @@
             this.scintillaCodeDef.Enabled = false;
             this.scintillaCodeDef.Location = new System.Drawing.Point(6, 20);
             this.scintillaCodeDef.Name = "scintillaCodeDef";
-            this.scintillaCodeDef.Size = new System.Drawing.Size(592, 309);
+            this.scintillaCodeDef.Size = new System.Drawing.Size(573, 309);
             this.scintillaCodeDef.TabIndex = 13;
             this.scintillaCodeDef.UseTabs = true;
             this.scintillaCodeDef.ViewWhitespace = ScintillaNET.WhitespaceMode.VisibleOnlyIndent;
@@ -506,9 +506,9 @@
             // buttonReinsertObjCode
             // 
             this.buttonReinsertObjCode.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonReinsertObjCode.Location = new System.Drawing.Point(246, 450);
+            this.buttonReinsertObjCode.Location = new System.Drawing.Point(240, 450);
             this.buttonReinsertObjCode.Name = "buttonReinsertObjCode";
-            this.buttonReinsertObjCode.Size = new System.Drawing.Size(109, 23);
+            this.buttonReinsertObjCode.Size = new System.Drawing.Size(110, 23);
             this.buttonReinsertObjCode.TabIndex = 12;
             this.buttonReinsertObjCode.Text = "Reinsert obj. codes";
             this.buttonReinsertObjCode.UseVisualStyleBackColor = true;
@@ -539,7 +539,7 @@
             this.tabCodeObj.Controls.Add(this.scintillaCodeObj);
             this.tabCodeObj.Location = new System.Drawing.Point(4, 25);
             this.tabCodeObj.Name = "tabCodeObj";
-            this.tabCodeObj.Size = new System.Drawing.Size(480, 504);
+            this.tabCodeObj.Size = new System.Drawing.Size(601, 481);
             this.tabCodeObj.TabIndex = 3;
             this.tabCodeObj.Text = "Obj. Code";
             this.tabCodeObj.UseVisualStyleBackColor = true;
